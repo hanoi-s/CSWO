@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+        <title>Report Summary</title>
+    </head>
+
+    <body>
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">
+                            <img alt="Civil and Sanitary Works Office - De La Salle University" src="\images\dlsu.png"
+                                width="20" height="20">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/dashboard">Current Work Orders</a></li>
+                        <li><a href="/neworder">Create New Work Order</a></li>
+                        <li><a href="/summary">Report Summary</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container-fluid navbar-form">
+
+            <div class="col-md-8">
+                <form action="" method="get">
+                    <select class="form-control" id="filter" required>
+                        <option value="">Filter by...</option>
+                        <option>Filter 1</option>
+                    </select>
+                    <button type="" class="btn btn-secondary">Filter</button>
+                </form>
+            </div>
+
+            <div class="col-md-3 mb-3">
+                <div class="form-group">
+                    <form action="" method="get">
+                        <input type="text" class="form-control" placeholder="Keyword">
+                        <button type="submit" class="btn btn-secondary">Search</button>
+                    </form>
+                </div>
+            </div>
+            <div class="container-fluid text-right">
+                <button type="" class="btn btn-secondary">Print</button>
+            </div>
+        </div>
+        
+        <hr class="mb-2">
+    </body>
+
+</html>

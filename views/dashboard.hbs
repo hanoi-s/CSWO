@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="/styles/body.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+        <title>Dashboard</title>
+    </head>
+
+    <body>
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">
+                            <img alt="Civil and Sanitary Works Office - De La Salle University" src="\images\dlsu.png"
+                                width="20" height="20">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/dashboard">Current Work Orders</a></li>
+                        <li><a href="/neworder">Create New Work Order</a></li>
+                        <li><a href="/summary">Report Summary</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container-fluid">
+            <ul class="nav nav-tabs" id="nav-tab" role="tablist">
+                <li class="nav-link active" id="nav-pending-tab" data-toggle="tab" data-target="#nav-pending" type="button" role="presentation" aria-controls="nav-pending"
+                aria-selected="true"><a href="/dashboard/pending">Pending for Approval</a></li>
+                <li class="nav-link" id="nav-approved-tab" data-toggle="tab" data-target="#nav-approved" type="button" role="presentation" aria-controls="nav-approved"
+                aria-selected="true"><a href="/dashboard/approved">Approved</a></li>
+                <li class="nav-link" id="nav-inprogress-tab" data-toggle="tab" data-target="#nav-inprogress" type="button" role="presentation" aria-controls="nav-inprogress"
+                aria-selected="true"><a href="/dashboard/inprogress">In-Progress</a></li>
+                <li class="nav-link" id="nav-completed-tab" data-toggle="tab" data-target="#nav-completed" type="button" role="presentation" aria-controls="nav-completed"
+                aria-selected="true"><a href="/dashboard/completed">Completed</a></li>
+                <form class="navbar-form navbar-right" action="" method="get">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Keyword">
+                    </div>
+                    <button type="submit" class="btn btn-secondary">Search</button>
+                </form>
+            </ul>
+        </div>
+        
+        <div class="container-fluid tab-content" id="nav-tabContent">
+
+            
+            <div class="tab-pane active p-3" id="nav-pending" role="tabpanel" aria-labelledby="nav-pending-tab">
+                {{!-- <h1>hello</h1> <p>i am pending work orders table</p> --}}
+                <table>
+                    <tr>
+                        <th>Date Received</th>
+                        <th>Location</th>
+                        <th>Item</th>
+                        <th>Category</th>
+                        <th>Type</th>
+                        <th>Details</th>
+                        <th>Requester</th>
+                    </tr>
+                    {{#each request}}
+                    {{#ifEquals Status "Pending for Approval"}}
+                    <tr>
+                        <td>{{DateReceived}}</td>
+                        <td>{{Location}}</td>
+                        <td>{{Item}}</td>
+                        <td>{{Category}}</td>
+                        <td>{{Type}}</td>
+                        <td>{{Details}}</td>
+                        <td>{{Requester.FirstName}} {{Requester.LastName}}</td>
+                    </tr>
+                    {{/ifEquals}}
+                    {{/each}}
+                </table>
+            </div>
+        
+            <div class="tab-pane p-3" id="nav-approved" role="tabpanel" aria-labelledby="nav-approved-tab">
+                {{!-- <h1>hello again</h1> <p>i am approved work orders table</p> --}}
+                <table>
+                    <tr>
+                        <th>Date Received</th>
+                        <th>Location</th>
+                        <th>Item</th>
+                        <th>Category</th>
+                        <th>Type</th>
+                        <th>Details</th>
+                        <th>Requester</th>
+                    </tr>
+                    {{#each request}}
+                    {{#ifEquals Status "Approved"}}
+                    <tr>
+                        <td>{{DateReceived}}</td>
+                        <td>{{Location}}</td>
+                        <td>{{Item}}</td>
+                        <td>{{Category}}</td>
+                        <td>{{Type}}</td>
+                        <td>{{Details}}</td>
+                        <td>{{Requester.FirstName}} {{Requester.LastName}}</td>
+                    </tr>
+                    {{/ifEquals}}
+                    {{/each}}
+                </table> 
+            </div>
+
+            <div class="tab-pane p-3" id="nav-inprogress" role="tabpanel" aria-labelledby="nav-inprogress-tab">
+                {{!-- <h1>hello again again</h1> <p>i am inprogress work orders table</p> --}}
+                <table>
+                    <tr>
+                        <th>Date Received</th>
+                        <th>Location</th>
+                        <th>Item</th>
+                        <th>Category</th>
+                        <th>Type</th>
+                        <th>Details</th>
+                        <th>Requester</th>
+                    </tr>
+                    {{#each request}}
+                    {{#ifEquals Status "In Progress"}}
+                    <tr>
+                        <td>{{DateReceived}}</td>
+                        <td>{{Location}}</td>
+                        <td>{{Item}}</td>
+                        <td>{{Category}}</td>
+                        <td>{{Type}}</td>
+                        <td>{{Details}}</td>
+                        <td>{{Requester.FirstName}} {{Requester.LastName}}</td>
+                    </tr>
+                    {{/ifEquals}}
+                    {{/each}}
+                </table> 
+            </div>
+
+            <div class="tab-pane p-3" id="nav-completed" role="tabpanel" aria-labelledby="nav-completed-tab">
+                {{!-- <h1>goodbye</h1> <p>i am completed work orders table</p> --}}
+                <table>
+                    <tr>
+                        <th>Date Received</th>
+                        <th>Location</th>
+                        <th>Item</th>
+                        <th>Category</th>
+                        <th>Type</th>
+                        <th>Details</th>
+                        <th>Requester</th>
+                    </tr>
+                    {{#each request}}
+                    {{#ifEquals Status "Completed"}}
+                    <tr>
+                        <td>{{DateReceived}}</td>
+                        <td>{{Location}}</td>
+                        <td>{{Item}}</td>
+                        <td>{{Category}}</td>
+                        <td>{{Type}}</td>
+                        <td>{{Details}}</td>
+                        <td>{{Requester.FirstName}} {{Requester.LastName}}</td>
+                    </tr>
+                    {{/ifEquals}}
+                    {{/each}}
+                </table> 
+            </div>
+        </div>
+    </body>
+
+</html>

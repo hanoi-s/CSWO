@@ -1,0 +1,28 @@
+const express = require('express');
+const bodyParser = require('body-parser');
+const controller = require('../controller/controller.js');
+const RequestModel = require('../models/requestModel.js');
+const RequesterModel = require('../models/requesterModel.js');
+const { application } = require('express');
+
+// express app (used 'routes')
+const routes = express();
+
+routes.use(bodyParser.json());
+routes.use(bodyParser.urlencoded({extended : true}));
+
+
+// Getting HTML pages
+routes.get('/dashboard', controller.getDashboard);
+
+routes.get('/neworder', controller.getNewOrder);
+routes.get('/summary', controller.getSummary);
+
+
+// Writing on the DB
+routes.post('/postNewOrder', controller.postNewOrder);
+
+
+
+// Export this file for other files to find
+module.exports = routes;
