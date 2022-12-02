@@ -13,14 +13,16 @@ routes.use(bodyParser.urlencoded({extended : true}));
 
 
 // Getting HTML pages
+routes.get('/', controller.getDashboard);
 routes.get('/dashboard', controller.getDashboard);
-
+routes.get('/workorder/:woid', controller.getWorkOrder);
 routes.get('/neworder', controller.getNewOrder);
 routes.get('/summary', controller.getSummary);
 
 
 // Writing on the DB
 routes.post('/postNewOrder', controller.postNewOrder);
+routes.post('/workorder/:woid/update', controller.postUpdateOrder);
 
 
 

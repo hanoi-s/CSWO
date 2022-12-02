@@ -15,7 +15,7 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
     <script>
         $(document).ready(function () {
-            var date_input = $('input[name="date"]');
+            var date_input = $('input[name="targetdate"]');
             var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
             date_input.datepicker({
                 format: 'mm/dd/yyyy',
@@ -64,6 +64,7 @@
             <form action="postNewOrder" method="POST" class="needs-validation" novalidate>
                 <div class="col-md-8 order-md-1">
                     <h4 class="mb-3">Request Information</h4>
+                    {{!-- Row for Location and Item --}}
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="location">Location</label>
@@ -75,74 +76,82 @@
                         </div>
                     </div>
                     <br>
-
+                    {{!-- Row for Category, Type, and Target Date --}}
                     <div class="row">
                         <div class="col-md-3 mb-3">
                             <label for="workCtg">Category of Work</label>
                             <select class="form-control" id="workCtg" name="workCtg" required>
-                                <option value="">Select Category</option>
-                                <option value="Masonry">Masonry</option>
-                                <option value="Carpentry">Carpentry</option>
-                                <option value="Plumbing Works">Plumbing Works</option>
-                                <option value="Steel Works">Steel Works</option>
-                                <option value="Aluminium Works">Aluminium Works</option>
-                                <option value="Glass Works">Glass Works</option>
-                                <option value="Painting Works">Painting Works</option>
-                                <option value="Pest Control">Pest Control</option>
-                                <option value="Keys">Keys</option>
-                                <option value="Others">Others</option>
+                                <option>Select Category</option>
+                                {{#each category}}
+                                <option value="{{CategoryName}}">{{CategoryName}}</option>
+                                {{/each}}
                             </select>
                         </div>
                         <div class="col-md-3 mb-3">
                             <label for="workType">Type of Work</label>
                             <select class="form-control" id="workType" name="workType" required>
-                                <option value="">Select Type</option>
-                                <option value="Setup">Setup</option>
-                                <option value="Install">Install</option>
-                                <option value="Repair">Repair</option>
-                                <option value="Replace">Replace</option>
-                                <option value="Relocate">Relocate</option>
-                                <option value="Dismantle">Dismantle</option>
-                                <option value="Modification">Modification</option>
-                                <option value="Duplication">Duplication</option>
-                                <option value="Fabrication">Fabrication</option>
-                                <option value="Outsource">Outsource</option>
+                                <option>Select Type</option>
+                                {{#each type}}
+                                <option value="{{TypeName}}">{{TypeName}}</option>
+                                {{/each}}
                             </select>
                         </div>
-
                         <div class="col-md-4 mb-3">
                             <div class="form-group">
-                                <label class="control-label" for="date">Target Date of Completion</label>
-                                <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text" />
+                                <label class="control-label" for="targetdate">Target Date of Completion</label>
+                                <input class="form-control" id="targetdate" name="targetdate" placeholder="MM/DD/YYY" type="text" />
                             </div>
                         </div>
-
+                    </div>
+                    {{!-- Row for Other Request Details--}}
+                    <div class="row">
                         <div class="col-md-10 mb-3">
                             <label for="details">Other Request Details:</label>
                             <textarea class="form-control" rows="3" name="details" id="details"></textarea>
                         </div>
-
+                    </div>
+                    <br>
+                    {{!-- Row for In Charge and Status--}}                    
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <label for="incharge">In Charge</label>
+                            <select class="form-control" id="incharge" name="incharge" required>
+                                <option value="">Select In Charge</option>
+                                {{#each employee}}
+                                <option value="{{FirstName}}">{{FirstName}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="status">Status</label>
+                            <select class="form-control" id="status" name="status" required>
+                                <option value="">Select Status</option>
+                                {{#each status}}
+                                <option value="{{StatusName}}">{{StatusName}}</option>
+                                {{/each}}>
+                            </select>
+                        </div>
                     </div>
                     <hr class="mb-4">
-                </div>
+                </div>    
 
                 <div class="col-md-4 order-md-2 mb-4">
                     <h4 class="mb-3">Requester Information</h4>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="firstName">First Name</label>
-                            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="" value="" required>
+                            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" value="" required>
                         </div>
 
                         <div class="col-md-6 mb-3">
                             <label for="lastName">Last Name</label>
-                            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="" value="" required>
+                            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" value="" required>
                         </div>
                     </div>
                     <br>
                     <div class="mb-3">
                         <label for="email">Email Address</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" required>
                     </div>
                     <br>
                     <div class="mb-3">

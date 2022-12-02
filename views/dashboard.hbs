@@ -60,26 +60,35 @@
             
             <div class="tab-pane active p-3" id="nav-pending" role="tabpanel" aria-labelledby="nav-pending-tab">
                 {{!-- <h1>hello</h1> <p>i am pending work orders table</p> --}}
-                <table>
-                    <tr>
-                        <th>Date Received</th>
-                        <th>Location</th>
-                        <th>Item</th>
-                        <th>Category</th>
-                        <th>Type</th>
-                        <th>Details</th>
-                        <th>Requester</th>
-                    </tr>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            {{!-- <th scope="col">ID</th> --}}
+                            <th scope="col">Date Received</th>
+                            <th scope="col">In Charge</th>
+                            <th scope="col">Location</th>
+                            <th scope="col">Item</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Details</th>
+                            <th scope="col">Requester</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
                     {{#each request}}
-                    {{#ifEquals Status "Pending for Approval"}}
+                    {{#ifEquals Status.StatusName 'Pending for Approval'}}
                     <tr>
+                        {{!-- <td>{{_id}}</td> --}}
                         <td>{{DateReceived}}</td>
+                        <td>{{InCharge.FirstName}}</td>
                         <td>{{Location}}</td>
                         <td>{{Item}}</td>
-                        <td>{{Category}}</td>
-                        <td>{{Type}}</td>
+                        <td>{{Category.CategoryName}}</td>
+                        <td>{{Type.TypeName}}</td>
                         <td>{{Details}}</td>
                         <td>{{Requester.FirstName}} {{Requester.LastName}}</td>
+                        <th><button><a href="/workorder/{{_id}}"><img src="\images\pencil-square.svg"></a></button></th>
                     </tr>
                     {{/ifEquals}}
                     {{/each}}
@@ -88,9 +97,11 @@
         
             <div class="tab-pane p-3" id="nav-approved" role="tabpanel" aria-labelledby="nav-approved-tab">
                 {{!-- <h1>hello again</h1> <p>i am approved work orders table</p> --}}
-                <table>
+                <table class="table table-hover">
                     <tr>
                         <th>Date Received</th>
+                        <th>Date Approved</th>
+                        <th scope="col">In Charge</th>
                         <th>Location</th>
                         <th>Item</th>
                         <th>Category</th>
@@ -99,15 +110,19 @@
                         <th>Requester</th>
                     </tr>
                     {{#each request}}
-                    {{#ifEquals Status "Approved"}}
+                    {{#ifEquals Status.StatusName 'Approved'}}
                     <tr>
+                        {{!-- <td>{{_id}}</td> --}}
                         <td>{{DateReceived}}</td>
+                        <td>{{DateApproved}}</td>
+                        <td>{{InCharge.FirstName}}</td>
                         <td>{{Location}}</td>
                         <td>{{Item}}</td>
-                        <td>{{Category}}</td>
-                        <td>{{Type}}</td>
+                        <td>{{Category.CategoryName}}</td>
+                        <td>{{Type.TypeName}}</td>
                         <td>{{Details}}</td>
                         <td>{{Requester.FirstName}} {{Requester.LastName}}</td>
+                        <th><button><a href="/workorder/{{_id}}"><img src="\images\pencil-square.svg"></a></button></th>
                     </tr>
                     {{/ifEquals}}
                     {{/each}}
@@ -116,7 +131,7 @@
 
             <div class="tab-pane p-3" id="nav-inprogress" role="tabpanel" aria-labelledby="nav-inprogress-tab">
                 {{!-- <h1>hello again again</h1> <p>i am inprogress work orders table</p> --}}
-                <table>
+                <table class="table table-hover">
                     <tr>
                         <th>Date Received</th>
                         <th>Location</th>
@@ -127,15 +142,17 @@
                         <th>Requester</th>
                     </tr>
                     {{#each request}}
-                    {{#ifEquals Status "In Progress"}}
+                    {{#ifEquals Status.StatusName 'In-Progress'}}
                     <tr>
+                        {{!-- <td>{{_id}}</td> --}}
                         <td>{{DateReceived}}</td>
                         <td>{{Location}}</td>
                         <td>{{Item}}</td>
-                        <td>{{Category}}</td>
-                        <td>{{Type}}</td>
+                        <td>{{Category.CategoryName}}</td>
+                        <td>{{Type.TypeName}}</td>
                         <td>{{Details}}</td>
                         <td>{{Requester.FirstName}} {{Requester.LastName}}</td>
+                        <th><button><a href="/workorder/{{_id}}"><img src="\images\pencil-square.svg"></a></button></th>
                     </tr>
                     {{/ifEquals}}
                     {{/each}}
@@ -144,7 +161,7 @@
 
             <div class="tab-pane p-3" id="nav-completed" role="tabpanel" aria-labelledby="nav-completed-tab">
                 {{!-- <h1>goodbye</h1> <p>i am completed work orders table</p> --}}
-                <table>
+                <table class="table table-hover">
                     <tr>
                         <th>Date Received</th>
                         <th>Location</th>
@@ -155,15 +172,17 @@
                         <th>Requester</th>
                     </tr>
                     {{#each request}}
-                    {{#ifEquals Status "Completed"}}
+                    {{#ifEquals Status.StatusName 'Completed'}}
                     <tr>
+                        {{!-- <td>{{_id}}</td> --}}
                         <td>{{DateReceived}}</td>
                         <td>{{Location}}</td>
                         <td>{{Item}}</td>
-                        <td>{{Category}}</td>
-                        <td>{{Type}}</td>
+                        <td>{{Category.CategoryName}}</td>
+                        <td>{{Type.TypeName}}</td>
                         <td>{{Details}}</td>
                         <td>{{Requester.FirstName}} {{Requester.LastName}}</td>
+                        <th><button><a href="/workorder/{{_id}}"><img src="\images\pencil-square.svg"></a></button></th>
                     </tr>
                     {{/ifEquals}}
                     {{/each}}

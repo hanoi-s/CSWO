@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+    <script>
+        $(document).ready(function () {
+            var date_input = $('input[name="targetdate"]');
+            var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+            date_input.datepicker({
+                format: 'mm/dd/yyyy',
+                container: container,
+                todayHighlight: true,
+                autoclose: true,
+            })
+        })
+    </script>
+
+    <title>Create Work Order</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">
+                        <img alt="Civil and Sanitary Works Office - De La Salle University" src="\images\dlsu.png" width="20"
+                            height="20">
+                    </a>
+                </div>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                        <li><a href="/dashboard">Current Work Orders</a></li>
+                        <li><a href="/neworder">Create New Work Order</a></li>
+                        <li><a href="/summary">Report Summary</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="py-5 text-center">
+            <img class="d-block mx-auto mb-4" src="\images\dlsu.png" alt="" width="72" height="72">
+            <h2>Civil Works and Sanitary Office</h2>
+            <p class="lead">WORK ORDER FORM</p>
+        </div>
+
+        <hr class="mb-4">
+
+        <div class="row">
+            <form action="/workorder/{{#each request}}{{_id}}{{/each}}/update" method="POST" class="needs-validation" novalidate>
+                <div class="col-md-8 order-md-1">
+                    <h4 class="mb-3">Request Information</h4>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="location">Location</label>
+                            <input type="text" class="form-control" name="location" id="location" placeholder="Location in Campus" value="{{#each request}}{{Location}}{{/each}} " disabled>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="item">Item</label>
+                            <input type="text" class="form-control" id="item" name="item" placeholder="Item"  value="{{#each request}}{{Item}}{{/each}}" disabled>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <label for="workCtg">Category of Work</label>
+                            <select class="form-control" id="workCtg" name="workCtg" required>
+                                <option value="{{#each request}}{{Category.CategoryName}}{{/each}}">{{#each request}}{{Category.CategoryName}}{{/each}}</option>
+                                {{#each category}}
+                                <option value="{{CategoryName}}">{{CategoryName}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label for="workType">Type of Work</label>
+                            <select class="form-control" id="workType" name="workType" required>
+                                <option value="{{#each request}}{{Type.TypeName}}{{/each}}">{{#each request}}{{Type.TypeName}}{{/each}}</option>
+                                {{#each type}}
+                                <option value="{{TypeName}}">{{TypeName}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="form-group">
+                                <label class="control-label" for="targetdate">Target Date of Completion</label>
+                                <input class="form-control" id="targetdate" name="targetdate" placeholder="MM/DD/YYY" type="text" value="{{#each request}}{{DateTarget}}{{/each}}" required/>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="row">
+                        <div class="col-md-10 mb-3">
+                                <label for="details">Other Request Details:</label>
+                                <textarea class="form-control" rows="3" name="details" id="details" disabled>{{#each request}}{{Details}}{{/each}}</textarea>
+                                
+                        </div>
+                    </div>
+                    <br>
+
+                    <div class="row">
+                        <div class="col-md-3 mb-3">
+                            <label for="incharge">In Charge</label>
+                            <select class="form-control" id="incharge" name="incharge" required>
+                                <option value="{{#each request}}{{InCharge.FirstName}}{{/each}}">{{#each request}}{{InCharge.FirstName}}{{/each}}</option>
+                                {{#each employee}}
+                                <option value="{{FirstName}}">{{FirstName}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="status">Status</label>
+                            <select class="form-control" id="status" name="status" required>
+                                <option value="{{#each request}}{{Status.StatusName}}{{/each}}">{{#each request}}{{Status.StatusName}}{{/each}}</option>
+                                {{#each status}}
+                                <option value="{{StatusName}}">{{StatusName}}</option>
+                                {{/each}}>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <hr class="mb-4">
+                </div>
+
+                <div class="col-md-4 order-md-2 mb-4">
+                    <h4 class="mb-3">Requester Information</h4>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="firstName">First Name</label>
+                            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="" value="{{#each request}}{{Requester.FirstName}}{{/each}}" disabled>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="" value="{{#each request}}{{Requester.LastName}}{{/each}}" disabled>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="mb-3">
+                        <label for="email">Email Address</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" value="{{#each request}}{{Requester.Email}}{{/each}}" disabled>
+                    </div>
+                    <br>
+                    <div class="mb-3">
+                        <label for="address">Department or Office</label>
+                        <input type="text" class="form-control" id="address" name="address" placeholder="Department of Example" value="{{#each request}}{{Requester.Department}}{{/each}}" disabled>
+                    </div>
+                </div>
+                <button class="btn btn-secondary btn-lg btn-block" type="submit">Update Work Order</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

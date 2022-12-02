@@ -23,6 +23,20 @@ const database = {
             return callback(result);
         }).sort({ DateReceived: 'desc' });
     },
+
+    findMany: function(model, query, projection, callback) {
+        model.find(query, projection, function(error, result) {
+            if(error) return callback(false);
+            return callback(result);
+        });
+    },
+
+    findOne: function(model, query, projection, callback) {
+        model.find(query, projection, function(error, result) {
+            if(error) return callback(false);
+            return callback(result);
+        });
+    },
 }
 
 // Export this file for other files to find
