@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="/styles/body.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        {{!-- <script src="/js/jquery.js"></script> --}}
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
         <title>Dashboard</title>
@@ -61,11 +62,10 @@
 
             
             <div class="tab-pane active p-3" id="nav-pending" role="tabpanel" aria-labelledby="nav-pending-tab">
-                {{!-- <h1>hello</h1> <p>i am pending work orders table</p> --}}
                 <table class="table table-hover">
+                <tbody>
                     <thead>
                         <tr>
-                            {{!-- <th scope="col">ID</th> --}}
                             <th scope="col">Date Received</th>
                             <th scope="col">In Charge</th>
                             <th scope="col">Location</th>
@@ -80,8 +80,7 @@
                     </thead>
                     {{#each request}}
                     {{#ifEquals Status.StatusName 'Pending for Approval'}}
-                    <tr>
-                        {{!-- <td>{{_id}}</td> --}}
+                    <tr data-href="/workorder/{{_id}}">
                         <td>{{DateReceived}}</td>
                         <td>{{InCharge.FirstName}}</td>
                         <td>{{Location}}</td>
@@ -90,15 +89,19 @@
                         <td>{{Type.TypeName}}</td>
                         <td>{{Details}}</td>
                         <td>{{Requester.FirstName}} {{Requester.LastName}}</td>
-                        <th><button><a href="/workorder/{{_id}}"><img src="\images\pencil-square.svg"></a></button></th>
+                        <th><a href="/workorder/{{_id}}"><img src="\images\pencil-square.svg"></a></th>
+                        <th><form action="/workorder/delete" method="POST">
+                            <input type="hidden" name="woid" value="{{_id}}">
+                            <button type="submit"><img src="\images\trash3.svg"></button>
+                        </form></th>
                     </tr>
                     {{/ifEquals}}
                     {{/each}}
+                </tbody>
                 </table>
             </div>
         
             <div class="tab-pane p-3" id="nav-approved" role="tabpanel" aria-labelledby="nav-approved-tab">
-                {{!-- <h1>hello again</h1> <p>i am approved work orders table</p> --}}
                 <table class="table table-hover">
                     <tr>
                         <th>Date Received</th>
@@ -113,8 +116,7 @@
                     </tr>
                     {{#each request}}
                     {{#ifEquals Status.StatusName 'Approved'}}
-                    <tr>
-                        {{!-- <td>{{_id}}</td> --}}
+                    <tr data-href="/workorder/{{_id}}">
                         <td>{{DateReceived}}</td>
                         <td>{{DateApproved}}</td>
                         <td>{{InCharge.FirstName}}</td>
@@ -124,7 +126,11 @@
                         <td>{{Type.TypeName}}</td>
                         <td>{{Details}}</td>
                         <td>{{Requester.FirstName}} {{Requester.LastName}}</td>
-                        <th><button><a href="/workorder/{{_id}}"><img src="\images\pencil-square.svg"></a></button></th>
+                        <th><a href="/workorder/{{_id}}"><img src="\images\pencil-square.svg"></a></th>
+                        <th><form action="/workorder/delete" method="POST">
+                            <input type="hidden" name="woid" value="{{_id}}">
+                            <button type="submit"><img src="\images\trash3.svg"></button>
+                        </form></th>
                     </tr>
                     {{/ifEquals}}
                     {{/each}}
@@ -132,7 +138,6 @@
             </div>
 
             <div class="tab-pane p-3" id="nav-inprogress" role="tabpanel" aria-labelledby="nav-inprogress-tab">
-                {{!-- <h1>hello again again</h1> <p>i am inprogress work orders table</p> --}}
                 <table class="table table-hover">
                     <tr>
                         <th>Date Received</th>
@@ -145,8 +150,7 @@
                     </tr>
                     {{#each request}}
                     {{#ifEquals Status.StatusName 'In-Progress'}}
-                    <tr>
-                        {{!-- <td>{{_id}}</td> --}}
+                    <tr data-href="/workorder/{{_id}}">
                         <td>{{DateReceived}}</td>
                         <td>{{Location}}</td>
                         <td>{{Item}}</td>
@@ -154,7 +158,7 @@
                         <td>{{Type.TypeName}}</td>
                         <td>{{Details}}</td>
                         <td>{{Requester.FirstName}} {{Requester.LastName}}</td>
-                        <th><button><a href="/workorder/{{_id}}"><img src="\images\pencil-square.svg"></a></button></th>
+                        <th><a href="/workorder/{{_id}}"><img src="\images\pencil-square.svg"></a></th>
                     </tr>
                     {{/ifEquals}}
                     {{/each}}
@@ -162,7 +166,6 @@
             </div>
 
             <div class="tab-pane p-3" id="nav-completed" role="tabpanel" aria-labelledby="nav-completed-tab">
-                {{!-- <h1>goodbye</h1> <p>i am completed work orders table</p> --}}
                 <table class="table table-hover">
                     <tr>
                         <th>Date Received</th>
@@ -175,8 +178,7 @@
                     </tr>
                     {{#each request}}
                     {{#ifEquals Status.StatusName 'Completed'}}
-                    <tr>
-                        {{!-- <td>{{_id}}</td> --}}
+                    <tr data-href="/workorder/{{_id}}">
                         <td>{{DateReceived}}</td>
                         <td>{{Location}}</td>
                         <td>{{Item}}</td>
@@ -184,13 +186,21 @@
                         <td>{{Type.TypeName}}</td>
                         <td>{{Details}}</td>
                         <td>{{Requester.FirstName}} {{Requester.LastName}}</td>
-                        <th><button><a href="/workorder/{{_id}}"><img src="\images\pencil-square.svg"></a></button></th>
+                        <th><a href="/workorder/{{_id}}"><img src="\images\pencil-square.svg"></a></th>
                     </tr>
                     {{/ifEquals}}
                     {{/each}}
                 </table> 
             </div>
         </div>
-    </body>
 
+        <script>
+            $(document).ready(function () {
+                console.log("here");
+                $(document.body).on("click", "tr[data-href]", function() {
+                    window.location.href = this.dataset.href;
+                });
+            });
+        </script>
+    </body>
 </html>

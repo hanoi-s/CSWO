@@ -182,6 +182,16 @@ const controller = {
         })
     },
 
+    postDeleteOrder: async function(req, res) {
+        console.log(req.body.woid);
+        console.log("here");
+        RequestModel.findByIdAndDelete(req.body.woid, function(err, result){
+            if (err){ console.log(err) }
+            else{ console.log("Deleted : ", result); }
+            res.redirect('/');
+        });
+    }
+
 }
 
 // Export this file for other files to find

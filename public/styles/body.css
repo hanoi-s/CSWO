@@ -13,3 +13,7 @@
   tr:nth-child(even) {
     background-color: #dddddd;
   } */
+
+tr[data-href] {
+  cursor: pointer;  
+}

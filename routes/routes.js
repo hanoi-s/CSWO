@@ -20,9 +20,12 @@ routes.get('/neworder', controller.getNewOrder);
 routes.get('/summary', controller.getSummary);
 
 
-// Writing on the DB
+// Writing on DB
 routes.post('/postNewOrder', controller.postNewOrder);
 routes.post('/workorder/:woid/update', controller.postUpdateOrder);
+
+// Deleting on DB
+routes.post('/workorder/delete', controller.postDeleteOrder);
 
 // Search DB
 routes.post('/searchorders', controller.postSearchOrders);
