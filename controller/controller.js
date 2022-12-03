@@ -15,6 +15,16 @@ const controller = {
         });
     },
 
+    postSearchOrders: async function(req, res) {
+        var slash = "\\"
+        var regKey = slash + req.body.keyword + slash
+        console.log(regKey)
+
+        RequestModel.find({$text: {$search: regKey}}).then((requests) => {
+            res.render('searchorders', {request:requests});  
+        })
+    },
+
     getNewOrder: function (req, res) {
         // Renders new order page with data coming from database such as types, categories, employees, and status
 
@@ -170,7 +180,8 @@ const controller = {
                 })
             })
         })
-    }
+    },
+
 }
 
 // Export this file for other files to find

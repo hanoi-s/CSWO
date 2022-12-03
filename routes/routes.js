@@ -24,6 +24,8 @@ routes.get('/summary', controller.getSummary);
 routes.post('/postNewOrder', controller.postNewOrder);
 routes.post('/workorder/:woid/update', controller.postUpdateOrder);
 
+// Search DB
+routes.post('/searchorders', controller.postSearchOrders);
 
 
 // Export this file for other files to find
