@@ -89,7 +89,7 @@
                         <td>{{Type.TypeName}}</td>
                         <td>{{Details}}</td>
                         <td>{{Requester.FirstName}} {{Requester.LastName}}</td>
-                        <th><a href="/workorder/{{_id}}"><img src="\images\pencil-square.svg"></a></th>
+                        <th><button><a href="/workorder/{{_id}}"><img src="\images\pencil-square.svg"></a></button></th>
                         <th><form action="/workorder/delete" method="POST">
                             <input type="hidden" name="woid" value="{{_id}}">
                             <button type="submit"><img src="\images\trash3.svg"></button>
@@ -126,7 +126,7 @@
                         <td>{{Type.TypeName}}</td>
                         <td>{{Details}}</td>
                         <td>{{Requester.FirstName}} {{Requester.LastName}}</td>
-                        <th><a href="/workorder/{{_id}}"><img src="\images\pencil-square.svg"></a></th>
+                        <th><button><a href="/workorder/{{_id}}"><img src="\images\pencil-square.svg"></a></button></th>
                         <th><form action="/workorder/delete" method="POST">
                             <input type="hidden" name="woid" value="{{_id}}">
                             <button type="submit"><img src="\images\trash3.svg"></button>
@@ -158,7 +158,11 @@
                         <td>{{Type.TypeName}}</td>
                         <td>{{Details}}</td>
                         <td>{{Requester.FirstName}} {{Requester.LastName}}</td>
-                        <th><a href="/workorder/{{_id}}"><img src="\images\pencil-square.svg"></a></th>
+                        <th><button><a href="/workorder/{{_id}}"><img src="\images\pencil-square.svg"></a></button></th>
+                        <th><form action="/workorder/delete" method="POST">
+                            <input type="hidden" name="woid" value="{{_id}}">
+                            <button type="submit"><img src="\images\trash3.svg"></button>
+                        </form></th>
                     </tr>
                     {{/ifEquals}}
                     {{/each}}
@@ -186,7 +190,11 @@
                         <td>{{Type.TypeName}}</td>
                         <td>{{Details}}</td>
                         <td>{{Requester.FirstName}} {{Requester.LastName}}</td>
-                        <th><a href="/workorder/{{_id}}"><img src="\images\pencil-square.svg"></a></th>
+                        <th><button><a href="/workorder/{{_id}}"><img src="\images\pencil-square.svg"></a></button></th>
+                        <th><form action="/workorder/delete" method="POST">
+                            <input type="hidden" name="woid" value="{{_id}}">
+                            <button type="submit"><img src="\images\trash3.svg"></button>
+                        </form></th>
                     </tr>
                     {{/ifEquals}}
                     {{/each}}
