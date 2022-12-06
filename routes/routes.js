@@ -30,6 +30,7 @@ routes.post('/workorder/delete', controller.postDeleteOrder);
 // Search DB
 routes.post('/searchorders', controller.postSearchOrders);
 
+routes.post('/summary/daterange', controller.postDateRange);// get date range
 
 // Export this file for other files to find
 module.exports = routes;

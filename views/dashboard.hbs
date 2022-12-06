@@ -20,7 +20,7 @@
             <div class="container-fluid">
                 <div class="navbar-header">
                     <div class="navbar-header">
-                        <a class="navbar-brand" href="#">
+                        <a class="navbar-brand" href="/dashboard">
                             <img alt="Civil and Sanitary Works Office - De La Salle University" src="\images\dlsu.png"
                                 width="20" height="20">
                         </a>
@@ -43,8 +43,6 @@
                 aria-selected="true"><a href="/dashboard/pending">Pending for Approval</a></li>
                 <li class="nav-link" id="nav-approved-tab" data-toggle="tab" data-target="#nav-approved" type="button" role="presentation" aria-controls="nav-approved"
                 aria-selected="true"><a href="/dashboard/approved">Approved</a></li>
-                <li class="nav-link" id="nav-inprogress-tab" data-toggle="tab" data-target="#nav-inprogress" type="button" role="presentation" aria-controls="nav-inprogress"
-                aria-selected="true"><a href="/dashboard/inprogress">In-Progress</a></li>
                 <li class="nav-link" id="nav-completed-tab" data-toggle="tab" data-target="#nav-completed" type="button" role="presentation" aria-controls="nav-completed"
                 aria-selected="true"><a href="/dashboard/completed">Completed</a></li>
 
@@ -59,13 +57,12 @@
         </div>
         
         <div class="container-fluid tab-content" id="nav-tabContent">
-
-            
             <div class="tab-pane active p-3" id="nav-pending" role="tabpanel" aria-labelledby="nav-pending-tab">
                 <table class="table table-hover">
                 <tbody>
                     <thead>
                         <tr>
+                            <th scope="col">ReferenceID</th>
                             <th scope="col">Date Received</th>
                             <th scope="col">In Charge</th>
                             <th scope="col">Location</th>
@@ -81,7 +78,8 @@
                     {{#each request}}
                     {{#ifEquals Status.StatusName 'Pending for Approval'}}
                     <tr data-href="/workorder/{{_id}}">
-                        <td>{{DateReceived}}</td>
+                        <td>{{_id}}</td>
+                        <td>{{dateFormat DateReceived}}</td>
                         <td>{{InCharge.FirstName}}</td>
                         <td>{{Location}}</td>
                         <td>{{Item}}</td>
@@ -89,10 +87,10 @@
                         <td>{{Type.TypeName}}</td>
                         <td>{{Details}}</td>
                         <td>{{Requester.FirstName}} {{Requester.LastName}}</td>
-                        <th><button><a href="/workorder/{{_id}}"><img src="\images\pencil-square.svg"></a></button></th>
+                        <th><button class="btn btn-success"><a href="/workorder/{{_id}}"><img src="\images\pencil-square.svg"></a></button></th>
                         <th><form action="/workorder/delete" method="POST">
                             <input type="hidden" name="woid" value="{{_id}}">
-                            <button type="submit"><img src="\images\trash3.svg"></button>
+                            <button type="submit" class="btn btn-danger" data-toggle="modal"><img src="\images\trash3.svg"></button>
                         </form></th>
                     </tr>
                     {{/ifEquals}}
@@ -104,21 +102,25 @@
             <div class="tab-pane p-3" id="nav-approved" role="tabpanel" aria-labelledby="nav-approved-tab">
                 <table class="table table-hover">
                     <tr>
-                        <th>Date Received</th>
-                        <th>Date Approved</th>
-                        <th scope="col">In Charge</th>
-                        <th>Location</th>
-                        <th>Item</th>
-                        <th>Category</th>
-                        <th>Type</th>
-                        <th>Details</th>
-                        <th>Requester</th>
+                            <th scope="col">ReferenceID</th>
+                            <th scope="col">Date Received</th>
+                            <th scope="col">Date Approved</th>
+                            <th scope="col">In Charge</th>
+                            <th scope="col">Location</th>
+                            <th scope="col">Item</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Details</th>
+                            <th scope="col">Requester</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
                     </tr>
                     {{#each request}}
                     {{#ifEquals Status.StatusName 'Approved'}}
                     <tr data-href="/workorder/{{_id}}">
-                        <td>{{DateReceived}}</td>
-                        <td>{{DateApproved}}</td>
+                        <td>{{_id}}</td>
+                        <td>{{dateFormat DateReceived}}</td>
+                        <td>{{dateFormat DateApproved}}</td>
                         <td>{{InCharge.FirstName}}</td>
                         <td>{{Location}}</td>
                         <td>{{Item}}</td>
@@ -126,42 +128,10 @@
                         <td>{{Type.TypeName}}</td>
                         <td>{{Details}}</td>
                         <td>{{Requester.FirstName}} {{Requester.LastName}}</td>
-                        <th><button><a href="/workorder/{{_id}}"><img src="\images\pencil-square.svg"></a></button></th>
+                        <th><button class="btn btn-success"><a href="/workorder/{{_id}}"><img src="\images\pencil-square.svg"></a></button></th>
                         <th><form action="/workorder/delete" method="POST">
                             <input type="hidden" name="woid" value="{{_id}}">
-                            <button type="submit"><img src="\images\trash3.svg"></button>
-                        </form></th>
-                    </tr>
-                    {{/ifEquals}}
-                    {{/each}}
-                </table> 
-            </div>
-
-            <div class="tab-pane p-3" id="nav-inprogress" role="tabpanel" aria-labelledby="nav-inprogress-tab">
-                <table class="table table-hover">
-                    <tr>
-                        <th>Date Received</th>
-                        <th>Location</th>
-                        <th>Item</th>
-                        <th>Category</th>
-                        <th>Type</th>
-                        <th>Details</th>
-                        <th>Requester</th>
-                    </tr>
-                    {{#each request}}
-                    {{#ifEquals Status.StatusName 'In-Progress'}}
-                    <tr data-href="/workorder/{{_id}}">
-                        <td>{{DateReceived}}</td>
-                        <td>{{Location}}</td>
-                        <td>{{Item}}</td>
-                        <td>{{Category.CategoryName}}</td>
-                        <td>{{Type.TypeName}}</td>
-                        <td>{{Details}}</td>
-                        <td>{{Requester.FirstName}} {{Requester.LastName}}</td>
-                        <th><button><a href="/workorder/{{_id}}"><img src="\images\pencil-square.svg"></a></button></th>
-                        <th><form action="/workorder/delete" method="POST">
-                            <input type="hidden" name="woid" value="{{_id}}">
-                            <button type="submit"><img src="\images\trash3.svg"></button>
+                            <button type="submit" class="btn btn-danger" data-toggle="modal"><img src="\images\trash3.svg"></button>
                         </form></th>
                     </tr>
                     {{/ifEquals}}
@@ -172,34 +142,43 @@
             <div class="tab-pane p-3" id="nav-completed" role="tabpanel" aria-labelledby="nav-completed-tab">
                 <table class="table table-hover">
                     <tr>
-                        <th>Date Received</th>
-                        <th>Location</th>
-                        <th>Item</th>
-                        <th>Category</th>
-                        <th>Type</th>
-                        <th>Details</th>
-                        <th>Requester</th>
+                        <th scope="col">ReferenceID</th>
+                        <th scope="col">Date Received</th>
+                        <th scope="col">Date Approved</th>
+                        <th scope="col">Date Completed</th>
+                        <th scope="col">In Charge</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Item</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Details</th>
+                        <th scope="col">Requester</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
                     </tr>
                     {{#each request}}
                     {{#ifEquals Status.StatusName 'Completed'}}
                     <tr data-href="/workorder/{{_id}}">
-                        <td>{{DateReceived}}</td>
+                        <td>{{_id}}</td>
+                        <td>{{dateFormat DateReceived}}</td>
+                        {{!-- <td>{{dateFormat DateApproved}}</td> --}}
+                        <td>{{InCharge.FirstName}}</td>
                         <td>{{Location}}</td>
                         <td>{{Item}}</td>
                         <td>{{Category.CategoryName}}</td>
                         <td>{{Type.TypeName}}</td>
                         <td>{{Details}}</td>
                         <td>{{Requester.FirstName}} {{Requester.LastName}}</td>
-                        <th><button><a href="/workorder/{{_id}}"><img src="\images\pencil-square.svg"></a></button></th>
+                        <th><button class="btn btn-success"><a href="/workorder/{{_id}}"><img src="\images\pencil-square.svg"></a></button></th>
                         <th><form action="/workorder/delete" method="POST">
                             <input type="hidden" name="woid" value="{{_id}}">
-                            <button type="submit"><img src="\images\trash3.svg"></button>
+                            <button type="submit" class="btn btn-danger" data-toggle="modal"><img src="\images\trash3.svg"></button>
                         </form></th>
                     </tr>
                     {{/ifEquals}}
                     {{/each}}
                 </table> 
-            </div>
+            {{!-- </div> --}}
         </div>
 
         <script>

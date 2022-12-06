@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const statusSchema = new mongoose.Schema({
-    StatusID: {type: Number, index: true},
-    StatusName: {type: String, index: true}
+    StatusID: {type: String},
+    StatusName: {type: String}
 })
 
 module.exports = mongoose.connection.model('Status', statusSchema);

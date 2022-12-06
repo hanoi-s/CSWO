@@ -6,14 +6,15 @@ const Category = require('./categoryModel').schema;
 const Type = require('./typeModel').schema;
 
 const requestSchema = new mongoose.Schema({
-    RequestID: {type: Number},
     Location: {type: String, required: true},
     Item: {type: String, required: true},
     Details: {type: String, required: true},
+    Remarks: {type: String},    // Different from Requester Feedback. Remarks are to be filled up by CSWO stating the action taken / problems encountered
     DateTarget: {type: String, required: true},
-    DateCompleted: {type: String},
-    DateApproved: {type: String},
-    DateReceived: {type: String, required: true},
+    DateReceived: {type: Date, required: true},
+    DateCompleted: {type: Date},
+    DateApproved: {type: Date},
+    Workers: {type: Array},
     Status: Status,
     Category: Category,
     Type: Type,

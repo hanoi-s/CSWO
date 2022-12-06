@@ -34,7 +34,7 @@
         <div class="container-fluid">
             <div class="navbar-header">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="/dashboard">
                         <img alt="Civil and Sanitary Works Office - De La Salle University" src="\images\dlsu.png" width="20"
                             height="20">
                     </a>
@@ -51,48 +51,45 @@
         </div>
     </nav>
 
-    <div class="container">
-        <div class="py-5 text-center">
-            <img class="d-block mx-auto mb-4" src="\images\dlsu.png" alt="" width="72" height="72">
-            <h2>Civil Works and Sanitary Office</h2>
-            <p class="lead">WORK ORDER FORM</p>
-        </div>
-
-        <hr class="mb-4">
-
-        <div class="row">
-            <form action="/workorder/{{#each request}}{{_id}}{{/each}}/update" method="POST" class="needs-validation" novalidate>
+    <form action="/workorder/{{#each request}}{{_id}}{{/each}}/update" method="POST" class="needs-validation" novalidate>
+        <div class="container">
+            <div class="py-5 text-center">
+                <img class="d-block mx-auto mb-4" src="\images\dlsu.png" alt="" width="72" height="72">
+                <h2>Civil Works and Sanitary Office</h2>
+                <p class="lead">WORK ORDER FORM</p>
+            </div>
+            <hr class="mb-4">
+            <div class="row">
                 <div class="col-md-8 order-md-1">
                     <h4 class="mb-3">Request Information</h4>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="location">Location</label>
-                            <input type="text" class="form-control" name="location" id="location" placeholder="Location in Campus" value="{{#each request}}{{Location}}{{/each}} " disabled>
+                            <input type="text" class="form-control" name="location" id="location" placeholder="Location in Campus" value="{{#each request}}{{Location}}{{/each}} ">
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="item">Item</label>
-                            <input type="text" class="form-control" id="item" name="item" placeholder="Item"  value="{{#each request}}{{Item}}{{/each}}" disabled>
+                            <input type="text" class="form-control" id="item" name="item" placeholder="Item"  value="{{#each request}}{{Item}}{{/each}}">
                         </div>
                     </div>
                     <br>
-
                     <div class="row">
                         <div class="col-md-3 mb-3">
                             <label for="workCtg">Category of Work</label>
                             <select class="form-control" id="workCtg" name="workCtg" required>
-                                <option value="{{#each request}}{{Category.CategoryName}}{{/each}}">{{#each request}}{{Category.CategoryName}}{{/each}}</option>
-                                {{#each category}}
-                                <option value="{{CategoryName}}">{{CategoryName}}</option>
-                                {{/each}}
+                            <option value="{{#each request}}{{Category.CategoryName}}{{/each}}">{{#each request}}{{Category.CategoryName}}{{/each}}</option>
+                            {{#each category}}
+                            <option value="{{CategoryName}}">{{CategoryName}}</option>
+                            {{/each}}
                             </select>
                         </div>
                         <div class="col-md-3 mb-3">
                             <label for="workType">Type of Work</label>
                             <select class="form-control" id="workType" name="workType" required>
-                                <option value="{{#each request}}{{Type.TypeName}}{{/each}}">{{#each request}}{{Type.TypeName}}{{/each}}</option>
-                                {{#each type}}
-                                <option value="{{TypeName}}">{{TypeName}}</option>
-                                {{/each}}
+                            <option value="{{#each request}}{{Type.TypeName}}{{/each}}">{{#each request}}{{Type.TypeName}}{{/each}}</option>
+                            {{#each type}}
+                            <option value="{{TypeName}}">{{TypeName}}</option>
+                            {{/each}}
                             </select>
                         </div>
                         <div class="col-md-4 mb-3">
@@ -103,16 +100,13 @@
                         </div>
                     </div>
                     <br>
-
                     <div class="row">
                         <div class="col-md-10 mb-3">
-                                <label for="details">Other Request Details:</label>
-                                <textarea class="form-control" rows="3" name="details" id="details" disabled>{{#each request}}{{Details}}{{/each}}</textarea>
-                                
+                            <label for="details">Other Request Details:</label>
+                            <textarea class="form-control" rows="3" name="details" id="details">{{#each request}}{{Details}}{{/each}}</textarea>
                         </div>
                     </div>
                     <br>
-
                     <div class="row">
                         <div class="col-md-3 mb-3">
                             <label for="incharge">In Charge</label>
@@ -123,47 +117,132 @@
                                 {{/each}}
                             </select>
                         </div>
-                        <div class="col-md-4 mb-3">
+                        <div class="col-md-3 mb-3">
                             <label for="status">Status</label>
                             <select class="form-control" id="status" name="status" required>
-                                <option value="{{#each request}}{{Status.StatusName}}{{/each}}">{{#each request}}{{Status.StatusName}}{{/each}}</option>
-                                {{#each status}}
-                                <option value="{{StatusName}}">{{StatusName}}</option>
-                                {{/each}}>
+                            <option value="{{#each request}}{{Status.StatusName}}{{/each}}">{{#each request}}{{Status.StatusName}}{{/each}}</option>
+                            {{#each request}}
+                            {{#ifEquals Status.StatusName 'Pending for Approval'}}
+                            <option value="Approved">Approved</option>
+                            {{/ifEquals}}
+
+                            {{#ifEquals Status.StatusName 'Approved'}}
+                            <option value="Completed">Completed</option>
+                            {{/ifEquals}}
+                            {{/each}}
                             </select>
                         </div>
                     </div>
-                    
-                    <hr class="mb-4">
+                    <br>
+                    <div class="row" id="remarksdetails" style="display: none;">
+                        <div class="col-md-10 mb-3">
+                            <label for="remarks">Action taken/Remarks/Problems Encountered</label>
+                            <textarea class="form-control" rows="3" name="remarks" id="remarks" placeholder="Enter Remarks here" value="Action taken/Remarks/Problems Encountered">
+                            </textarea>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row" id="workerdetails" style="display: none;">
+                        <div class="col-md-10 mb-3">
+                            <label for="workers">Workers</label>
+                            <textarea class="form-control" rows="3" name="workers" id="workers" placeholder="Separate full names with a COMMA (e.g. <First Name> <Last Name>, <First Name> <Last Name>, <First Name> <Last Name>" value="shanicka minor, emilia minor, delia bermudez, aira bermudez">
+                                
+                            </textarea>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="col-md-4 order-md-2 mb-4">
+                <div class="col-md-4 order-md-2">
                     <h4 class="mb-3">Requester Information</h4>
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="firstName">First Name</label>
-                            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="" value="{{#each request}}{{Requester.FirstName}}{{/each}}" disabled>
+                            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="" value="{{#each request}}{{Requester.FirstName}}{{/each}}">
                         </div>
-
                         <div class="col-md-6 mb-3">
                             <label for="lastName">Last Name</label>
-                            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="" value="{{#each request}}{{Requester.LastName}}{{/each}}" disabled>
+                            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="" value="{{#each request}}{{Requester.LastName}}{{/each}}">
                         </div>
                     </div>
                     <br>
                     <div class="mb-3">
                         <label for="email">Email Address</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" value="{{#each request}}{{Requester.Email}}{{/each}}" disabled>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" value="{{#each request}}{{Requester.Email}}{{/each}}">
                     </div>
                     <br>
                     <div class="mb-3">
                         <label for="address">Department or Office</label>
-                        <input type="text" class="form-control" id="address" name="address" placeholder="Department of Example" value="{{#each request}}{{Requester.Department}}{{/each}}" disabled>
+                        <input type="text" class="form-control" id="address" name="address" placeholder="Department of Example" value="{{#each request}}{{Requester.Department}}{{/each}}">
                     </div>
                 </div>
-                <button class="btn btn-secondary btn-lg btn-block" type="submit">Update Work Order</button>
-            </form>
+            </div>
+            <hr class="mb-4">
+            
+            <div class="row" id="evaluationdetails" style="display: none;">
+                <div class="col-md-7 order-md-1">
+                    <h4 class="mb-6">Evaluation by Requester</h4>
+                    <label for="feedback">Detailed Feedback</label>
+                    <textarea class="form-control" rows="15" name="feedback" id="feedback" placeholder="Enter Feedbacks here" value="">
+                    </textarea>
+                </div>
+                <div class="col-md-5 order-md-2">
+                    <h4>Please rate the service rendered by CWO using the following criteria:</h4>
+                    <p>Response Time</p>
+                    <select class="form-control" id="responsetime" name="responsetime">
+                        {{#each criterias}}
+                        <option value="{{CriteriaNum}}">{{CriteriaNum}} - {{CriteriaName}}</option>
+                        {{/each}}
+                    </select>
+                    <br>
+                    <p>Accuracy</p>
+                    <select class="form-control" id="accuracy" name="accuracy">
+                        {{#each criterias}}
+                        <option value="{{CriteriaNum}}">{{CriteriaNum}} - {{CriteriaName}}</option>
+                        {{/each}}
+                    </select>
+                    <br>
+                    <p>Efficiency</p>
+                    <select class="form-control" id="efficiency" name="efficiency">
+                        {{#each criterias}}
+                        <option value="{{CriteriaNum}}">{{CriteriaNum}} - {{CriteriaName}}</option>
+                        {{/each}}
+                    </select>
+                    <br>
+                    <p>Courtesy</p>
+                    <select class="form-control" id="courtesy" name="courtesy">
+                        {{#each criterias}}
+                        <option value="{{CriteriaNum}}">{{CriteriaNum}} - {{CriteriaName}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+            </div>
+            <hr class="mb-4">
+            <button id="update_btn" class="btn btn-success btn-lg btn-block" type="submit">Update Work Order</button>
+            <br>
+            <br>
         </div>
-    </div>
+    </form>
+    <script>
+        $(document).ready(function() {
+            var length = $("#li_id").length;
+            
+            // Displaying additional details once status is changed to "Completed"
+            $('#status').on('change', function(){
+                var remarks = document.getElementById("remarksdetails");
+                var evaluation = document.getElementById("evaluationdetails");
+                var workers = document.getElementById("workerdetails");
+                
+                if($(this).val() == "Completed") {
+                    remarks.style.display = "block";
+                    evaluation.style.display = "block";
+                    workers.style.display = "block";
+                } else {
+                    remarks.style.display = "none";
+                    evaluation.style.display = "none";
+                    workers.style.display = "none";
+                }
+            }).change(); 
+
+        });
+    </script>
 </body>
 </html>

@@ -1,39 +1,25 @@
-{   "_id":{"$oid":"6389f238ff91e1301c00a7df"},
-    "Location":"Andrew 17F",
-    "Item":"Door",
-    "Details":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
-    "DateTarget":"12/02/2022",
-    "DateCompleted":null,
-    "DateApproved":"12/2/2022 22:51:47",
-    "DateReceived":"12/2/2022 20:40:23",
-    "Status":{
-        "StatusID":{"$numberInt":"9002"},
-        "StatusName":"Approved",
-        "_id":{"$oid":"6389df04d2317e0f12b3a835"}},
-    "Category":{
-        "CategoryID":{"$numberInt":"4009"},
-        "CategoryName":"Keys",
-        "_id":{"$oid":"6389d9f8d2317e0f12b3a832"}},
-    "Type":{
-        "TypeID":{"$numberInt":"5002"},
-        "TypeName":"Replace",
-        "_id":{"$oid":"6389d4f4d2317e0f12b3a81c"}},
-    "InCharge":{
-        "FirstName":"Sir Alfred",
-        "LastName":"LastName",
-        "Email":"siralfred@gmail.com",
-        "Department":"Department",
-        "_id":{"$oid":"6389d037b0085528733e5663"}},
-    "Requester":{
-        "FirstName":"Shanicka",
-        "LastName":"Minor",
-        "Email":"shanickaminor926@gmail.com",
-        "Department":"Gokongwei",
-        "_id":{"$oid":"6389f237ff91e1301c00a7da"}},
-    "__v":{"$numberInt":"0"}
-}
+<script>
+    $(document).ready(function() {
+        $('#status').on('change', function(){
+            $(".data").hide();
+            // $("#" + $(this).val());
+            // alert($(this).val());
+        }).change(); 
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#status').on('change', function(){
+            alert($(this).val());
+        });
+    });
+</script>
 
 
-{"_id":{"$oid":"638a11fbef8cf3b469c4e33a"},"Location":"Gokongwei 10F","Item":"Doorknob","Details":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.","DateTarget":"12/16/2022","DateCompleted":null,"DateApproved":"12/2/2022 23:11:47","DateReceived":"12/2/2022 22:55:54","Status":{"StatusID":{"$numberInt":"9002"},"StatusName":"Approved","_id":{"$oid":"6389df04d2317e0f12b3a835"}},"Category":{"CategoryID":{"$numberInt":"4001"},"CategoryName":"Plumbing Works","_id":{"$oid":"6389d944d2317e0f12b3a829"}},"Type":{"TypeID":{"$numberInt":"5007"},"TypeName":"Setup","_id":{"$oid":"6389d50bd2317e0f12b3a824"}},"InCharge":{"FirstName":"Sir Alfred","LastName":"LastName","Email":"siralfred@gmail.com","Department":"Department","_id":{"$oid":"6389d037b0085528733e5663"}},"Requester":{"FirstName":"marvin","LastName":"gaye","Email":"marvingaye@gmail.com","Department":"CLA","_id":{"$oid":"638a11faef8cf3b469c4e335"}},"__v":{"$numberInt":"0"}}
+$(document.body).on("click", "button", function(){
+    alert(this.id);
+   });
 
-{"_id":{"$oid":"6389f238ff91e1301c00a7df"},"Location":"Andrew 17F","Item":"Door","Details":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.","DateTarget":"12/02/2022","DateCompleted":null,"DateApproved":"12/2/2022 22:51:47","DateReceived":"12/2/2022 20:40:23","Status":{"StatusID":{"$numberInt":"9002"},"StatusName":"Approved","_id":{"$oid":"6389df04d2317e0f12b3a835"}},"Category":{"CategoryID":{"$numberInt":"4009"},"CategoryName":"Keys","_id":{"$oid":"6389d9f8d2317e0f12b3a832"}},"Type":{"TypeID":{"$numberInt":"5002"},"TypeName":"Replace","_id":{"$oid":"6389d4f4d2317e0f12b3a81c"}},"InCharge":{"FirstName":"Sir Alfred","LastName":"LastName","Email":"siralfred@gmail.com","Department":"Department","_id":{"$oid":"6389d037b0085528733e5663"}},"Requester":{"FirstName":"Shanicka","LastName":"Minor","Email":"shanickaminor926@gmail.com","Department":"Gokongwei","_id":{"$oid":"6389f237ff91e1301c00a7da"}},"__v":{"$numberInt":"0"}}
+
+   <ul style="list-style-type:none;" id="ul_o"></ul>

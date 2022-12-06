@@ -34,7 +34,7 @@
         <div class="container-fluid">
             <div class="navbar-header">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="/dashboard">
                         <img alt="Civil and Sanitary Works Office - De La Salle University" src="\images\dlsu.png" width="20"
                             height="20">
                     </a>
@@ -68,11 +68,11 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="location">Location</label>
-                            <input type="text" class="form-control" name="location" id="location" placeholder="Location in Campus">
+                            <input type="text" class="form-control" name="location" id="location" placeholder="Location in Campus" value="Gokongwei Bldg">
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="item">Item</label>
-                            <input type="text" class="form-control" id="item" name="item" placeholder="Item">
+                            <input type="text" class="form-control" id="item" name="item" placeholder="Item" value="Doorknob">
                         </div>
                     </div>
                     <br>
@@ -107,7 +107,7 @@
                     <div class="row">
                         <div class="col-md-10 mb-3">
                             <label for="details">Other Request Details:</label>
-                            <textarea class="form-control" rows="3" name="details" id="details"></textarea>
+                            <textarea class="form-control" rows="3" name="details" id="details">Something</textarea>
                         </div>
                     </div>
                     <br>
@@ -125,9 +125,10 @@
                         <div class="col-md-4 mb-3">
                             <label for="status">Status</label>
                             <select class="form-control" id="status" name="status" required>
-                                <option value="">Select Status</option>
                                 {{#each status}}
-                                <option value="{{StatusName}}">{{StatusName}}</option>
+                                {{#ifEquals StatusName 'Pending for Approval'}}
+                                    <option value="{{StatusName}}">{{StatusName}}</option>
+                                {{/ifEquals}}
                                 {{/each}}>
                             </select>
                         </div>
@@ -140,27 +141,27 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="firstName">First Name</label>
-                            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" value="" required>
+                            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name" value="Shanicka" required>
                         </div>
 
                         <div class="col-md-6 mb-3">
                             <label for="lastName">Last Name</label>
-                            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" value="" required>
+                            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" value="Minor" required>
                         </div>
                     </div>
                     <br>
                     <div class="mb-3">
                         <label for="email">Email Address</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" required>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" value="shanicka@gmail.com" required>
                     </div>
                     <br>
                     <div class="mb-3">
                         <label for="address">Department or Office</label>
-                        <input type="text" class="form-control" id="address" name="address" placeholder="Department of Example"
+                        <input type="text" class="form-control" id="address" name="address" placeholder="Department of Example" value="College of Computer Studies"
                             required>
                     </div>
                 </div>
-                <button class="btn btn-secondary btn-lg btn-block" type="submit">Create New Work Order</button>
+                <button class="btn btn-success btn-lg btn-block" type="submit">Create New Work Order</button>
             </form>
         </div>
     </div>
