@@ -137,14 +137,14 @@
                     <div class="row" id="remarksdetails" style="display: none;">
                         <div class="col-md-10 mb-3">
                             <label for="remarks">Action Taken / Remarks / Problems Encountered</label>
-                            <textarea class="form-control" rows="3" name="remarks" id="remarks" placeholder="Enter Remarks here" value="Action taken/Remarks/Problems Encountered"></textarea>
+                            <textarea class="form-control" rows="3" name="remarks" id="remarks" placeholder="Enter Remarks here" value="Action taken/Remarks/Problems Encountered" required></textarea>
                         </div>
                     </div>
                     <br>
                     <div class="row" id="workerdetails" style="display: none;">
                         <div class="col-md-10 mb-3">
                             <label for="workers">Workers</label>
-                            <textarea class="form-control" rows="3" name="workers" id="workers" placeholder="Separate full names with a COMMA (e.g. <First Name> <Last Name>, <First Name> <Last Name>, <First Name> <Last Name>)"></textarea>
+                            <textarea class="form-control" rows="3" name="workers" id="workers" placeholder="Separate full names with a COMMA (e.g. <First Name> <Last Name>, <First Name> <Last Name>, <First Name> <Last Name>)" required></textarea>
                         </div>
                     </div>
                 </div>
@@ -178,33 +178,33 @@
                 <div class="col-md-7 order-md-1">
                     <h4 class="mb-6">Evaluation by Requester</h4>
                     <label for="feedback">Detailed Feedback</label>
-                    <textarea class="form-control" rows="15" name="feedback" id="feedback" placeholder="Enter Feedbacks here" value=""></textarea>
+                    <textarea class="form-control" rows="15" name="feedback" id="feedback" placeholder="Enter Feedbacks here" value="" required></textarea>
                 </div>
                 <div class="col-md-5 order-md-2">
                     <h4>Please rate the service rendered by CSWO using the following criteria:</h4>
                     <p>Response Time</p>
-                    <select class="form-control" id="responsetime" name="responsetime">
+                    <select class="form-control" id="responsetime" name="responsetime" required>
                         {{#each criterias}}
                         <option value="{{CriteriaNum}}">{{CriteriaNum}} - {{CriteriaName}}</option>
                         {{/each}}
                     </select>
                     <br>
                     <p>Accuracy</p>
-                    <select class="form-control" id="accuracy" name="accuracy">
+                    <select class="form-control" id="accuracy" name="accuracy" required>
                         {{#each criterias}}
                         <option value="{{CriteriaNum}}">{{CriteriaNum}} - {{CriteriaName}}</option>
                         {{/each}}
                     </select>
                     <br>
                     <p>Efficiency</p>
-                    <select class="form-control" id="efficiency" name="efficiency">
+                    <select class="form-control" id="efficiency" name="efficiency" required>
                         {{#each criterias}}
                         <option value="{{CriteriaNum}}">{{CriteriaNum}} - {{CriteriaName}}</option>
                         {{/each}}
                     </select>
                     <br>
                     <p>Courtesy</p>
-                    <select class="form-control" id="courtesy" name="courtesy">
+                    <select class="form-control" id="courtesy" name="courtesy" required>
                         {{#each criterias}}
                         <option value="{{CriteriaNum}}">{{CriteriaNum}} - {{CriteriaName}}</option>
                         {{/each}}
