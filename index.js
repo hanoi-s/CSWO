@@ -31,7 +31,7 @@ hbs.registerHelper('dateFormat', function(arg1) {
     var hour = String(hour0 % 12 || 12).padStart(2, "0"); 
     var minute = arg1.getMinutes().toString().padStart(2, "0");
 
-    var date = month + " " + day + ", " + year + " " + hour + ":" + minute + "" + dayOrNight;
+    var date = month + " " + day + ", " + year + " - " + hour + ":" + minute + " " + dayOrNight;
     return date;
 });
 
