@@ -83,7 +83,7 @@
                     </thead>
                     {{#each request}}
                     {{#ifEquals Status.StatusName 'Pending for Approval'}}
-                    <tr>
+                    <tr >
                         <td>{{_id}}</td>
                         <td>{{dateFormat DateReceived}}</td>
                         <td>{{dateFormat DateTarget}}</td>
@@ -103,37 +103,47 @@
                         </th>
 
                         <th>
-                            <button type="button" class="btn btn-danger" data-toggle="modal"
-                                data-target="#deleteConfirmModal">
+                            {{!-- <form action="/workorder/delete" method="POST">
+                                <input data-href="/workorder/{{_id}}" type="hidden" name="woid" value="{{_id}}">
+                                <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#deleteConfirmModal">
                                 <img src="\images\trash3.svg"></button>
+                            </form>--}}
+
+                            
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteConfirmModal">
+                                <img src="\images\trash3.svg"></button>
+
+                            <div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog"
+                                aria-labelledby="deleteConfirmModalTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteConfirmModalTitle">Delete Work Order</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            You are about to delete Work Order, are you sure you want to continue?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <form action="/workorder/delete" method="POST">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                                                <input type="hidden" name="woid" value="{{_id}}">
+                                                <button type="submit" class="btn btn-danger">Yes, I'm sure.</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
                         </th>
+
                     </tr>
-                    <div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog"
-                aria-labelledby="deleteConfirmModalTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="deleteConfirmModalTitle">Delete Work Order</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            You are about to delete Work Order (ID), are you sure you want to continue?
-                        </div>
-                        <div class="modal-footer">
-                            <form action="/workorder/delete" method="POST"></form>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <input type="hidden" name="woid" value="{{_id}}">
-                            <button type="button" class="btn btn-primary">Yes, I'm sure.</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
                     {{/ifEquals}}
                     {{/each}}
                 </tbody>
+
             </table>
         </div>
 
@@ -166,8 +176,8 @@
                     <td>{{Type.TypeName}}</td>
                     <td>{{Details}}</td>
                     <td>{{Requester.FirstName}} {{Requester.LastName}}</td>
-                    <th><button class="btn btn-success"><a href="/workorder/{{_id}}"><img
-                                    src="\images\pencil-square.svg"></a></button></th>
+                    <th><a href="/workorder/{{_id}}"><button class="btn btn-success"><img
+                                    src="\images\pencil-square.svg"></button></a></th>
                     <th>
                         <form action="/workorder/delete" method="POST">
                             <input type="hidden" name="woid" value="{{_id}}">
@@ -210,8 +220,8 @@
                     <td>{{Type.TypeName}}</td>
                     <td>{{Details}}</td>
                     <td>{{Requester.FirstName}} {{Requester.LastName}}</td>
-                    <th><button class="btn btn-success"><a href="/workorder/{{_id}}"><img
-                                    src="\images\pencil-square.svg"></a></button></th>
+                    <th><a href="/workorder/{{_id}}"><button class="btn btn-success"><a href="/workorder/{{_id}}"><img
+                                    src="\images\pencil-square.svg"></button></a></th>
                     <th>
                         <form action="/workorder/delete" method="POST">
                             <input type="hidden" name="woid" value="{{_id}}">
@@ -224,6 +234,8 @@
                 {{/each}}
             </table>
         </div>
+
+
     </div>
 
     <script>
