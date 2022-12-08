@@ -180,16 +180,8 @@ const controller = {
             var FEEDBACK_DATECREATED = null;
         }
 
-        // console.log(FEEDBACK_DATECREATED)
+        console.log(FEEDBACK_DATECREATED)
 
-        const feedback = new RequesterModel({
-            DateCreated: FEEDBACK_DATECREATED,
-            ResponseTime: req.body.responsetime,
-            Accuracy: req.body.accuracy,
-            Efficiency: req.body.efficiency,
-            Courtesy: req.body.courtesy,
-            Remarks: req.body.feedback,  // by requester
-        })
         // console.log(feedback)
 
         // Searches the database for the four variables above 
@@ -213,12 +205,19 @@ const controller = {
                 DateCompleted: DATECOMPLETED,
                 Remarks: REMARKS,
                 Workers: WORKER_ARRAY,
-                Request: {
+                Requester: {
                     FirstName: FIRSTNAME,
                     LastName: LASTNAME,
                     Email: EMAIL,
                     Department: ADDRESS,
-                    Feedback: feedback
+                    Feedback: {
+                        DateCreated: FEEDBACK_DATECREATED,
+                        ResponseTime: req.body.responsetime,
+                        Accuracy: req.body.accuracy,
+                        Efficiency: req.body.efficiency,
+                        Courtesy: req.body.courtesy,
+                        Remarks: req.body.feedback,  // by requester
+                    }
                 }
                 
                 

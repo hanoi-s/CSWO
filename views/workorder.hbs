@@ -138,14 +138,14 @@
                     <div class="row" id="remarksdetails" style="display: none;">
                         <div class="col-md-10 mb-3">
                             <label for="remarks">Action Taken / Remarks / Problems Encountered</label>
-                            <textarea class="form-control" rows="3" name="remarks" id="remarks" placeholder="Enter Remarks here" value="Action taken/Remarks/Problems Encountered" required></textarea>
+                            <textarea class="form-control" rows="3" name="remarks" id="remarks" placeholder="Enter Remarks here" value="Action taken/Remarks/Problems Encountered" required>{{#each request}}{{Remarks}}{{/each}}</textarea>
                         </div>
                     </div>
                     <br>
                     <div class="row" id="workerdetails" style="display: none;">
                         <div class="col-md-10 mb-3">
                             <label for="workers">Workers</label>
-                            <textarea class="form-control" rows="3" name="workers" id="workers" placeholder="Separate full names with a COMMA (e.g. <First Name> <Last Name>, <First Name> <Last Name>, <First Name> <Last Name>)" required></textarea>
+                            <textarea class="form-control" rows="3" name="workers" id="workers" placeholder="Separate full names with a COMMA (e.g. <First Name> <Last Name>, <First Name> <Last Name>, <First Name> <Last Name>)" required>{{#each request}}{{#each Workers}}{{this}}, {{/each}}{{/each}}</textarea>
                         </div>
                     </div>
                 </div>
@@ -179,12 +179,32 @@
                 <div class="col-md-7 order-md-1">
                     <h4 class="mb-6">Evaluation by Requester</h4>
                     <label for="feedback">Detailed Feedback</label>
-                    <textarea class="form-control" rows="15" name="feedback" id="feedback" placeholder="Enter Feedbacks here" value="" required></textarea>
+                    <textarea class="form-control" rows="15" name="feedback" id="feedback" placeholder="Enter Feedbacks here" value="" required>{{#each request}}{{Requester.Feedback.Remarks}}{{/each}}</textarea>
                 </div>
                 <div class="col-md-5 order-md-2">
                     <h4>Please rate the service rendered by CSWO using the following criteria:</h4>
                     <p>Response Time</p>
                     <select class="form-control" id="responsetime" name="responsetime" required>
+                        {{#each request}}
+                            {{#ifEquals Requester.Feedback.ResponseTime 0}}
+                                <option value="{{Requester.Feedback.ResponseTime}}">{{Requester.Feedback.ResponseTime}} - Not Applicable</option>
+                            {{/ifEquals}}
+                            {{#ifEquals Requester.Feedback.ResponseTime 1}}
+                                <option value="{{Requester.Feedback.ResponseTime}}">{{Requester.Feedback.ResponseTime}} - Poor</option>
+                            {{/ifEquals}}
+                            {{#ifEquals Requester.Feedback.ResponseTime 2}}
+                                <option value="{{Requester.Feedback.ResponseTime}}">{{Requester.Feedback.ResponseTime}} - Moderately Satisfactory</option>
+                            {{/ifEquals}}
+                            {{#ifEquals Requester.Feedback.ResponseTime 3}}
+                                <option value="{{Requester.Feedback.ResponseTime}}">{{Requester.Feedback.ResponseTime}} - Satisfactory</option>
+                            {{/ifEquals}}
+                            {{#ifEquals Requester.Feedback.ResponseTime 4}}
+                                <option value="{{Requester.Feedback.ResponseTime}}">{{Requester.Feedback.ResponseTime}} - Highly Satisfactory</option>
+                            {{/ifEquals}}
+                            {{#ifEquals Requester.Feedback.ResponseTime 5}}
+                                <option value="{{Requester.Feedback.ResponseTime}}">{{Requester.Feedback.ResponseTime}} - Outstanding</option>
+                            {{/ifEquals}}
+                        {{/each}}
                         {{#each criterias}}
                         <option value="{{CriteriaNum}}">{{CriteriaNum}} - {{CriteriaName}}</option>
                         {{/each}}
@@ -192,6 +212,26 @@
                     <br>
                     <p>Accuracy</p>
                     <select class="form-control" id="accuracy" name="accuracy" required>
+                        {{#each request}}
+                            {{#ifEquals Requester.Feedback.Accuracy 0}}
+                                <option value="{{Requester.Feedback.Accuracy}}">{{Requester.Feedback.Accuracy}} - Not Applicable</option>
+                            {{/ifEquals}}
+                            {{#ifEquals Requester.Feedback.Accuracy 1}}
+                                <option value="{{Requester.Feedback.Accuracy}}">{{Requester.Feedback.Accuracy}} - Poor</option>
+                            {{/ifEquals}}
+                            {{#ifEquals Requester.Feedback.Accuracy 2}}
+                                <option value="{{Requester.Feedback.Accuracy}}">{{Requester.Feedback.Accuracy}} - Moderately Satisfactory</option>
+                            {{/ifEquals}}
+                            {{#ifEquals Requester.Feedback.Accuracy 3}}
+                                <option value="{{Requester.Feedback.Accuracy}}">{{Requester.Feedback.Accuracy}} - Satisfactory</option>
+                            {{/ifEquals}}
+                            {{#ifEquals Requester.Feedback.Accuracy 4}}
+                                <option value="{{Requester.Feedback.Accuracy}}">{{Requester.Feedback.Accuracy}} - Highly Satisfactory</option>
+                            {{/ifEquals}}
+                            {{#ifEquals Requester.Feedback.Accuracy 5}}
+                                <option value="{{Requester.Feedback.Accuracy}}">{{Requester.Feedback.Accuracy}} - Outstanding</option>
+                            {{/ifEquals}}
+                        {{/each}}
                         {{#each criterias}}
                         <option value="{{CriteriaNum}}">{{CriteriaNum}} - {{CriteriaName}}</option>
                         {{/each}}
@@ -199,6 +239,26 @@
                     <br>
                     <p>Efficiency</p>
                     <select class="form-control" id="efficiency" name="efficiency" required>
+                        {{#each request}}
+                            {{#ifEquals Requester.Feedback.Efficiency 0}}
+                                <option value="{{Requester.Feedback.Efficiency}}">{{Requester.Feedback.Efficiency}} - Not Applicable</option>
+                            {{/ifEquals}}
+                            {{#ifEquals Requester.Feedback.Efficiency 1}}
+                                <option value="{{Requester.Feedback.Efficiency}}">{{Requester.Feedback.Efficiency}} - Poor</option>
+                            {{/ifEquals}}
+                            {{#ifEquals Requester.Feedback.Efficiency 2}}
+                                <option value="{{Requester.Feedback.Efficiency}}">{{Requester.Feedback.Efficiency}} - Moderately Satisfactory</option>
+                            {{/ifEquals}}
+                            {{#ifEquals Requester.Feedback.Efficiency 3}}
+                                <option value="{{Requester.Feedback.Efficiency}}">{{Requester.Feedback.Efficiency}} - Satisfactory</option>
+                            {{/ifEquals}}
+                            {{#ifEquals Requester.Feedback.Efficiency 4}}
+                                <option value="{{Requester.Feedback.Efficiency}}">{{Requester.Feedback.Efficiency}} - Highly Satisfactory</option>
+                            {{/ifEquals}}
+                            {{#ifEquals Requester.Feedback.Efficiency 5}}
+                                <option value="{{Requester.Feedback.Efficiency}}">{{Requester.Feedback.Efficiency}} - Outstanding</option>
+                            {{/ifEquals}}
+                        {{/each}}
                         {{#each criterias}}
                         <option value="{{CriteriaNum}}">{{CriteriaNum}} - {{CriteriaName}}</option>
                         {{/each}}
@@ -206,6 +266,26 @@
                     <br>
                     <p>Courtesy</p>
                     <select class="form-control" id="courtesy" name="courtesy" required>
+                        {{#each request}}
+                            {{#ifEquals Requester.Feedback.Courtesy 0}}
+                                <option value="{{Requester.Feedback.Courtesy}}">{{Requester.Feedback.Courtesy}} - Not Applicable</option>
+                            {{/ifEquals}}
+                            {{#ifEquals Requester.Feedback.Courtesy 1}}
+                                <option value="{{Requester.Feedback.Courtesy}}">{{Requester.Feedback.Courtesy}} - Poor</option>
+                            {{/ifEquals}}
+                            {{#ifEquals Requester.Feedback.Courtesy 2}}
+                                <option value="{{Requester.Feedback.Courtesy}}">{{Requester.Feedback.Courtesy}} - Moderately Satisfactory</option>
+                            {{/ifEquals}}
+                            {{#ifEquals Requester.Feedback.Courtesy 3}}
+                                <option value="{{Requester.Feedback.Courtesy}}">{{Requester.Feedback.Courtesy}} - Satisfactory</option>
+                            {{/ifEquals}}
+                            {{#ifEquals Requester.Feedback.Courtesy 4}}
+                                <option value="{{Requester.Feedback.Courtesy}}">{{Requester.Feedback.Courtesy}} - Highly Satisfactory</option>
+                            {{/ifEquals}}
+                            {{#ifEquals Requester.Feedback.Courtesy 5}}
+                                <option value="{{Requester.Feedback.Courtesy}}">{{Requester.Feedback.Courtesy}} - Outstanding</option>
+                            {{/ifEquals}}
+                        {{/each}}
                         {{#each criterias}}
                         <option value="{{CriteriaNum}}">{{CriteriaNum}} - {{CriteriaName}}</option>
                         {{/each}}
