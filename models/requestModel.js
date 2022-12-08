@@ -15,6 +15,7 @@ const requestSchema = new mongoose.Schema({
     DateCompleted: {type: Date},
     DateApproved: {type: Date},
     Workers: {type: Array},
+    Disabled: {type: Boolean, default: false},
     Status: Status,
     Category: Category,
     Type: Type,

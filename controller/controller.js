@@ -97,6 +97,12 @@ const controller = {
         var INCHARGE = req.body.incharge;
         var STATUS = req.body.status;
 
+        if (STATUS == "Approved") {
+            var DATEAPPROVED = new Date();
+        } else {
+            var DATEAPPROVED = null;
+        }
+
         // Searches the database for the four variables above 
         // as they are data already found on the database
         TypeModel.findOne({TypeName:TYPE}).then((type) => {
@@ -111,7 +117,7 @@ const controller = {
                             Details: req.body.details,
                             DateTarget: req.body.targetdate,
                             DateReceived: new Date(),
-                            DateApproved: null,
+                            DateApproved: DATEAPPROVED,
                             DateCompleted: null,
                             Requester: requester,       // This is where new Requester instance is stored
                             Status: status,             // This is where the data from db is stored
@@ -228,9 +234,19 @@ const controller = {
     },
 
     postDeleteOrder: async function(req, res) {
-        RequestModel.findByIdAndDelete(req.body.woid, function(err, result){
-            res.redirect('/');
-        });
+        // RequestModel.findByIdAndDelete(req.body.woid, function(err, result){
+        //     res.redirect('/');
+        // });
+
+        RequestModel.updateOne({_id: req.body.woid}, 
+            {$set: {
+                Disabled: true
+            }}, function(request){
+                res.redirect('/');
+            })
+
+
+
     },
 
     postSearchOrders: async function(req, res) {

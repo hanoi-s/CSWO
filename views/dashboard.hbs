@@ -84,6 +84,7 @@
                     </thead>
                     {{#each request}}
                     {{#ifEquals Status.StatusName 'Pending for Approval'}}
+                    {{#ifEquals Disabled false}}
                     <tr >
                         <td>{{_id}}</td>
                         <td>{{dateFormat DateReceived}}</td>
@@ -113,6 +114,7 @@
                         </th>
 
                     </tr>
+                    {{/ifEquals}}
                     {{/ifEquals}}
                     {{/each}}
                 </tbody>
