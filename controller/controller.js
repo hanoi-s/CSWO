@@ -174,7 +174,7 @@ const controller = {
             var FEEDBACK_DATECREATED = null;
         }
 
-        console.log(FEEDBACK_DATECREATED)
+        // console.log(FEEDBACK_DATECREATED)
 
         const feedback = new RequesterModel({
             DateCreated: FEEDBACK_DATECREATED,
@@ -184,7 +184,7 @@ const controller = {
             Courtesy: req.body.courtesy,
             Remarks: req.body.feedback,  // by requester
         })
-        console.log(feedback)
+        // console.log(feedback)
 
         // Searches the database for the four variables above 
         // as they are data already found on the database

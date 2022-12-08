@@ -52,7 +52,7 @@
         </div>
     </nav>
 
-    <form action="/workorder/{{#each request}}{{_id}}{{/each}}/update" method="POST" class="needs-validation">
+    <form action="/workorder/{{#each request}}{{_id}}{{/each}}/update" method="POST" class="needs-validation" id="submit_form">
         <div class="container">
             <div class="py-5 text-center">
                 <img class="d-block mx-auto mb-4" src="\images\dlsu.png" alt="" width="72" height="72">
@@ -96,7 +96,7 @@
                         <div class="col-md-4 mb-3">
                             <div class="form-group">
                                 <label class="control-label" for="targetdate">Target Date of Completion</label>
-                                <input class="form-control" id="targetdate" name="targetdate" placeholder="MM/DD/YYY" type="text" value="{{#each request}}{{onlyDate DateTarget}}{{/each}}" required/>
+                                <input class="form-control" id="targetdate" name="targetdate" placeholder="MM/DD/YYY" type="text" value="{{#each request}}{{DateTarget}}{{/each}}" required/>
                             </div>
                         </div>
                     </div>
@@ -233,7 +233,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-success">Save changes</button>
+                        <button id="save_btn" type="submit" class="btn btn-success">Save changes</button>
                     </div>
                 </div>
             </div>
@@ -259,6 +259,10 @@
                     workers.style.display = "none";
                 }
             }).change(); 
+
+            $(document.body).on("click", "#save_btn", function(){
+                 $('#submit_form').submit();
+            })
 
         });
     </script>

@@ -104,40 +104,12 @@
                         </th>
 
                         <th>
-                            {{!-- <form action="/workorder/delete" method="POST">
+                            <form action="/workorder/delete" method="POST" id="form">
                                 <input data-href="/workorder/{{_id}}" type="hidden" name="woid" value="{{_id}}">
-                                <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#deleteConfirmModal">
-                                <img src="\images\trash3.svg"></button>
-                            </form>--}}
-
-                            
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteConfirmModal">
-                                <img src="\images\trash3.svg"></button>
-
-                            <div class="modal fade" id="deleteConfirmModal" tabindex="-1" role="dialog"
-                                aria-labelledby="deleteConfirmModalTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="deleteConfirmModalTitle">Delete Work Order</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            You are about to delete Work Order, are you sure you want to continue?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <form action="/workorder/delete" method="POST">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-
-                                                <input type="hidden" name="woid" value="{{_id}}">
-                                                <button type="submit" class="btn btn-danger">Yes, I'm sure.</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> 
+                                <button name="del_btn" type="submit" class="btn btn-danger" id="del_{{_id}}">
+                                    <img src="\images\trash3.svg">
+                                </button>
+                            </form>
                         </th>
 
                     </tr>
@@ -245,6 +217,16 @@
             $(document.body).on("click", "tr[data-href]", function () {
                 window.location.href = this.dataset.href;
             });
+
+            $(document.body).on("click", "#form button", function(){
+                 // alert(this.id);
+                let id0 = this.id;
+                let id = id0.slice(4, 28);
+                 var result = confirm("You are deleting work order " + id);
+                 if(result == false) {
+                    event.preventDefault();
+                 }
+            })
         });
     </script>
 </body>
