@@ -96,7 +96,7 @@
                         <div class="col-md-4 mb-3">
                             <div class="form-group">
                                 <label class="control-label" for="targetdate">Target Date of Completion</label>
-                                <input class="form-control" id="targetdate" name="targetdate" placeholder="MM/DD/YYY" type="text" value="{{#each request}}{{DateTarget}}{{/each}}" required/>
+                                <input class="form-control" id="targetdate" name="targetdate" placeholder="MM/DD/YYY" type="text" value="{{#each request}}{{onlyDate DateTarget}}{{/each}}" required/>
                             </div>
                         </div>
                     </div>

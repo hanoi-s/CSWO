@@ -87,7 +87,7 @@
                     <tr >
                         <td>{{_id}}</td>
                         <td>{{dateFormat DateReceived}}</td>
-                        <td>{{dateFormat DateTarget}}</td>
+                        <td>{{dateWithoutTime DateTarget}}</td>
                         <td>{{InCharge.FirstName}}</td>
                         <td>{{Location}}</td>
                         <td>{{Item}}</td>
@@ -169,7 +169,7 @@
                 <tr data-href="/workorder/{{_id}}">
                     <td>{{_id}}</td>
                     <td>{{dateFormat DateApproved}}</td>
-                    <td>{{dateFormat DateTarget}}</td>
+                    <td>{{dateWithoutTime DateTarget}}</td>
                     <td>{{InCharge.FirstName}}</td>
                     <td>{{Location}}</td>
                     <td>{{Item}}</td>
@@ -212,7 +212,7 @@
                 {{#ifEquals Status.StatusName 'Completed'}}
                 <tr data-href="/workorder/{{_id}}">
                     <td>{{_id}}</td>
-                    <td>{{dateFormat DateTarget}}</td>
+                    <td>{{dateWithoutTime DateTarget}}</td>
                     <td>{{dateFormat DateCompleted}}</td>
                     <td>{{InCharge.FirstName}}</td>
                     <td>{{Location}}</td>
