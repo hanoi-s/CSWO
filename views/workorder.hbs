@@ -51,7 +51,7 @@
         </div>
     </nav>
 
-    <form action="/workorder/{{#each request}}{{_id}}{{/each}}/update" method="POST" class="needs-validation" novalidate>
+    <form action="/workorder/{{#each request}}{{_id}}{{/each}}/update" method="POST" class="needs-validation">
         <div class="container">
             <div class="py-5 text-center">
                 <img class="d-block mx-auto mb-4" src="\images\dlsu.png" alt="" width="72" height="72">
@@ -65,11 +65,11 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="location">Location</label>
-                            <input type="text" class="form-control" name="location" id="location" placeholder="Location in Campus" value="{{#each request}}{{Location}}{{/each}} ">
+                            <input type="text" class="form-control" name="location" id="location" placeholder="Location in Campus" value="{{#each request}}{{Location}}{{/each}}" required>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="item">Item</label>
-                            <input type="text" class="form-control" id="item" name="item" placeholder="Item"  value="{{#each request}}{{Item}}{{/each}}">
+                            <input type="text" class="form-control" id="item" name="item" placeholder="Item"  value="{{#each request}}{{Item}}{{/each}}" required>
                         </div>
                     </div>
                     <br>
@@ -136,18 +136,15 @@
                     <br>
                     <div class="row" id="remarksdetails" style="display: none;">
                         <div class="col-md-10 mb-3">
-                            <label for="remarks">Action taken/Remarks/Problems Encountered</label>
-                            <textarea class="form-control" rows="3" name="remarks" id="remarks" placeholder="Enter Remarks here" value="Action taken/Remarks/Problems Encountered">
-                            </textarea>
+                            <label for="remarks">Action Taken / Remarks / Problems Encountered</label>
+                            <textarea class="form-control" rows="3" name="remarks" id="remarks" placeholder="Enter Remarks here" value="Action taken/Remarks/Problems Encountered" required></textarea>
                         </div>
                     </div>
                     <br>
                     <div class="row" id="workerdetails" style="display: none;">
                         <div class="col-md-10 mb-3">
                             <label for="workers">Workers</label>
-                            <textarea class="form-control" rows="3" name="workers" id="workers" placeholder="Separate full names with a COMMA (e.g. <First Name> <Last Name>, <First Name> <Last Name>, <First Name> <Last Name>" value="shanicka minor, emilia minor, delia bermudez, aira bermudez">
-                                
-                            </textarea>
+                            <textarea class="form-control" rows="3" name="workers" id="workers" placeholder="Separate full names with a COMMA (e.g. <First Name> <Last Name>, <First Name> <Last Name>, <First Name> <Last Name>)" required></textarea>
                         </div>
                     </div>
                 </div>
@@ -181,34 +178,33 @@
                 <div class="col-md-7 order-md-1">
                     <h4 class="mb-6">Evaluation by Requester</h4>
                     <label for="feedback">Detailed Feedback</label>
-                    <textarea class="form-control" rows="15" name="feedback" id="feedback" placeholder="Enter Feedbacks here" value="">
-                    </textarea>
+                    <textarea class="form-control" rows="15" name="feedback" id="feedback" placeholder="Enter Feedbacks here" value="" required></textarea>
                 </div>
                 <div class="col-md-5 order-md-2">
-                    <h4>Please rate the service rendered by CWO using the following criteria:</h4>
+                    <h4>Please rate the service rendered by CSWO using the following criteria:</h4>
                     <p>Response Time</p>
-                    <select class="form-control" id="responsetime" name="responsetime">
+                    <select class="form-control" id="responsetime" name="responsetime" required>
                         {{#each criterias}}
                         <option value="{{CriteriaNum}}">{{CriteriaNum}} - {{CriteriaName}}</option>
                         {{/each}}
                     </select>
                     <br>
                     <p>Accuracy</p>
-                    <select class="form-control" id="accuracy" name="accuracy">
+                    <select class="form-control" id="accuracy" name="accuracy" required>
                         {{#each criterias}}
                         <option value="{{CriteriaNum}}">{{CriteriaNum}} - {{CriteriaName}}</option>
                         {{/each}}
                     </select>
                     <br>
                     <p>Efficiency</p>
-                    <select class="form-control" id="efficiency" name="efficiency">
+                    <select class="form-control" id="efficiency" name="efficiency" required>
                         {{#each criterias}}
                         <option value="{{CriteriaNum}}">{{CriteriaNum}} - {{CriteriaName}}</option>
                         {{/each}}
                     </select>
                     <br>
                     <p>Courtesy</p>
-                    <select class="form-control" id="courtesy" name="courtesy">
+                    <select class="form-control" id="courtesy" name="courtesy" required>
                         {{#each criterias}}
                         <option value="{{CriteriaNum}}">{{CriteriaNum}} - {{CriteriaName}}</option>
                         {{/each}}
@@ -216,9 +212,30 @@
                 </div>
             </div>
             <hr class="mb-4">
-            <button id="update_btn" class="btn btn-success btn-lg btn-block" type="submit">Update Work Order</button>
+            <button id="update_btn" class="btn btn-success btn-lg btn-block" type="button" data-toggle="modal" data-target="#editConfirmModal">Update Work Order</button>
             <br>
             <br>
+        </div>
+
+        <div class="modal fade" id="editConfirmModal" tabindex="-1" role="dialog"
+            aria-labelledby="editConfirmModalTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="editConfirmModalTitle">Update Work Order</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Do you want to save changes to the Work Order?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success">Save changes</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </form>
     <script>
