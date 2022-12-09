@@ -14,7 +14,7 @@
     <script src="/js/jquery.js"></script> --}}
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-    <title>Dashboard</title>
+    <title>CSWO | Dashboard</title>
 </head>
 
 <body>
@@ -158,13 +158,28 @@
                     <td>{{Type.TypeName}}</td>
                     <td>{{Details}}</td>
                     <td>{{Requester.FirstName}} {{Requester.LastName}}</td>
-                    <th><a href="/workorder/{{_id}}"><button class="btn btn-success"><img
-                                    src="\images\pencil-square.svg"></button></a></th>
                     <th>
-                        <form action="/workorder/delete" method="POST">
-                            <input type="hidden" name="woid" value="{{_id}}">
-                            <button type="submit" class="btn btn-danger" data-toggle="modal">
-                                <img src="\images\trash3.svg"></button>
+                        <a href="/viewwo/{{_id}}">
+                            <button class="btn btn-success" data-toggle="modal" title="View">
+                                <img src="\images\view.svg" width="20px">
+                            </button>
+                        </a>
+                    </th>
+
+                    <th>
+                        <a href="/workorder/{{_id}}">
+                            <button class="btn btn-warning" data-toggle="modal" title="Edit">
+                                <img src="\images\pencil-square.svg">
+                            </button>
+                        </a>
+                    </th>
+
+                    <th>
+                        <form action="/workorder/delete" method="POST" id="form">
+                            <input data-href="/workorder/{{_id}}" type="hidden" name="woid" value="{{_id}}">
+                            <button name="del_btn" type="submit" class="btn btn-danger" id="del_{{_id}}" title="Delete">
+                                <img src="\images\trash3.svg">
+                            </button>
                         </form>
                     </th>
                 </tr>
@@ -202,13 +217,28 @@
                     <td>{{Type.TypeName}}</td>
                     <td>{{Details}}</td>
                     <td>{{Requester.FirstName}} {{Requester.LastName}}</td>
-                    <th><a href="/workorder/{{_id}}"><button class="btn btn-success"><a href="/workorder/{{_id}}"><img
-                                    src="\images\pencil-square.svg"></button></a></th>
                     <th>
-                        <form action="/workorder/delete" method="POST">
-                            <input type="hidden" name="woid" value="{{_id}}">
-                            <button type="submit" class="btn btn-danger" data-toggle="modal">
-                                <img src="\images\trash3.svg"></button>
+                        <a href="/viewwo/{{_id}}">
+                            <button class="btn btn-success" data-toggle="modal" title="View">
+                                <img src="\images\view.svg" width="20px">
+                            </button>
+                        </a>
+                    </th>
+
+                    <th>
+                        <a href="/workorder/{{_id}}">
+                            <button class="btn btn-warning" data-toggle="modal" title="Edit">
+                                <img src="\images\pencil-square.svg">
+                            </button>
+                        </a>
+                    </th>
+
+                    <th>
+                        <form action="/workorder/delete" method="POST" id="form">
+                            <input data-href="/workorder/{{_id}}" type="hidden" name="woid" value="{{_id}}">
+                            <button name="del_btn" type="submit" class="btn btn-danger" id="del_{{_id}}" title="Delete">
+                                <img src="\images\trash3.svg">
+                            </button>
                         </form>
                     </th>
                 </tr>
