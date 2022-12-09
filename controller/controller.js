@@ -60,10 +60,10 @@ const controller = {
     },
     
     getSummary: function (req, res) {
-        RequestModel.find( {} ).count().then((totalWorkOrders) => { 
-            RequestModel.find( {"Status.StatusName": "Pending for Approval"} ).count().then((pending) => { 
-                RequestModel.find( {"Status.StatusName": "Approved"} ).count().then((approved) => { 
-                    RequestModel.find( {"Status.StatusName": "Completed"} ).count().then((completed) => { 
+        RequestModel.find( {Disabled: false} ).count().then((totalWorkOrders) => { 
+            RequestModel.find( {Disabled: false, "Status.StatusName": "Pending for Approval"} ).count().then((pending) => { 
+                RequestModel.find( {Disabled: false, "Status.StatusName": "Approved"} ).count().then((approved) => { 
+                    RequestModel.find( {Disabled: false, "Status.StatusName": "Completed"} ).count().then((completed) => { 
                         res.render('summary', {Total:totalWorkOrders, Pending:pending, Approved:approved, Completed:completed});
                     })
                 })
