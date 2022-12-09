@@ -6,6 +6,7 @@ const Category = require('./categoryModel').schema;
 const Type = require('./typeModel').schema;
 
 const requestSchema = new mongoose.Schema({
+    ReferenceNumber: {type: String},
     Location: {type: String, required: true},
     Item: {type: String, required: true},
     Details: {type: String},

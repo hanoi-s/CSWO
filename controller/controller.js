@@ -7,7 +7,8 @@ const CategoryModel = require('../models/categoryModel.js');
 const StatusModel = require('../models/statusModel.js');
 const CriteriasModel = require('../models/criteriasModel.js');
 const FeedbackModel = require('../models/feedbackModel.js');
-// const ShortUID = require('short-uid');
+const PDFDocument = require('pdfkit');
+const pdfService = require('../js/pdf-service');
 
 const controller = {
     getDashboard: function (req, res) {
@@ -132,29 +133,57 @@ const controller = {
             CategoryModel.findOne({ CategoryName:CATEGORY}).then((category) => {
                 EmployeeModel.findOne({ FirstName:INCHARGE}).then((incharge) => {
                     StatusModel.findOne({ StatusName:STATUS}).then((status) => {
-                        // Creates a new Request instance with all the information collected
-                        // both from the form and the database
-                        const request = new RequestModel({
-                            Location: req.body.location,
-                            Item: req.body.item,
-                            Details: req.body.details,
-                            DateTarget: req.body.targetdate,
-                            DateReceived: new Date(),
-                            DateApproved: DATEAPPROVED,
-                            DateCompleted: null,
-                            Requester: requester,       // This is where new Requester instance is stored
-                            Status: status,             // This is where the data from db is stored
-                            Category: category,         // This is where the data from db is stored
-                            Type: type,                 // This is where the data from db is stored
-                            InCharge: incharge,         // This is where the data from db is stored
-                        });
+                        RequestModel.find( {} ).count().then((totalWorkOrders) => { 
 
-                        // request.save() - Saves the new Request instance on the database
-                        request.save()
-                        .then((result) => {
-                            requester.save();               // requester.save() - Saves the new Requester information instance on the database
-                            res.redirect('/dashboard');     // Redirects the user on the dashboard to view new work order
+                            var refNum0 = new Date();
+                            var refYear = refNum0.getFullYear().toString();
+                            var refMonth0 = refNum0.getMonth();
+                            var refMonth00 = refMonth0 + 1;
+                            var refMonth = refMonth00.toString();
+                            var count0 = totalWorkOrders;
+                            var count0 = count0 + 1;
+                            var count = count0.toString();
+
+                            if(totalWorkOrders < 10) {
+                                var padding = "00000";
+                            } else if (totalWorkOrders < 100 && totalWorkOrders >= 10) {
+                                var padding = "0000";
+                            } else if (totalWorkOrders > 100) {
+                                var padding = "000";
+                            } 
+
+                            var referenceNumber = refYear + refMonth + padding + count;
+
+                            // Creates a new Request instance with all the information collected
+                            // both from the form and the database
+                            const request = new RequestModel({
+                                ReferenceNumber: referenceNumber,
+                                Location: req.body.location,
+                                Item: req.body.item,
+                                Details: req.body.details,
+                                DateTarget: req.body.targetdate,
+                                DateReceived: new Date(),
+                                DateApproved: DATEAPPROVED,
+                                DateCompleted: null,
+                                Requester: requester,       // This is where new Requester instance is stored
+                                Status: status,             // This is where the data from db is stored
+                                Category: category,         // This is where the data from db is stored
+                                Type: type,                 // This is where the data from db is stored
+                                InCharge: incharge,         // This is where the data from db is stored
+                            });
+
+                            // request.save() - Saves the new Request instance on the database
+                            request.save()
+                            .then((result) => {
+                                requester.save();               // requester.save() - Saves the new Requester information instance on the database
+                                res.redirect('/dashboard');     // Redirects the user on the dashboard to view new work order
+                            });
+
+
                         });
+                    
+
+
                     })
                 })
             })
@@ -368,7 +397,27 @@ const controller = {
                 });
             } 
         }
-    }
+    },
+
+    // postPrintWorkOrder : async function(req, res) {
+    //     const stream = res.writeHead(200, {
+    //         'Content-Type': 'application/pdf',
+    //         'Content-Disposition': 'attachment;filename=workorder.pdf',
+    //     });
+
+    //     function buildPDF(dataCallback, endCallback) {
+    //         const doc = new PDFDocument();
+    //         doc.on('data', dataCallback);
+    //         doc.on('end', endCallback);
+    //         doc.fontSize(20).text("Some text");
+    //         doc.end();
+    //     }
+
+    //     pdfService.buildPDF(
+    //         (chunk) => stream.write(chunk),
+    //         () => stream.end()
+    //     );
+    // }
 
 }
 
