@@ -58,6 +58,29 @@ const controller = {
             });
         });
     },
+
+    viewWorkOrder: function (req, res) {
+        // Renders work order page catering to a specific work order request
+        // also with data coming from database such as types, categories, employees, and status
+
+        // Query for reading all Types from the Database
+        db.findMany(TypeModel, {}, {}, function(typesresult){
+            // Query for reading all Categories from the Database
+            db.findMany(CategoryModel, {}, {}, function(categoriesresult){
+                // Query for reading all Employees from the Database
+                db.findMany(EmployeeModel, {}, {}, function(employeesresult){
+                    // Query for reading all Statuses from the Database
+                    db.findMany(StatusModel, {}, {}, function(statusesresult){
+                        db.findMany(CriteriasModel, {}, {}, function(criteriasresult) {
+                            db.findOne(RequestModel, {_id: req.params.woid}, {}, function(result){
+                                res.render('viewwo', {request:result, type:typesresult, category:categoriesresult, employee:employeesresult, status:statusesresult, criterias:criteriasresult});
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    },
     
     getSummary: function (req, res) {
         RequestModel.find( {Disabled: false} ).count().then((totalWorkOrders) => { 
@@ -180,7 +203,7 @@ const controller = {
             var FEEDBACK_DATECREATED = null;
         }
 
-        console.log(FEEDBACK_DATECREATED)
+        // console.log(FEEDBACK_DATECREATED)
 
         // console.log(feedback)
 
@@ -223,7 +246,7 @@ const controller = {
                 
             }}, function(request){
                 RequestModel.findOne({_id: req.params.woid}, {}, function(result2){
-                    res.redirect('/workorder/' + req.params.woid);
+                    res.redirect('/viewwo/' + req.params.woid);
                 });
             })
             })
