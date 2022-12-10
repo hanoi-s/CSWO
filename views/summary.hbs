@@ -108,6 +108,7 @@
                         </tr>
                     </thead>
                     {{#each request}}
+                    {{#ifEquals Disabled false}}
                     <tr data-href="/workorder/{{_id}}">
                         <td>{{_id}}</td>
                         <td>{{dateFormat DateReceived}}</td>
@@ -120,6 +121,7 @@
                         <td>{{Details}}</td>
                         <td>{{Requester.FirstName}} {{Requester.LastName}}</td>
                     </tr>
+                    {{/ifEquals}}
                     {{/each}}
                 </tbody>
                 </table>
