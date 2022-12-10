@@ -6,6 +6,7 @@ const Category = require('./categoryModel').schema;
 const Type = require('./typeModel').schema;
 
 const requestSchema = new mongoose.Schema({
+    ReferenceNo: {type: String},
     Location: {type: String, required: true},
     Item: {type: String, required: true},
     Details: {type: String},
@@ -15,6 +16,7 @@ const requestSchema = new mongoose.Schema({
     DateCompleted: {type: Date},
     DateApproved: {type: Date},
     Workers: {type: Array},
+    Disabled: {type: Boolean, default: false},
     Status: Status,
     Category: Category,
     Type: Type,

@@ -16,6 +16,7 @@ routes.use(bodyParser.urlencoded({extended : true}));
 routes.get('/', controller.getDashboard);
 routes.get('/dashboard', controller.getDashboard);
 routes.get('/workorder/:woid', controller.getWorkOrder);
+routes.get('/viewwo/:woid', controller.viewWorkOrder);
 routes.get('/neworder', controller.getNewOrder);
 routes.get('/summary', controller.getSummary);
 
@@ -31,6 +32,10 @@ routes.post('/workorder/delete', controller.postDeleteOrder);
 routes.post('/searchorders', controller.postSearchOrders);
 
 routes.post('/summary/daterange', controller.postDateRange);// get date range
+
+// Print
+// routes.post('/printworkorder/:woid', controller.postPrintWorkOrder);
+
 
 // Export this file for other files to find
 module.exports = routes;

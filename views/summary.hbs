@@ -31,6 +31,22 @@
                         <li><a href="/neworder">Create New Work Order</a></li>
                         <li><a href="/summary">Report Summary</a></li>
                     </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/auditlog">Audit Logs</a>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account Name <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Change Password</a></li>
+                                <li><a href="#">Settings</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </nav>
@@ -38,6 +54,12 @@
 
         {{!-- Start Date, End Date, View Data Button --}}
         <div class="container-fluid">
+            <div class="py-5 text-center">
+                <img class="d-block mx-auto mb-4" src="\images\dlsu.png" alt="" width="72" height="72">
+                <h2>Civil Works and Sanitary Office</h2>
+                <p class="lead">REPORTS SUMMARY</p>
+            </div>
+
             <form action="/summary/daterange" method="POST">
                 <div class="row">
                     <div class="col-lg-2">
@@ -107,8 +129,9 @@
                         </tr>
                     </thead>
                     {{#each request}}
-                    <tr data-href="/workorder/{{_id}}">
-                        <td>{{_id}}</td>
+                    {{#ifEquals Disabled false}}
+                    <tr data-href="/viewwo/{{_id}}">
+                        <td>{{ReferenceNo}}</td>
                         <td>{{dateFormat DateReceived}}</td>
                         <td>{{Status.StatusName}}</td>
                         <td>{{InCharge.FirstName}}</td>
@@ -119,6 +142,7 @@
                         <td>{{Details}}</td>
                         <td>{{Requester.FirstName}} {{Requester.LastName}}</td>
                     </tr>
+                    {{/ifEquals}}
                     {{/each}}
                 </tbody>
                 </table>

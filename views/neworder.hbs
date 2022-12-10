@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    
 
     <title>Create Work Order</title>
 </head>
@@ -32,6 +31,22 @@
                         <li><a href="/neworder">Create New Work Order</a></li>
                         <li><a href="/summary">Report Summary</a></li>
                 </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/auditlog">Audit Logs</a>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account Name <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Change Password</a></li>
+                            <li><a href="#">Settings</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
@@ -53,11 +68,11 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="location">Location</label>
-                            <input type="text" class="form-control" name="location" id="location" placeholder="Location in Campus" required>
+                            <input type="text" class="form-control" name="location" id="location" placeholder="Location in Campus" value="Gokongwei" required>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="item">Item</label>
-                            <input type="text" class="form-control" id="item" name="item" placeholder="Item" required>
+                            <input type="text" class="form-control" id="item" name="item" placeholder="Item" value="Key" required>
                         </div>
                     </div>
                     <br>
@@ -92,7 +107,7 @@
                     <div class="row">
                         <div class="col-md-10 mb-3">
                             <label for="details">Other Request Details:</label>
-                            <textarea class="form-control" rows="3" name="details" id="details"></textarea>
+                            <textarea class="form-control" rows="3" name="details" id="details">Some detail</textarea>
                         </div>
                     </div>
                     <br>
@@ -127,23 +142,23 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="firstName">First Name</label>
-                            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name"  required>
+                            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name"  value="shanicka" required>
                         </div>
 
                         <div class="col-md-6 mb-3">
                             <label for="lastName">Last Name</label>
-                            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" required>
+                            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name" value="minor" required>
                         </div>
                     </div>
                     <br>
                     <div class="mb-3">
                         <label for="email">Email Address</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com"  required>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" value="shanicka@gmail.com" required>
                     </div>
                     <br>
                     <div class="mb-3">
                         <label for="address">Department or Office</label>
-                        <input type="text" class="form-control" id="address" name="address" placeholder="Department of Example" required>
+                        <input type="text" class="form-control" id="address" name="address" placeholder="Department of Example" value="ccs" required>
                     </div>
                 </div>
                 <button class="btn btn-success btn-lg btn-block" type="submit">Create New Work Order</button>
