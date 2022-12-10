@@ -158,7 +158,7 @@ const controller = {
                             // Creates a new Request instance with all the information collected
                             // both from the form and the database
                             const request = new RequestModel({
-                                ReferenceNumber: referenceNumber,
+                                ReferenceNo: referenceNumber,
                                 Location: req.body.location,
                                 Item: req.body.item,
                                 Details: req.body.details,

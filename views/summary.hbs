@@ -109,8 +109,8 @@
                     </thead>
                     {{#each request}}
                     {{#ifEquals Disabled false}}
-                    <tr data-href="/workorder/{{_id}}">
-                        <td>{{_id}}</td>
+                    <tr data-href="/viewwo/{{_id}}">
+                        <td>{{ReferenceNo}}</td>
                         <td>{{dateFormat DateReceived}}</td>
                         <td>{{Status.StatusName}}</td>
                         <td>{{InCharge.FirstName}}</td>

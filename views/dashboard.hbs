@@ -85,7 +85,7 @@
                     {{#ifEquals Status.StatusName 'Pending for Approval'}}
                     {{#ifEquals Disabled false}}
                     <tr>
-                        <td>{{_id}}</td>
+                        <td>{{ReferenceNo}}</td>
                         <td>{{dateFormat DateReceived}}</td>
                         <td>{{dateWithoutTime DateTarget}}</td>
                         <td>{{InCharge.FirstName}}</td>
@@ -147,8 +147,9 @@
                 </tr>
                 {{#each request}}
                 {{#ifEquals Status.StatusName 'Approved'}}
+                {{#ifEquals Disabled false}}
                 <tr data-href="/workorder/{{_id}}">
-                    <td>{{_id}}</td>
+                    <td>{{ReferenceNo}}</td>
                     <td>{{dateFormat DateApproved}}</td>
                     <td>{{dateWithoutTime DateTarget}}</td>
                     <td>{{InCharge.FirstName}}</td>
@@ -184,6 +185,7 @@
                     </th>
                 </tr>
                 {{/ifEquals}}
+                {{/ifEquals}}
                 {{/each}}
             </table>
         </div>
@@ -206,8 +208,9 @@
                 </tr>
                 {{#each request}}
                 {{#ifEquals Status.StatusName 'Completed'}}
+                 {{#ifEquals Disabled false}}
                 <tr data-href="/workorder/{{_id}}">
-                    <td>{{_id}}</td>
+                    <td>{{ReferenceNo}}</td>
                     <td>{{dateWithoutTime DateTarget}}</td>
                     <td>{{dateFormat DateCompleted}}</td>
                     <td>{{InCharge.FirstName}}</td>
@@ -242,6 +245,7 @@
                         </form>
                     </th>
                 </tr>
+                {{/ifEquals}}
                 {{/ifEquals}}
                 {{/each}}
             </table>

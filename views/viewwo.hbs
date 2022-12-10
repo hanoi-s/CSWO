@@ -52,7 +52,7 @@
         </div>
     </nav>
 
-    <form action="/printworkorder/{{#each request}}{{_id}}{{/each}}" method="POST" id="print_form">
+    {{!-- <form action="/printworkorder/{{#each request}}{{_id}}{{/each}}" method="POST" id="print_form"> --}}
         <div class="container">
             <div class="py-5 text-center">
                 <img class="d-block mx-auto mb-4" src="\images\dlsu.png" alt="" width="72" height="72">
@@ -294,25 +294,30 @@
             </div>
             <hr class="mb-4">
             <div class="row">
+                {{!-- DELETE --}}
                 <div class="col-md-4 mb-3">
                     <form action="/workorder/delete" method="POST" id="del_form">
                         <input type="hidden" name="woid" value="{{#each request}}{{_id}}{{/each}}">
-                        <button form="del_form" type="submit" class="btn btn-danger btn-lg btn-block" data-toggle="modal" id="del_btn{{#each request}}{{_id}}{{/each}}">Delete</button>
+                        <button type="submit" class="btn btn-danger btn-lg btn-block" id="delbtn_{{#each request}}{{ReferenceNo}}{{/each}}">Delete</button>
                     </form>
                 </div>
+                {{!-- EDIT --}}
                 <div class="col-md-4 mb-3">
                     <a href="/workorder/{{#each request}}{{_id}}{{/each}}" style="text-decoration:none">
                         <button id="update_btn" class="btn btn-warning btn-lg btn-block" type="button" data-toggle="modal">Edit</button>
                     </a>
                 </div>
+                {{!-- PRINT --}}
                 <div class="col-md-4 mb-3">
-                    <button form="print_form" id="print_btn" class="btn btn-primary btn-lg btn-block" type="button" data-toggle="modal">Print</button>
+                    <a href="/print/{{#each request}}{{_id}}{{/each}}">
+                        <button form="print_form" id="print_btn" class="btn btn-primary btn-lg btn-block" type="button" data-toggle="modal">Print</button>
+                    </a>
                 </div>
             </div>
             <br>
             <br>
         </div>
-    </form>
+    {{!-- </form> --}}
     <script>
         $(document).ready(function() {
             var length = $("#li_id").length;
@@ -337,10 +342,10 @@
             $(document.body).on("click", "#del_form button", function(){
                  // alert(this.id);
                 let id0 = this.id;
-                let id = id0.slice(4, 28);
-                var result = confirm("You are deleting work order " + id);
+                let id = id0.slice(7, 19);
+                var result = confirm("You are deleting Work Order " + id + ". Are you sure?");
                 if(result == false) {
-                event.preventDefault();
+                    event.preventDefault();
                 }
             })
 
