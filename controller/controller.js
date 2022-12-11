@@ -299,6 +299,13 @@ const controller = {
             var FEEDBACK_DATECREATED = null;
         }
 
+        // Adds user to ModifiedBy array of RequestModel
+        UserModel.findOne({Email: req.session.email}).then((user) => {
+            RequestModel.updateOne({_id: req.params.woid}, {$push: {ModifiedBy: user}},
+                function(err, req){ if(err) throw err; //console.log("ModifiedBy Added")
+            })
+        })
+
         // Searches the database for the four variables above 
         // as they are data already found on the database
         TypeModel.findOne({TypeName:TYPE}).then((type) => {
@@ -364,7 +371,7 @@ const controller = {
                         })
         
                         audit.save();
-                        
+
                         res.redirect('/');
                     })
             })
