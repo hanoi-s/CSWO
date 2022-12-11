@@ -4,6 +4,7 @@ const Employee = require('./employeeModel').schema;
 const Status = require('./statusModel').schema;
 const Category = require('./categoryModel').schema;
 const Type = require('./typeModel').schema;
+const User = require('./userModel').schema;
 
 const requestSchema = new mongoose.Schema({
     ReferenceNo: {type: String},
@@ -17,6 +18,9 @@ const requestSchema = new mongoose.Schema({
     DateApproved: {type: Date},
     Workers: {type: Array},
     Disabled: {type: Boolean, default: false},
+    CreatedBy: User,
+    DeletedBy: User,
+    ModifiedBy: [User],     // Can be multiple
     Status: Status,
     Category: Category,
     Type: Type,

@@ -142,17 +142,17 @@ const controller = {
         if (STATUS == "Approved") {
             var DATEAPPROVED = new Date();
 
-            var user = UserModel.findOne({Email: req.session.email});
-            var request = RequestModel.findOne({_id: req.body.woid});
-
-            const audit = new AuditModel({
-                DateCreated: new Date(),
-                Action: "Approved",
-                User: user,
-                Request: request,
+            UserModel.findOne({Email: req.session.email}).then((user) => { 
+                RequestModel.findOne({_id: req.params.woid}).then((request) => { 
+                    const auditApproval = new AuditModel({
+                        DateCreated: new Date(),
+                        Action: "Approved",
+                        User: user,
+                        Request: request,
+                    })
+                    AuditModel.insertMany(auditApproval);
+                })
             })
-
-            audit.save();
         } else {
             var DATEAPPROVED = null;
         }
@@ -200,6 +200,7 @@ const controller = {
                                     DateReceived: new Date(),
                                     DateApproved: DATEAPPROVED,
                                     DateCompleted: null,
+                                    CreatedBy: user,
                                     Requester: requester,       // This is where new Requester instance is stored
                                     Status: status,             // This is where the data from db is stored
                                     Category: category,         // This is where the data from db is stored
