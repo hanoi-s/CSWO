@@ -7,12 +7,12 @@ const Type = require('./typeModel').schema;
 
 const requestSchema = new mongoose.Schema({
     ReferenceNo: {type: String},
-    Location: {type: String, required: true},
-    Item: {type: String, required: true},
+    Location: {type: String},
+    Item: {type: String},
     Details: {type: String},
     Remarks: {type: String},    // Different from Requester Feedback. Remarks are to be filled up by CSWO stating the action taken / problems encountered
-    DateTarget: {type: Date, required: true},
-    DateReceived: {type: Date, required: true},
+    DateTarget: {type: Date},
+    DateReceived: {type: Date},
     DateCompleted: {type: Date},
     DateApproved: {type: Date},
     Workers: {type: Array},

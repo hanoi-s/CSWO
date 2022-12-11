@@ -139,6 +139,18 @@ const controller = {
 
         if (STATUS == "Approved") {
             var DATEAPPROVED = new Date();
+
+            var user = UserModel.findOne({Email: req.session.email});
+            var request = RequestModel.findOne({_id: req.body.woid});
+
+            const audit = new AuditModel({
+                DateCreated: new Date(),
+                Action: "Approved",
+                User: user,
+                Request: request,
+            })
+
+            audit.save();
         } else {
             var DATEAPPROVED = null;
         }
@@ -242,9 +254,35 @@ const controller = {
         switch(STATUS) {
             case "Approved":
                 var DATEAPPROVED = new Date();
+
+                UserModel.findOne({Email: req.session.email}).then((user) => { 
+                    RequestModel.findOne({_id: req.params.woid}).then((request) => { 
+                        const auditApproval = new AuditModel({
+                            DateCreated: new Date(),
+                            Action: "Approved",
+                            User: user,
+                            Request: request,
+                        })
+                        AuditModel.insertMany(auditApproval);
+                    })
+                })
+
                 break;
             case "Completed":
                 var DATECOMPLETED = new Date();
+
+                UserModel.findOne({Email: req.session.email}).then((user) => { 
+                    RequestModel.findOne({_id: req.params.woid}).then((request) => { 
+                        const auditCompletion = new AuditModel({
+                            DateCreated: new Date(),
+                            Action: "Completed",
+                            User: user,
+                            Request: request,
+                        })
+                        AuditModel.insertMany(auditCompletion);
+                    })
+                })
+
                 break;
             default:
                 var DATEAPPROVED = null;
@@ -257,10 +295,6 @@ const controller = {
         } else {
             var FEEDBACK_DATECREATED = null;
         }
-
-        // console.log(FEEDBACK_DATECREATED)
-
-        // console.log(feedback)
 
         // Searches the database for the four variables above 
         // as they are data already found on the database
@@ -507,7 +541,7 @@ const controller = {
     },
 
     getAuditLogs: async function(req, res) {
-        AuditModel.find({}).then((audits) => {
+        AuditModel.find({}).sort({ DateCreated: 'desc' }).then((audits) => {
             res.render("auditlogs", {audit:audits});
         })
     }
