@@ -7,6 +7,7 @@ const CategoryModel = require('../models/categoryModel.js');
 const StatusModel = require('../models/statusModel.js');
 const CriteriasModel = require('../models/criteriasModel.js');
 const FeedbackModel = require('../models/feedbackModel.js');
+const UserModel = require('../models/userModel.js');
 const PDFDocument = require('pdfkit');
 const pdfService = require('../js/pdf-service');
 
@@ -397,6 +398,50 @@ const controller = {
                     })
                 });
             } 
+        }
+    },
+
+    getRegister: async function(req, res) {
+        res.render('register');
+    },
+
+    postRegister: async function(req, res) {
+        let {firstname, lastname, idnumber, email, password, admin_boolean} = req.body;
+
+        if(admin_boolean === undefined) {
+            admin_boolean = false;
+        } else {
+            admin_boolean = true;
+        }
+
+        const user = new UserModel({
+            FirstName: firstname,
+            LastName: lastname,
+            IDNumber: idnumber,
+            Email: email,
+            Password: password,
+            Admin: admin_boolean
+        })
+
+        // Count is for checking if there are duplicate emails
+        UserModel.find( {Email: email} ).count().then((count) => { 
+            if(count > 0) {
+                error = "Email already exists. Use another one.";
+                res.render("register", {error});
+            } else {
+                UserModel.insertMany(user);
+                res.redirect('/register');
+            }
+        })
+        
+    },
+
+    getLogin: async function(req, res) {
+        // If there is already a session, user should be redirected to home
+        if(req.session.email){
+            res.redirect('/')
+        } else {
+            res.render('login');
         }
     },
 
