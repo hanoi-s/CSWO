@@ -21,7 +21,7 @@ routes.use(bodyParser.json());
 routes.use(bodyParser.urlencoded({extended : true}));
 
 
-// Getting HTML pages
+// Getting pages
 routes.get('/', controller.getDashboard);
 routes.get('/dashboard', controller.getDashboard);
 routes.get('/edit/:woid', controller.getWorkOrder);
@@ -30,22 +30,18 @@ routes.get('/new', controller.getNewOrder);
 routes.get('/summary', controller.getSummary);
 routes.get('/register', controller.getRegister);
 routes.get('/login', controller.getLogin);
-// routes.get('/logout', controller.getLogout);
 
 
-// Writing on DB
-routes.post('/postNewOrder', controller.postNewOrder);
-routes.post('/edit/:woid/update', controller.postUpdateOrder);
-routes.post('/postRegister', controller.postRegister);
-routes.post('/postLogin', controller.postLogin);
-routes.get('/logout', controller.getLogout);
 
-// Deleting on DB
-routes.post('/edit/delete', controller.postDeleteOrder);
+routes.post('/postNewOrder', controller.postNewOrder);              // Creating a Work Order
+routes.post('/edit/:woid/update', controller.postUpdateOrder);      // Editing a Work Order
+routes.post('/edit/delete', controller.postDeleteOrder);            // Deleting a Work Order
+routes.post('/postRegister', controller.postRegister);              // Creating a New User
+routes.post('/postLogin', controller.postLogin);                    // Logging in
+routes.get('/logout', controller.getLogout);                        // Logging out
 
 // Search DB
 routes.post('/search', controller.postSearchOrders);
-
 routes.post('/summary/daterange', controller.postDateRange);// get date range
 
 // Print

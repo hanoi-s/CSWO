@@ -23,3 +23,7 @@ $(document.body).on("click", "button", function(){
 
 
    <ul style="list-style-type:none;" id="ul_o"></ul>
+
+if(req.session.email) {
+    
+} else { res.redirect('/login'); }

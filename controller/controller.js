@@ -24,80 +24,90 @@ const controller = {
     },
 
     getNewOrder: function (req, res) {
-        // Renders new order page with data coming from database such as types, categories, employees, and status
-
-        // Query for reading all Types from the Database
-        db.findMany(TypeModel, {}, {}, function(typesresult){
-            // Query for reading all Categories from the Database
-            db.findMany(CategoryModel, {}, {}, function(categoriesresult){
-                // Query for reading all Employees from the Database
-                db.findMany(EmployeeModel, {}, {}, function(employeesresult){
-                    // Query for reading all Statuses from the Database
-                    db.findMany(StatusModel, {}, {}, function(statusesresult){
-                        res.render('new', {type:typesresult, category:categoriesresult, employee:employeesresult, status:statusesresult});
+        if(req.session.email) {
+            // Renders new order page with data coming from database such as types, categories, employees, and status
+            // Query for reading all Types from the Database
+            db.findMany(TypeModel, {}, {}, function(typesresult){
+                // Query for reading all Categories from the Database
+                db.findMany(CategoryModel, {}, {}, function(categoriesresult){
+                    // Query for reading all Employees from the Database
+                    db.findMany(EmployeeModel, {}, {}, function(employeesresult){
+                        // Query for reading all Statuses from the Database
+                        db.findMany(StatusModel, {}, {}, function(statusesresult){
+                            res.render('new', {type:typesresult, category:categoriesresult, employee:employeesresult, status:statusesresult});
+                        });
                     });
                 });
             });
-        });
+        } else { res.redirect('/login'); }
+        
 
     },
 
     getWorkOrder: function (req, res) {
-        // Renders work order page catering to a specific work order request
-        // also with data coming from database such as types, categories, employees, and status
+        if(req.session.email) {
+            // Renders work order page catering to a specific work order request
+            // also with data coming from database such as types, categories, employees, and status
 
-        // Query for reading all Types from the Database
-        db.findMany(TypeModel, {}, {}, function(typesresult){
-            // Query for reading all Categories from the Database
-            db.findMany(CategoryModel, {}, {}, function(categoriesresult){
-                // Query for reading all Employees from the Database
-                db.findMany(EmployeeModel, {}, {}, function(employeesresult){
-                    // Query for reading all Statuses from the Database
-                    db.findMany(StatusModel, {}, {}, function(statusesresult){
-                        db.findMany(CriteriasModel, {}, {}, function(criteriasresult) {
-                            db.findOne(RequestModel, {_id: req.params.woid}, {}, function(result){
-                                res.render('edit', {request:result, type:typesresult, category:categoriesresult, employee:employeesresult, status:statusesresult, criterias:criteriasresult});
+            // Query for reading all Types from the Database
+            db.findMany(TypeModel, {}, {}, function(typesresult){
+                // Query for reading all Categories from the Database
+                db.findMany(CategoryModel, {}, {}, function(categoriesresult){
+                    // Query for reading all Employees from the Database
+                    db.findMany(EmployeeModel, {}, {}, function(employeesresult){
+                        // Query for reading all Statuses from the Database
+                        db.findMany(StatusModel, {}, {}, function(statusesresult){
+                            db.findMany(CriteriasModel, {}, {}, function(criteriasresult) {
+                                db.findOne(RequestModel, {_id: req.params.woid}, {}, function(result){
+                                    res.render('edit', {request:result, type:typesresult, category:categoriesresult, employee:employeesresult, status:statusesresult, criterias:criteriasresult});
+                                });
                             });
                         });
                     });
                 });
             });
-        });
+        } else { res.redirect('/login'); }
+        
     },
 
     viewWorkOrder: function (req, res) {
-        // Renders work order page catering to a specific work order request
-        // also with data coming from database such as types, categories, employees, and status
+        if(req.session.email) {
+            // Renders work order page catering to a specific work order request
+            // also with data coming from database such as types, categories, employees, and status
 
-        // Query for reading all Types from the Database
-        db.findMany(TypeModel, {}, {}, function(typesresult){
-            // Query for reading all Categories from the Database
-            db.findMany(CategoryModel, {}, {}, function(categoriesresult){
-                // Query for reading all Employees from the Database
-                db.findMany(EmployeeModel, {}, {}, function(employeesresult){
-                    // Query for reading all Statuses from the Database
-                    db.findMany(StatusModel, {}, {}, function(statusesresult){
-                        db.findMany(CriteriasModel, {}, {}, function(criteriasresult) {
-                            db.findOne(RequestModel, {_id: req.params.woid}, {}, function(result){
-                                res.render('view', {request:result, type:typesresult, category:categoriesresult, employee:employeesresult, status:statusesresult, criterias:criteriasresult});
+            // Query for reading all Types from the Database
+            db.findMany(TypeModel, {}, {}, function(typesresult){
+                // Query for reading all Categories from the Database
+                db.findMany(CategoryModel, {}, {}, function(categoriesresult){
+                    // Query for reading all Employees from the Database
+                    db.findMany(EmployeeModel, {}, {}, function(employeesresult){
+                        // Query for reading all Statuses from the Database
+                        db.findMany(StatusModel, {}, {}, function(statusesresult){
+                            db.findMany(CriteriasModel, {}, {}, function(criteriasresult) {
+                                db.findOne(RequestModel, {_id: req.params.woid}, {}, function(result){
+                                    res.render('view', {request:result, type:typesresult, category:categoriesresult, employee:employeesresult, status:statusesresult, criterias:criteriasresult});
+                                });
                             });
                         });
                     });
                 });
             });
-        });
+        } else { res.redirect('/login'); }
+        
     },
     
     getSummary: function (req, res) {
-        RequestModel.find( {Disabled: false} ).count().then((totalWorkOrders) => { 
-            RequestModel.find( {Disabled: false, "Status.StatusName": "Pending for Approval"} ).count().then((pending) => { 
-                RequestModel.find( {Disabled: false, "Status.StatusName": "Approved"} ).count().then((approved) => { 
-                    RequestModel.find( {Disabled: false, "Status.StatusName": "Completed"} ).count().then((completed) => { 
-                        res.render('summary', {Total:totalWorkOrders, Pending:pending, Approved:approved, Completed:completed});
+        if(req.session.email) {
+            RequestModel.find( {Disabled: false} ).count().then((totalWorkOrders) => { 
+                RequestModel.find( {Disabled: false, "Status.StatusName": "Pending for Approval"} ).count().then((pending) => { 
+                    RequestModel.find( {Disabled: false, "Status.StatusName": "Approved"} ).count().then((approved) => { 
+                        RequestModel.find( {Disabled: false, "Status.StatusName": "Completed"} ).count().then((completed) => { 
+                            res.render('summary', {Total:totalWorkOrders, Pending:pending, Approved:approved, Completed:completed});
+                        })
                     })
                 })
             })
-        })
+        } else { res.redirect('/login'); }
     },
 
     postNewOrder: async function(req, res) {
@@ -291,19 +301,12 @@ const controller = {
     },
 
     postDeleteOrder: async function(req, res) {
-        // RequestModel.findByIdAndDelete(req.body.woid, function(err, result){
-        //     res.redirect('/');
-        // });
-
         RequestModel.updateOne({_id: req.body.woid}, 
             {$set: {
                 Disabled: true
             }}, function(request){
                 res.redirect('/');
             })
-
-
-
     },
 
     postSearchOrders: async function(req, res) {
