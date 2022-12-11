@@ -44,7 +44,7 @@ routes.get('/logout', controller.getLogout);
 routes.post('/edit/delete', controller.postDeleteOrder);
 
 // Search DB
-routes.post('/searchorders', controller.postSearchOrders);
+routes.post('/search', controller.postSearchOrders);
 
 routes.post('/summary/daterange', controller.postDateRange);// get date range
 

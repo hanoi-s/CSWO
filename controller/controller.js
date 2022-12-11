@@ -311,7 +311,7 @@ const controller = {
         var regKey = slash + req.body.keyword + slash
 
         RequestModel.find({$text: {$search: regKey}}).then((requests) => {
-            res.render('searchorders', {request:requests});  
+            res.render('search', {request:requests});  
         })
     },
 
