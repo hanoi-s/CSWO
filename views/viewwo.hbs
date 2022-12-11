@@ -296,14 +296,14 @@
             <div class="row">
                 {{!-- DELETE --}}
                 <div class="col-md-4 mb-3">
-                    <form action="/workorder/delete" method="POST" id="del_form">
+                    <form action="/edit/delete" method="POST" id="del_form">
                         <input type="hidden" name="woid" value="{{#each request}}{{_id}}{{/each}}">
                         <button type="submit" class="btn btn-danger btn-lg btn-block" id="delbtn_{{#each request}}{{ReferenceNo}}{{/each}}">Delete</button>
                     </form>
                 </div>
                 {{!-- EDIT --}}
                 <div class="col-md-4 mb-3">
-                    <a href="/workorder/{{#each request}}{{_id}}{{/each}}" style="text-decoration:none">
+                    <a href="/edit/{{#each request}}{{_id}}{{/each}}" style="text-decoration:none">
                         <button id="update_btn" class="btn btn-warning btn-lg btn-block" type="button" data-toggle="modal">Edit</button>
                     </a>
                 </div>

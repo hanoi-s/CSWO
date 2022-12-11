@@ -104,7 +104,7 @@
                         </th>
 
                         <th>
-                            <a href="/workorder/{{_id}}">
+                            <a href="/edit/{{_id}}">
                                 <button class="btn btn-warning" data-toggle="modal" title="Edit">
                                     <img src="\images\pencil-square.svg">
                                 </button>
@@ -112,8 +112,8 @@
                         </th>
 
                         <th>
-                            <form action="/workorder/delete" method="POST" id="form">
-                                <input data-href="/workorder/{{_id}}" type="hidden" name="woid" value="{{_id}}">
+                            <form action="/edit/delete" method="POST" id="form">
+                                <input data-href="/edit/{{_id}}" type="hidden" name="woid" value="{{_id}}">
                                 <button name="del_btn" type="submit" class="btn btn-danger" id="del_{{_id}}" title="Delete">
                                     <img src="\images\trash3.svg">
                                 </button>
@@ -148,7 +148,7 @@
                 {{#each request}}
                 {{#ifEquals Status.StatusName 'Approved'}}
                 {{#ifEquals Disabled false}}
-                <tr data-href="/workorder/{{_id}}">
+                <tr data-href="/edit/{{_id}}">
                     <td>{{ReferenceNo}}</td>
                     <td>{{dateFormat DateApproved}}</td>
                     <td>{{dateWithoutTime DateTarget}}</td>
@@ -168,7 +168,7 @@
                     </th>
 
                     <th>
-                        <a href="/workorder/{{_id}}">
+                        <a href="/edit/{{_id}}">
                             <button class="btn btn-warning" data-toggle="modal" title="Edit">
                                 <img src="\images\pencil-square.svg">
                             </button>
@@ -176,8 +176,8 @@
                     </th>
 
                     <th>
-                        <form action="/workorder/delete" method="POST" id="form">
-                            <input data-href="/workorder/{{_id}}" type="hidden" name="woid" value="{{_id}}">
+                        <form action="/edit/delete" method="POST" id="form">
+                            <input data-href="/edit/{{_id}}" type="hidden" name="woid" value="{{_id}}">
                             <button name="del_btn" type="submit" class="btn btn-danger" id="del_{{_id}}" title="Delete">
                                 <img src="\images\trash3.svg">
                             </button>
@@ -209,7 +209,7 @@
                 {{#each request}}
                 {{#ifEquals Status.StatusName 'Completed'}}
                  {{#ifEquals Disabled false}}
-                <tr data-href="/workorder/{{_id}}">
+                <tr data-href="/edit/{{_id}}">
                     <td>{{ReferenceNo}}</td>
                     <td>{{dateWithoutTime DateTarget}}</td>
                     <td>{{dateFormat DateCompleted}}</td>
@@ -229,7 +229,7 @@
                     </th>
 
                     <th>
-                        <a href="/workorder/{{_id}}">
+                        <a href="/edit/{{_id}}">
                             <button class="btn btn-warning" data-toggle="modal" title="Edit">
                                 <img src="\images\pencil-square.svg">
                             </button>
@@ -237,8 +237,8 @@
                     </th>
 
                     <th>
-                        <form action="/workorder/delete" method="POST" id="form">
-                            <input data-href="/workorder/{{_id}}" type="hidden" name="woid" value="{{_id}}">
+                        <form action="/edit/delete" method="POST" id="form">
+                            <input data-href="/edit/{{_id}}" type="hidden" name="woid" value="{{_id}}">
                             <button name="del_btn" type="submit" class="btn btn-danger" id="del_{{_id}}" title="Delete">
                                 <img src="\images\trash3.svg">
                             </button>

@@ -51,7 +51,7 @@ const controller = {
                     db.findMany(StatusModel, {}, {}, function(statusesresult){
                         db.findMany(CriteriasModel, {}, {}, function(criteriasresult) {
                             db.findOne(RequestModel, {_id: req.params.woid}, {}, function(result){
-                                res.render('workorder', {request:result, type:typesresult, category:categoriesresult, employee:employeesresult, status:statusesresult, criterias:criteriasresult});
+                                res.render('edit', {request:result, type:typesresult, category:categoriesresult, employee:employeesresult, status:statusesresult, criterias:criteriasresult});
                             });
                         });
                     });

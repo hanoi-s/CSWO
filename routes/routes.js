@@ -15,7 +15,7 @@ routes.use(bodyParser.urlencoded({extended : true}));
 // Getting HTML pages
 routes.get('/', controller.getDashboard);
 routes.get('/dashboard', controller.getDashboard);
-routes.get('/workorder/:woid', controller.getWorkOrder);
+routes.get('/edit/:woid', controller.getWorkOrder);
 routes.get('/viewwo/:woid', controller.viewWorkOrder);
 routes.get('/neworder', controller.getNewOrder);
 routes.get('/summary', controller.getSummary);
@@ -23,10 +23,10 @@ routes.get('/summary', controller.getSummary);
 
 // Writing on DB
 routes.post('/postNewOrder', controller.postNewOrder);
-routes.post('/workorder/:woid/update', controller.postUpdateOrder);
+routes.post('/edit/:woid/update', controller.postUpdateOrder);
 
 // Deleting on DB
-routes.post('/workorder/delete', controller.postDeleteOrder);
+routes.post('/edit/delete', controller.postDeleteOrder);
 
 // Search DB
 routes.post('/searchorders', controller.postSearchOrders);
@@ -34,7 +34,7 @@ routes.post('/searchorders', controller.postSearchOrders);
 routes.post('/summary/daterange', controller.postDateRange);// get date range
 
 // Print
-// routes.post('/printworkorder/:woid', controller.postPrintWorkOrder);
+// routes.post('/edit/:woid', controller.postPrintWorkOrder);
 
 
 // Export this file for other files to find
