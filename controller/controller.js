@@ -364,6 +364,7 @@ const controller = {
                         })
         
                         audit.save();
+                        
                         res.redirect('/');
                     })
             })
