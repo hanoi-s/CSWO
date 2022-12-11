@@ -51,6 +51,11 @@
         </nav>
         
         <div class="container-fluid">
+            <div class="py-5 text-center">
+            <img class="d-block mx-auto mb-4" src="\images\dlsu.png" alt="" width="72" height="72">
+            <h2>Civil Works and Sanitary Office</h2>
+            <p class="lead">DASHBOARD</p>
+        </div>
             <ul class="nav nav-tabs" id="nav-tab" role="tablist">
                 <form class="navbar-form navbar-right" action="/search" method="POST">
                     <div class="form-group">
@@ -65,7 +70,9 @@
         <table class="table table-hover">
             <thead>
                 <tr>
+                    <th scope="col">ReferenceID</th>
                     <th scope="col">Date Received</th>
+                    <th scope="col">Target Date of Completion</th>
                     <th scope="col">In Charge</th>
                     <th scope="col">Location</th>
                     <th scope="col">Item</th>
@@ -73,13 +80,14 @@
                     <th scope="col">Type</th>
                     <th scope="col">Details</th>
                     <th scope="col">Requester</th>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
+                    <th colspan="3"></th>
                 </tr>
             </thead>
             {{#each request}}
             <tr>
-                <td>{{DateReceived}}</td>
+                <td>{{ReferenceNo}}</td>
+                <td>{{dateFormat DateReceived}}</td>
+                <td>{{dateWithoutTime DateTarget}}</td>
                 <td>{{InCharge.FirstName}}</td>
                 <td>{{Location}}</td>
                 <td>{{Item}}</td>
@@ -87,7 +95,31 @@
                 <td>{{Type.TypeName}}</td>
                 <td>{{Details}}</td>
                 <td>{{Requester.FirstName}} {{Requester.LastName}}</td>
-                <th><button><a href="/edit/{{_id}}"><img src="\images\pencil-square.svg"></a></button></th>
+                <th>
+                    <a href="/view/{{_id}}">
+                        <button class="btn btn-success" data-toggle="modal" title="View">
+                            <img src="\images\view.svg" width="20px">
+                        </button>
+                    </a>
+                </th>
+
+                <th>
+                    <a href="/edit/{{_id}}">
+                        <button class="btn btn-warning" data-toggle="modal" title="Edit">
+                            <img src="\images\pencil-square.svg">
+                        </button>
+                    </a>
+                </th>
+
+                <th>
+                    <form action="/edit/delete" method="POST" id="form">
+                        <input data-href="/edit/{{_id}}" type="hidden" name="woid" value="{{_id}}">
+                        <button name="del_btn" type="submit" class="btn btn-danger" id="delbtn_{{ReferenceNo}}" title="Delete">
+                            <img src="\images\trash3.svg">
+                        </button>
+                    </form>
+                </th>
+
             </tr>
             {{/each}}
         </table>
