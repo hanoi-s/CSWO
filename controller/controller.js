@@ -469,9 +469,14 @@ const controller = {
     },
 
     getRegister: async function(req, res) {
-        if(req.session.email) {
-            res.render('register');
-        } else { res.redirect('/login'); }
+
+        UserModel.findOne({Email: req.session.email}).then((user) => { 
+            if(user.Admin == true){
+                res.render('register');
+            } else {
+                res.redirect('/');
+            }
+        })
     },
 
     postRegister: async function(req, res) {
