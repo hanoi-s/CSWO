@@ -57,8 +57,26 @@
         </div>
 
         <ul class="nav nav-tabs" id="nav-tab" role="tablist">
-            <li class="nav-link active" id="nav-created-tab" data-toggle="tab" data-target="#nav-created" type="button"
-                role="presentation" aria-controls="nav-created" aria-selected="true"><a href="/auditlogs/created">All</a></li>
+            <li class="nav-link active" id="nav-all-tab" data-toggle="tab" data-target="#nav-all" type="button"
+                role="presentation" aria-controls="nav-all" aria-selected="true"><a href="/auditlogs/all">All</a></li>
+
+            <li class="nav-link" id="nav-created-tab" data-toggle="tab" data-target="#nav-created" type="button"
+                role="presentation" aria-controls="nav-created" aria-selected="true"><a href="/auditlogs/created">Created</a></li>
+
+            {{!-- <li class="nav-link" id="nav-edited-tab" data-toggle="tab" data-target="#nav-edited" type="button"
+                role="presentation" aria-controls="nav-edited" aria-selected="true"><a href="/auditlogs/edited">Edited</a></li> --}}
+
+            <li class="nav-link" id="nav-deleted-tab" data-toggle="tab" data-target="#nav-deleted" type="button"
+                role="presentation" aria-controls="nav-deleted" aria-selected="true"><a href="/auditlogs/deleted">Deleted</a></li>
+
+            <li class="nav-link" id="nav-approved-tab" data-toggle="tab" data-target="#nav-approved" type="button"
+                role="presentation" aria-controls="nav-approved" aria-selected="true"><a href="/auditlogs/approved">Approved</a></li>
+
+            <li class="nav-link" id="nav-completed-tab" data-toggle="tab" data-target="#nav-completed" type="button"
+                role="presentation" aria-controls="nav-completed" aria-selected="true"><a href="/auditlogs/completed">Completed</a></li>
+
+            {{!-- <li class="nav-link" id="nav-printed-tab" data-toggle="tab" data-target="#nav-printed" type="button"
+                role="presentation" aria-controls="nav-printed" aria-selected="true"><a href="/auditlogs/printed">Printed</a></li> --}}
 
             
             <form class="navbar-form navbar-right" action="/" method="POST">
@@ -84,7 +102,7 @@
                         </tr>
                     </thead>
                     {{#each audit}}
-                    <tr>
+                    <tr data-href="/view/{{Request._id}}">
                         <td scope="col">{{dateFormat DateCreated}}</td>
                         <td scope="col">{{User.FirstName}} {{User.LastName}}</td>
                         <td scope="col">{{Action}} a Work Order</td>
@@ -94,11 +112,112 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="tab-pane p-3" id="nav-created" role="tabpanel" aria-labelledby="nav-created-tab">
+            <table class="table table-hover">
+                <tbody>
+                    <thead>
+                        <tr>
+                            <th scope="col">Time</th>
+                            <th scope="col">Performed By</th>
+                            <th scope="col">Action</th>
+                            <th scope="col">Work Order No.</th>
+                        </tr>
+                    </thead>
+                    {{#each audit}}
+                    {{#ifEquals Action 'Created'}}
+                    <tr data-href="/view/{{Request._id}}">
+                        <td scope="col">{{dateFormat DateCreated}}</td>
+                        <td scope="col">{{User.FirstName}} {{User.LastName}}</td>
+                        <td scope="col">{{Action}} a Work Order</td>
+                        <td scope="col">{{Request.ReferenceNo}}</td>
+                    </tr>
+                    {{/ifEquals}}
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="tab-pane p-3" id="nav-deleted" role="tabpanel" aria-labelledby="nav-deleted-tab">
+            <table class="table table-hover">
+                <tbody>
+                    <thead>
+                        <tr>
+                            <th scope="col">Time</th>
+                            <th scope="col">Performed By</th>
+                            <th scope="col">Action</th>
+                            <th scope="col">Work Order No.</th>
+                        </tr>
+                    </thead>
+                    {{#each audit}}
+                    {{#ifEquals Action 'Deleted'}}
+                    <tr data-href="/view/{{_id}}">
+                        <td scope="col">{{dateFormat DateCreated}}</td>
+                        <td scope="col">{{User.FirstName}} {{User.LastName}}</td>
+                        <td scope="col">{{Action}} a Work Order</td>
+                        <td scope="col">{{Request.ReferenceNo}}</td>
+                    </tr>
+                    {{/ifEquals}}
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="tab-pane p-3" id="nav-approved" role="tabpanel" aria-labelledby="nav-approved-tab">
+            <table class="table table-hover">
+                <tbody>
+                    <thead>
+                        <tr>
+                            <th scope="col">Time</th>
+                            <th scope="col">Performed By</th>
+                            <th scope="col">Action</th>
+                            <th scope="col">Work Order No.</th>
+                        </tr>
+                    </thead>
+                    {{#each audit}}
+                    {{#ifEquals Action 'Approved'}}
+                    <tr data-href="/view/{{_id}}">
+                        <td scope="col">{{dateFormat DateCreated}}</td>
+                        <td scope="col">{{User.FirstName}} {{User.LastName}}</td>
+                        <td scope="col">{{Action}} a Work Order</td>
+                        <td scope="col">{{Request.ReferenceNo}}</td>
+                    </tr>
+                    {{/ifEquals}}
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="tab-pane p-3" id="nav-completed" role="tabpanel" aria-labelledby="nav-completed-tab">
+            <table class="table table-hover">
+                <tbody>
+                    <thead>
+                        <tr data-href="/view/{{_id}}">
+                            <th scope="col">Time</th>
+                            <th scope="col">Performed By</th>
+                            <th scope="col">Action</th>
+                            <th scope="col">Work Order No.</th>
+                        </tr>
+                    </thead>
+                    {{#each audit}}
+                    {{#ifEquals Action 'Completed'}}
+                    <tr data-href="/view/{{Request._id}}">
+                        <td scope="col">{{dateFormat DateCreated}}</td>
+                        <td scope="col">{{User.FirstName}} {{User.LastName}}</td>
+                        <td scope="col">{{Action}} a Work Order</td>
+                        <td scope="col">{{Request.ReferenceNo}}</td>
+                    </tr>
+                    {{/ifEquals}}
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+
+
     </div>
 
     <script>
         $(document).ready(function () {
-            console.log("here");
             $(document.body).on("click", "tr[data-href]", function () {
                 window.location.href = this.dataset.href;
             });
