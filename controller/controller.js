@@ -34,7 +34,7 @@ const controller = {
                 db.findMany(EmployeeModel, {}, {}, function(employeesresult){
                     // Query for reading all Statuses from the Database
                     db.findMany(StatusModel, {}, {}, function(statusesresult){
-                        res.render('neworder', {type:typesresult, category:categoriesresult, employee:employeesresult, status:statusesresult});
+                        res.render('new', {type:typesresult, category:categoriesresult, employee:employeesresult, status:statusesresult});
                     });
                 });
             });
