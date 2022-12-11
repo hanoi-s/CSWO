@@ -30,7 +30,7 @@ routes.get('/new', controller.getNewOrder);
 routes.get('/summary', controller.getSummary);
 routes.get('/register', controller.getRegister);
 routes.get('/login', controller.getLogin);
-
+routes.get('/auditlogs', controller.getAuditLogs);
 
 
 routes.post('/postNewOrder', controller.postNewOrder);              // Creating a Work Order
@@ -39,6 +39,7 @@ routes.post('/edit/delete', controller.postDeleteOrder);            // Deleting 
 routes.post('/postRegister', controller.postRegister);              // Creating a New User
 routes.post('/postLogin', controller.postLogin);                    // Logging in
 routes.get('/logout', controller.getLogout);                        // Logging out
+
 
 // Search DB
 routes.post('/search', controller.postSearchOrders);
