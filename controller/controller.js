@@ -13,10 +13,14 @@ const pdfService = require('../js/pdf-service');
 
 const controller = {
     getDashboard: function (req, res) {
-        // Renders dashboard page with all requests from database
-        RequestModel.find( {} ).sort({ DateReceived: 'asc' }).then((workOrders) => { 
+        if(req.session.email) {
+            // Renders dashboard page with all requests from database
+            RequestModel.find( {} ).sort({ DateReceived: 'asc' }).then((workOrders) => { 
                 res.render('dashboard', {request:workOrders});  
-        });
+            }); 
+        } else {
+            res.redirect('/login');
+        }
     },
 
     getNewOrder: function (req, res) {
@@ -465,6 +469,13 @@ const controller = {
                     }
                 })
             }
+        })
+    },
+
+    getLogout: async function(req, res) {
+        req.session.destroy(function(err) {
+            if(err) throw err;
+            res.redirect('login');
         })
     },
 

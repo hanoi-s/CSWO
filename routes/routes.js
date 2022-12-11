@@ -38,6 +38,7 @@ routes.post('/postNewOrder', controller.postNewOrder);
 routes.post('/edit/:woid/update', controller.postUpdateOrder);
 routes.post('/postRegister', controller.postRegister);
 routes.post('/postLogin', controller.postLogin);
+routes.get('/logout', controller.getLogout);
 
 // Deleting on DB
 routes.post('/edit/delete', controller.postDeleteOrder);
