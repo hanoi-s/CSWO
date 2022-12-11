@@ -17,7 +17,9 @@ const controller = {
         if(req.session.email) {
             // Renders dashboard page with all requests from database
             RequestModel.find( {} ).sort({ DateReceived: 'asc' }).then((workOrders) => { 
-                res.render('dashboard', {request:workOrders});  
+                UserModel.findOne({Email: req.session.email}).then((user) => { 
+                    res.render('dashboard', {request:workOrders, user:user}); 
+                })
             }); 
         } else {
             res.redirect('/login');
@@ -467,7 +469,9 @@ const controller = {
     },
 
     getRegister: async function(req, res) {
-        res.render('register');
+        if(req.session.email) {
+            res.render('register');
+        } else { res.redirect('/login'); }
     },
 
     postRegister: async function(req, res) {
