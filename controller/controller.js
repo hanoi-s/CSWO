@@ -79,7 +79,7 @@ const controller = {
                     db.findMany(StatusModel, {}, {}, function(statusesresult){
                         db.findMany(CriteriasModel, {}, {}, function(criteriasresult) {
                             db.findOne(RequestModel, {_id: req.params.woid}, {}, function(result){
-                                res.render('viewwo', {request:result, type:typesresult, category:categoriesresult, employee:employeesresult, status:statusesresult, criterias:criteriasresult});
+                                res.render('view', {request:result, type:typesresult, category:categoriesresult, employee:employeesresult, status:statusesresult, criterias:criteriasresult});
                             });
                         });
                     });
@@ -281,7 +281,7 @@ const controller = {
                 
             }}, function(request){
                 RequestModel.findOne({_id: req.params.woid}, {}, function(result2){
-                    res.redirect('/viewwo/' + req.params.woid);
+                    res.redirect('/view/' + req.params.woid);
                 });
             })
             })

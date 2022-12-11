@@ -25,7 +25,7 @@ routes.use(bodyParser.urlencoded({extended : true}));
 routes.get('/', controller.getDashboard);
 routes.get('/dashboard', controller.getDashboard);
 routes.get('/edit/:woid', controller.getWorkOrder);
-routes.get('/viewwo/:woid', controller.viewWorkOrder);
+routes.get('/view/:woid', controller.viewWorkOrder);
 routes.get('/neworder', controller.getNewOrder);
 routes.get('/summary', controller.getSummary);
 routes.get('/register', controller.getRegister);
