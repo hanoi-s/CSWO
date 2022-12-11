@@ -161,11 +161,15 @@ const controller = {
                                 var count0 = count0 + 1;
                                 var count = count0.toString();
 
+                                console.log(totalWorkOrders)
+
+                                totalWorkOrders = totalWorkOrders+1;
+
                                 if(totalWorkOrders < 10) {
                                     var padding = "00000";
-                                } else if (totalWorkOrders < 100 && totalWorkOrders >= 10) {
+                                } if (totalWorkOrders < 100 && totalWorkOrders >= 10) {
                                     var padding = "0000";
-                                } else if (totalWorkOrders > 100) {
+                                } if (totalWorkOrders >= 100) {
                                     var padding = "000";
                                 } 
 
@@ -307,12 +311,26 @@ const controller = {
     },
 
     postDeleteOrder: async function(req, res) {
-        RequestModel.updateOne({_id: req.body.woid}, 
-            {$set: {
-                Disabled: true
-            }}, function(request){
-                res.redirect('/');
+        RequestModel.findOne({_id: req.body.woid}).then((request) => {
+            UserModel.findOne({Email: req.session.email}).then((user) => {
+                RequestModel.updateOne({_id: req.body.woid}, 
+                    {$set: {
+                        Disabled: true,
+                        DeletedBy: user
+                    }}, function(result){
+        
+                        const audit = new AuditModel({
+                            DateCreated: new Date(),
+                            Action: "Deleted",
+                            User: user,
+                            Request: request,
+                        })
+        
+                        audit.save();
+                        res.redirect('/');
+                    })
             })
+        })
     },
 
     postSearchOrders: async function(req, res) {
