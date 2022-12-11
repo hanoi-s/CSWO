@@ -46,7 +46,7 @@ routes.post('/search', controller.postSearchOrders);
 routes.post('/summary/daterange', controller.postDateRange);// get date range
 
 // Print
-// routes.post('/edit/:woid', controller.postPrintWorkOrder);
+routes.get('/print/:woid', controller.getPrintWorkOrder);
 
 
 // Export this file for other files to find

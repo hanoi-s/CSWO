@@ -9,10 +9,40 @@ const CriteriasModel = require('../models/criteriasModel.js');
 const FeedbackModel = require('../models/feedbackModel.js');
 const UserModel = require('../models/userModel.js');
 const AuditModel = require('../models/auditModel.js');
-const PDFDocument = require('pdfkit');
-const pdfService = require('../js/pdf-service');
+const PDFDocument = require('../js/pdfkit-tables.js');
+const fs = require('fs');
 
 const controller = {
+
+    // References:
+        // https://www.youtube.com/watch?v=VR8Q43bJfwc
+        // https://pdfkit.org/docs/text.html
+    getPrintWorkOrder : async function(req, res) {
+        RequestModel.findOne({_id: req.params.woid}).then((request) => { 
+            console.log(request.ReferenceNo);
+            const doc = new PDFDocument();
+            var filename = request.ReferenceNo.toString() + ".pdf";
+            doc.pipe(fs.createWriteStream(filename));
+            doc.fontSize(20).text("WORK ORDER FORM");
+            doc.fontSize(15).text("Request Information");
+            doc.fontSize(10).text("Reference Number: " + request.ReferenceNo);
+            doc.fontSize(10).text("Location: " + request.Location);
+            doc.fontSize(10).text("Item: " + request.Item);
+            doc.fontSize(10).text("Category: " + request.Category.CategoryName);
+            doc.fontSize(10).text("Type of Service: " + request.Type.TypeName);
+            doc.fontSize(10).text("Target Date of Completion: " + request.DateTarget);
+            doc.fontSize(10).text("Details: " + request.Details);
+            doc.fontSize(10).text("In Charge: " + request.InCharge.FirstName);
+            doc.fontSize(15).text("Requester Information");
+            doc.fontSize(10).text("Name: " + request.Requester.FirstName + request.Requester.LastName);
+            doc.fontSize(10).text("Email: " + request.Requester.Email);
+            doc.fontSize(10).text("Department: " + request.Requester.Department);
+            
+            doc.end();
+            res.redirect('/view/' + req.params.woid);
+        });
+    },
+
     getDashboard: function (req, res) {
         if(req.session.email) {
             // Renders dashboard page with all requests from database
@@ -562,27 +592,9 @@ const controller = {
         AuditModel.find({}).sort({ DateCreated: 'desc' }).then((audits) => {
             res.render("auditlogs", {audit:audits});
         })
-    }
+    },
 
-    // postPrintWorkOrder : async function(req, res) {
-    //     const stream = res.writeHead(200, {
-    //         'Content-Type': 'application/pdf',
-    //         'Content-Disposition': 'attachment;filename=workorder.pdf',
-    //     });
-
-    //     function buildPDF(dataCallback, endCallback) {
-    //         const doc = new PDFDocument();
-    //         doc.on('data', dataCallback);
-    //         doc.on('end', endCallback);
-    //         doc.fontSize(20).text("Some text");
-    //         doc.end();
-    //     }
-
-    //     pdfService.buildPDF(
-    //         (chunk) => stream.write(chunk),
-    //         () => stream.end()
-    //     );
-    // }
+    
 
 }
 
