@@ -445,6 +445,29 @@ const controller = {
         }
     },
 
+    postLogin: async function(req, res) {
+        let {email, password} = req.body;
+
+        // Count is for checking if there are duplicate emails
+        UserModel.find( {Email: email} ).count().then((count) => { 
+            if(count == 0) {
+                error = "Email does not exist";
+                res.render("login", {error});
+            } else {
+                UserModel.findOne( {Email: email} ).then((user) => {
+                    if(user.Password == password) {
+                        req.session.email = req.body.email;
+                        console.log("req.session: " + req.session.email);
+                        res.redirect('/');
+                    } else {
+                        error = "Wrong password";
+                        res.render("login", {error});
+                    }
+                })
+            }
+        })
+    },
+
     // postPrintWorkOrder : async function(req, res) {
     //     const stream = res.writeHead(200, {
     //         'Content-Type': 'application/pdf',
