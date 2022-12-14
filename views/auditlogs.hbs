@@ -38,8 +38,13 @@
                     </li>
 
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{user.FirstName}} {{user.LastName}}<span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                            aria-expanded="false">{{user.FirstName}} {{user.LastName}}<span class="caret"></span></a>
                         <ul class="dropdown-menu">
+                            {{#ifEquals user.Admin true}}
+                            <li><a href="/register">Register</a></li>
+                            {{/ifEquals}}
+                            <li><a href="#">Change Password</a></li>
                             <li><a href="/logout">Logout</a></li>
                         </ul>
                     </li>
@@ -61,27 +66,34 @@
                 role="presentation" aria-controls="nav-all" aria-selected="true"><a href="/auditlogs/all">All</a></li>
 
             <li class="nav-link" id="nav-created-tab" data-toggle="tab" data-target="#nav-created" type="button"
-                role="presentation" aria-controls="nav-created" aria-selected="true"><a href="/auditlogs/created">Created</a></li>
+                role="presentation" aria-controls="nav-created" aria-selected="true"><a
+                    href="/auditlogs/created">Created</a></li>
 
             {{!-- <li class="nav-link" id="nav-edited-tab" data-toggle="tab" data-target="#nav-edited" type="button"
-                role="presentation" aria-controls="nav-edited" aria-selected="true"><a href="/auditlogs/edited">Edited</a></li> --}}
+                role="presentation" aria-controls="nav-edited" aria-selected="true"><a
+                    href="/auditlogs/edited">Edited</a></li> --}}
 
             <li class="nav-link" id="nav-deleted-tab" data-toggle="tab" data-target="#nav-deleted" type="button"
-                role="presentation" aria-controls="nav-deleted" aria-selected="true"><a href="/auditlogs/deleted">Deleted</a></li>
+                role="presentation" aria-controls="nav-deleted" aria-selected="true"><a
+                    href="/auditlogs/deleted">Deleted</a></li>
 
             <li class="nav-link" id="nav-approved-tab" data-toggle="tab" data-target="#nav-approved" type="button"
-                role="presentation" aria-controls="nav-approved" aria-selected="true"><a href="/auditlogs/approved">Approved</a></li>
+                role="presentation" aria-controls="nav-approved" aria-selected="true"><a
+                    href="/auditlogs/approved">Approved</a></li>
 
             <li class="nav-link" id="nav-completed-tab" data-toggle="tab" data-target="#nav-completed" type="button"
-                role="presentation" aria-controls="nav-completed" aria-selected="true"><a href="/auditlogs/completed">Completed</a></li>
+                role="presentation" aria-controls="nav-completed" aria-selected="true"><a
+                    href="/auditlogs/completed">Completed</a></li>
 
             {{!-- <li class="nav-link" id="nav-printed-tab" data-toggle="tab" data-target="#nav-printed" type="button"
-                role="presentation" aria-controls="nav-printed" aria-selected="true"><a href="/auditlogs/printed">Printed</a></li> --}}
+                role="presentation" aria-controls="nav-printed" aria-selected="true"><a
+                    href="/auditlogs/printed">Printed</a></li> --}}
 
-            
+
             <form class="navbar-form navbar-right" action="/" method="POST">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search for keywords" id="keyword" name="keyword">
+                    <input type="text" class="form-control" placeholder="Search for keywords" id="keyword"
+                        name="keyword">
                 </div>
                 <button type="submit" class="btn btn-secondary">Search</button>
             </form>

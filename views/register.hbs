@@ -15,7 +15,7 @@
 
     <style>
         .gradient-custom-3 {
-            background: #84fab0;
+            background: #313131;
             background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5));
             background: linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5))
         }
@@ -47,31 +47,32 @@
                                     <div class="row mb-3">
                                         <div class="col">
                                             <label class="form-label mb-1" for="firstname">First Name</label>
-                                            <input type="text" id="firstname" class="form-control form-control-lg" placeholder="First Name" value="Shanicka" required/>
+                                            <input type="text" id="firstname" class="form-control form-control-lg"
+                                                placeholder="First Name" required />
                                         </div>
                                         <div class="col">
                                             <label class="form-label mb-1" for="lastname">Last Name</label>
-                                            <input type="text" id="lastname" class="form-control form-control-lg" placeholder="Last Name" value="Minor" required/>
+                                            <input type="text" id="lastname" class="form-control form-control-lg"
+                                                placeholder="Last Name" required />
                                         </div>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label mb-1" for="email">Email</label>
                                         <input type="email" id="email" name="email" class="form-control form-control-lg"
-                                            placeholder="E-mail Address" value="shan@gmail.com" required>
+                                            placeholder="E-mail Address" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label mb-1" for="pass">Password</label>
+                                        <label class="form-label mb-1" for="password">Password</label>
                                         <input type="password" id="password" name="password" minlength="8"
-                                            class="form-control form-control-lg" placeholder="Password" value="password"
-                                            required>
+                                            class="form-control form-control-lg" placeholder="Password" required>
                                     </div>
                                     <div class="mb-3">
-                                        <label class="form-label mb-2" for="pass">Confirm Password</label>
+                                        <label class="form-label mb-2" for="confirmPassword">Confirm Password</label>
                                         <input type="password" id="confirmPassword" class="form-control form-control-lg"
-                                            placeholder="Confirm password" value="password" required />
+                                            placeholder="Confirm password" required />
                                     </div>
 
-                                    <div class="text-center mb-1 text-danger"  id="errors">
+                                    <div class="text-center mb-1 text-danger" id="errors">
                                         <i>{{error}}</i>
                                     </div>
 
@@ -82,14 +83,14 @@
                                     </div>
 
                                     <div class="d-flex justify-content-center">
-                                        <button type="submit"
-                                            class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
+                                        <button type="button" class="btn btn-success gradient-custom-3 text-body" onclick="history.back()">< Go Back</button>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <button type="submit" class="btn btn-success gradient-custom-4 text-body">Register Account</button>
                                     </div>
 
-                                    <p class="text-center text-muted mt-5 mb-0">Already have an account? <a
-                                            href="/login" class="fw-bold text-body"><u>Login here</u></a></p>
+                                    {{!-- <p class="text-center text-muted mt-5 mb-0">Already have an account? <a
+                                            href="/login" class="fw-bold text-body"><u>Login here</u></a></p> --}}
                                 </form>
-
                             </div>
                         </div>
                     </div>

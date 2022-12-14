@@ -36,17 +36,17 @@
             <div class="navbar-header">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="/dashboard">
-                        <img alt="Civil and Sanitary Works Office - De La Salle University" src="\images\dlsu.png" width="20"
-                            height="20">
+                        <img alt="Civil and Sanitary Works Office - De La Salle University" src="\images\dlsu.png"
+                            width="20" height="20">
                     </a>
                 </div>
             </div>
 
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                        <li><a href="/dashboard">Current Work Orders</a></li>
-                        <li><a href="/new">Create New Work Order</a></li>
-                        <li><a href="/summary">Report Summary</a></li>
+                    <li><a href="/dashboard">Current Work Orders</a></li>
+                    <li><a href="/new">Create New Work Order</a></li>
+                    <li><a href="/summary">Report Summary</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="nav-item">
@@ -54,8 +54,13 @@
                     </li>
 
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{user.FirstName}} {{user.LastName}}<span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                            aria-expanded="false">{{user.FirstName}} {{user.LastName}}<span class="caret"></span></a>
                         <ul class="dropdown-menu">
+                            {{#ifEquals user.Admin true}}
+                            <li><a href="/register">Register</a></li>
+                            {{/ifEquals}}
+                            <li><a href="#">Change Password</a></li>
                             <li><a href="/logout">Logout</a></li>
                         </ul>
                     </li>
@@ -63,9 +68,9 @@
             </div>
         </div>
     </nav>
-
-    <form action="/edit/{{#each request}}{{_id}}{{/each}}/update" method="POST" class="needs-validation" id="submit_form">
-        <div class="container">
+    <div class="container">
+        <form action="/edit/{{#each request}}{{_id}}{{/each}}/update" method="POST" class="needs-validation"
+            id="submit_form">
             <div class="py-5 text-center">
                 <img class="d-block mx-auto mb-4" src="\images\dlsu.png" alt="" width="72" height="72">
                 <h2>Civil Works and Sanitary Office</h2>
@@ -78,11 +83,14 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="location">Location</label>
-                            <input type="text" class="form-control" name="location" id="location" placeholder="Location in Campus" value="{{#each request}}{{Location}}{{/each}}" required>
+                            <input type="text" class="form-control" name="location" id="location"
+                                placeholder="Location in Campus" value="{{#each request}}{{Location}}{{/each}}"
+                                required>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="item">Item</label>
-                            <input type="text" class="form-control" id="item" name="item" placeholder="Item"  value="{{#each request}}{{Item}}{{/each}}" required>
+                            <input type="text" class="form-control" id="item" name="item" placeholder="Item"
+                                value="{{#each request}}{{Item}}{{/each}}" required>
                         </div>
                     </div>
                     <br>
@@ -90,25 +98,28 @@
                         <div class="col-md-3 mb-3">
                             <label for="workCtg">Category of Work</label>
                             <select class="form-control" id="workCtg" name="workCtg" required>
-                            <option value="{{#each request}}{{Category.CategoryName}}{{/each}}">{{#each request}}{{Category.CategoryName}}{{/each}}</option>
-                            {{#each category}}
-                            <option value="{{CategoryName}}">{{CategoryName}}</option>
-                            {{/each}}
+                                <option value="{{#each request}}{{Category.CategoryName}}{{/each}}">{{#each
+                                    request}}{{Category.CategoryName}}{{/each}}</option>
+                                {{#each category}}
+                                <option value="{{CategoryName}}">{{CategoryName}}</option>
+                                {{/each}}
                             </select>
                         </div>
                         <div class="col-md-3 mb-3">
                             <label for="workType">Type of Work</label>
                             <select class="form-control" id="workType" name="workType" required>
-                            <option value="{{#each request}}{{Type.TypeName}}{{/each}}">{{#each request}}{{Type.TypeName}}{{/each}}</option>
-                            {{#each type}}
-                            <option value="{{TypeName}}">{{TypeName}}</option>
-                            {{/each}}
+                                <option value="{{#each request}}{{Type.TypeName}}{{/each}}">{{#each
+                                    request}}{{Type.TypeName}}{{/each}}</option>
+                                {{#each type}}
+                                <option value="{{TypeName}}">{{TypeName}}</option>
+                                {{/each}}
                             </select>
                         </div>
                         <div class="col-md-4 mb-3">
                             <div class="form-group">
                                 <label class="control-label" for="targetdate">Target Date of Completion</label>
-                                <input class="form-control" id="targetdate" name="targetdate" placeholder="MM/DD/YYY" type="text" value="{{#each request}}{{DateTarget}}{{/each}}" required/>
+                                <input class="form-control" id="targetdate" name="targetdate" placeholder="MM/DD/YYY"
+                                    type="text" value="{{#each request}}{{DateTarget}}{{/each}}" required />
                             </div>
                         </div>
                     </div>
@@ -116,7 +127,8 @@
                     <div class="row">
                         <div class="col-md-10 mb-3">
                             <label for="details">Other Request Details:</label>
-                            <textarea class="form-control" rows="3" name="details" id="details">{{#each request}}{{Details}}{{/each}}</textarea>
+                            <textarea class="form-control" rows="3" name="details"
+                                id="details">{{#each request}}{{Details}}{{/each}}</textarea>
                         </div>
                     </div>
                     <br>
@@ -124,7 +136,8 @@
                         <div class="col-md-3 mb-3">
                             <label for="incharge">In Charge</label>
                             <select class="form-control" id="incharge" name="incharge" required>
-                                <option value="{{#each request}}{{InCharge.FirstName}}{{/each}}">{{#each request}}{{InCharge.FirstName}}{{/each}}</option>
+                                <option value="{{#each request}}{{InCharge.FirstName}}{{/each}}">{{#each
+                                    request}}{{InCharge.FirstName}}{{/each}}</option>
                                 {{#each employee}}
                                 <option value="{{FirstName}}">{{FirstName}}</option>
                                 {{/each}}
@@ -133,16 +146,17 @@
                         <div class="col-md-3 mb-3">
                             <label for="status">Status</label>
                             <select class="form-control" id="status" name="status" required>
-                            <option value="{{#each request}}{{Status.StatusName}}{{/each}}">{{#each request}}{{Status.StatusName}}{{/each}}</option>
-                            {{#each request}}
-                            {{#ifEquals Status.StatusName 'Pending for Approval'}}
-                            <option value="Approved">Approved</option>
-                            {{/ifEquals}}
+                                <option value="{{#each request}}{{Status.StatusName}}{{/each}}">{{#each
+                                    request}}{{Status.StatusName}}{{/each}}</option>
+                                {{#each request}}
+                                {{#ifEquals Status.StatusName 'Pending for Approval'}}
+                                <option value="Approved">Approved</option>
+                                {{/ifEquals}}
 
-                            {{#ifEquals Status.StatusName 'Approved'}}
-                            <option value="Completed">Completed</option>
-                            {{/ifEquals}}
-                            {{/each}}
+                                {{#ifEquals Status.StatusName 'Approved'}}
+                                <option value="Completed">Completed</option>
+                                {{/ifEquals}}
+                                {{/each}}
                             </select>
                         </div>
                     </div>
@@ -150,14 +164,18 @@
                     <div class="row" id="remarksdetails" style="display: none;">
                         <div class="col-md-10 mb-3">
                             <label for="remarks">Action Taken / Remarks / Problems Encountered</label>
-                            <textarea class="form-control" rows="3" name="remarks" id="remarks" placeholder="Enter Remarks here" value="Action taken/Remarks/Problems Encountered" required>{{#each request}}{{Remarks}}{{/each}}</textarea>
+                            <textarea class="form-control" rows="3" name="remarks" id="remarks"
+                                placeholder="Enter Remarks here" value="Action taken/Remarks/Problems Encountered"
+                                required>{{#each request}}{{Remarks}}{{/each}}</textarea>
                         </div>
                     </div>
                     <br>
                     <div class="row" id="workerdetails" style="display: none;">
                         <div class="col-md-10 mb-3">
                             <label for="workers">Workers</label>
-                            <textarea class="form-control" rows="3" name="workers" id="workers" placeholder="Separate full names with a COMMA (e.g. <First Name> <Last Name>, <First Name> <Last Name>, <First Name> <Last Name>)" required>{{#each request}}{{#each Workers}}{{this}}, {{/each}}{{/each}}</textarea>
+                            <textarea class="form-control" rows="3" name="workers" id="workers"
+                                placeholder="Separate full names with a COMMA (e.g. <First Name> <Last Name>, <First Name> <Last Name>, <First Name> <Last Name>)"
+                                required>{{#each request}}{{#each Workers}}{{this}}, {{/each}}{{/each}}</textarea>
                         </div>
                     </div>
                 </div>
@@ -166,56 +184,69 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="firstName">First Name</label>
-                            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="" value="{{#each request}}{{Requester.FirstName}}{{/each}}">
+                            <input type="text" class="form-control" id="firstName" name="firstName" placeholder=""
+                                value="{{#each request}}{{Requester.FirstName}}{{/each}}">
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="lastName">Last Name</label>
-                            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="" value="{{#each request}}{{Requester.LastName}}{{/each}}">
+                            <input type="text" class="form-control" id="lastName" name="lastName" placeholder=""
+                                value="{{#each request}}{{Requester.LastName}}{{/each}}">
                         </div>
                     </div>
                     <br>
                     <div class="mb-3">
                         <label for="email">Email Address</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" value="{{#each request}}{{Requester.Email}}{{/each}}">
+                        <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com"
+                            value="{{#each request}}{{Requester.Email}}{{/each}}">
                     </div>
                     <br>
                     <div class="mb-3">
                         <label for="address">Department or Office</label>
-                        <input type="text" class="form-control" id="address" name="address" placeholder="Department of Example" value="{{#each request}}{{Requester.Department}}{{/each}}">
+                        <input type="text" class="form-control" id="address" name="address"
+                            placeholder="Department of Example"
+                            value="{{#each request}}{{Requester.Department}}{{/each}}">
                     </div>
                 </div>
             </div>
             <hr class="mb-4">
-            
+
             <div class="row" id="evaluationdetails" style="display: none;">
                 <div class="col-md-7 order-md-1">
                     <h4 class="mb-6">Evaluation by Requester</h4>
                     <label for="feedback">Detailed Feedback</label>
-                    <textarea class="form-control" rows="15" name="feedback" id="feedback" placeholder="Enter Feedbacks here" value="" required>{{#each request}}{{Requester.Feedback.Remarks}}{{/each}}</textarea>
+                    <textarea class="form-control" rows="15" name="feedback" id="feedback"
+                        placeholder="Enter Feedbacks here" value=""
+                        required>{{#each request}}{{Requester.Feedback.Remarks}}{{/each}}</textarea>
                 </div>
                 <div class="col-md-5 order-md-2">
                     <h4>Please rate the service rendered by CSWO using the following criteria:</h4>
                     <p>Response Time</p>
                     <select class="form-control" id="responsetime" name="responsetime" required>
                         {{#each request}}
-                            {{#ifEquals Requester.Feedback.ResponseTime 0}}
-                                <option value="{{Requester.Feedback.ResponseTime}}">{{Requester.Feedback.ResponseTime}} - Not Applicable</option>
-                            {{/ifEquals}}
-                            {{#ifEquals Requester.Feedback.ResponseTime 1}}
-                                <option value="{{Requester.Feedback.ResponseTime}}">{{Requester.Feedback.ResponseTime}} - Poor</option>
-                            {{/ifEquals}}
-                            {{#ifEquals Requester.Feedback.ResponseTime 2}}
-                                <option value="{{Requester.Feedback.ResponseTime}}">{{Requester.Feedback.ResponseTime}} - Moderately Satisfactory</option>
-                            {{/ifEquals}}
-                            {{#ifEquals Requester.Feedback.ResponseTime 3}}
-                                <option value="{{Requester.Feedback.ResponseTime}}">{{Requester.Feedback.ResponseTime}} - Satisfactory</option>
-                            {{/ifEquals}}
-                            {{#ifEquals Requester.Feedback.ResponseTime 4}}
-                                <option value="{{Requester.Feedback.ResponseTime}}">{{Requester.Feedback.ResponseTime}} - Highly Satisfactory</option>
-                            {{/ifEquals}}
-                            {{#ifEquals Requester.Feedback.ResponseTime 5}}
-                                <option value="{{Requester.Feedback.ResponseTime}}">{{Requester.Feedback.ResponseTime}} - Outstanding</option>
-                            {{/ifEquals}}
+                        {{#ifEquals Requester.Feedback.ResponseTime 0}}
+                        <option value="{{Requester.Feedback.ResponseTime}}">{{Requester.Feedback.ResponseTime}} - Not
+                            Applicable</option>
+                        {{/ifEquals}}
+                        {{#ifEquals Requester.Feedback.ResponseTime 1}}
+                        <option value="{{Requester.Feedback.ResponseTime}}">{{Requester.Feedback.ResponseTime}} - Poor
+                        </option>
+                        {{/ifEquals}}
+                        {{#ifEquals Requester.Feedback.ResponseTime 2}}
+                        <option value="{{Requester.Feedback.ResponseTime}}">{{Requester.Feedback.ResponseTime}} -
+                            Moderately Satisfactory</option>
+                        {{/ifEquals}}
+                        {{#ifEquals Requester.Feedback.ResponseTime 3}}
+                        <option value="{{Requester.Feedback.ResponseTime}}">{{Requester.Feedback.ResponseTime}} -
+                            Satisfactory</option>
+                        {{/ifEquals}}
+                        {{#ifEquals Requester.Feedback.ResponseTime 4}}
+                        <option value="{{Requester.Feedback.ResponseTime}}">{{Requester.Feedback.ResponseTime}} - Highly
+                            Satisfactory</option>
+                        {{/ifEquals}}
+                        {{#ifEquals Requester.Feedback.ResponseTime 5}}
+                        <option value="{{Requester.Feedback.ResponseTime}}">{{Requester.Feedback.ResponseTime}} -
+                            Outstanding</option>
+                        {{/ifEquals}}
                         {{/each}}
                         {{#each criterias}}
                         <option value="{{CriteriaNum}}">{{CriteriaNum}} - {{CriteriaName}}</option>
@@ -225,24 +256,29 @@
                     <p>Accuracy</p>
                     <select class="form-control" id="accuracy" name="accuracy" required>
                         {{#each request}}
-                            {{#ifEquals Requester.Feedback.Accuracy 0}}
-                                <option value="{{Requester.Feedback.Accuracy}}">{{Requester.Feedback.Accuracy}} - Not Applicable</option>
-                            {{/ifEquals}}
-                            {{#ifEquals Requester.Feedback.Accuracy 1}}
-                                <option value="{{Requester.Feedback.Accuracy}}">{{Requester.Feedback.Accuracy}} - Poor</option>
-                            {{/ifEquals}}
-                            {{#ifEquals Requester.Feedback.Accuracy 2}}
-                                <option value="{{Requester.Feedback.Accuracy}}">{{Requester.Feedback.Accuracy}} - Moderately Satisfactory</option>
-                            {{/ifEquals}}
-                            {{#ifEquals Requester.Feedback.Accuracy 3}}
-                                <option value="{{Requester.Feedback.Accuracy}}">{{Requester.Feedback.Accuracy}} - Satisfactory</option>
-                            {{/ifEquals}}
-                            {{#ifEquals Requester.Feedback.Accuracy 4}}
-                                <option value="{{Requester.Feedback.Accuracy}}">{{Requester.Feedback.Accuracy}} - Highly Satisfactory</option>
-                            {{/ifEquals}}
-                            {{#ifEquals Requester.Feedback.Accuracy 5}}
-                                <option value="{{Requester.Feedback.Accuracy}}">{{Requester.Feedback.Accuracy}} - Outstanding</option>
-                            {{/ifEquals}}
+                        {{#ifEquals Requester.Feedback.Accuracy 0}}
+                        <option value="{{Requester.Feedback.Accuracy}}">{{Requester.Feedback.Accuracy}} - Not Applicable
+                        </option>
+                        {{/ifEquals}}
+                        {{#ifEquals Requester.Feedback.Accuracy 1}}
+                        <option value="{{Requester.Feedback.Accuracy}}">{{Requester.Feedback.Accuracy}} - Poor</option>
+                        {{/ifEquals}}
+                        {{#ifEquals Requester.Feedback.Accuracy 2}}
+                        <option value="{{Requester.Feedback.Accuracy}}">{{Requester.Feedback.Accuracy}} - Moderately
+                            Satisfactory</option>
+                        {{/ifEquals}}
+                        {{#ifEquals Requester.Feedback.Accuracy 3}}
+                        <option value="{{Requester.Feedback.Accuracy}}">{{Requester.Feedback.Accuracy}} - Satisfactory
+                        </option>
+                        {{/ifEquals}}
+                        {{#ifEquals Requester.Feedback.Accuracy 4}}
+                        <option value="{{Requester.Feedback.Accuracy}}">{{Requester.Feedback.Accuracy}} - Highly
+                            Satisfactory</option>
+                        {{/ifEquals}}
+                        {{#ifEquals Requester.Feedback.Accuracy 5}}
+                        <option value="{{Requester.Feedback.Accuracy}}">{{Requester.Feedback.Accuracy}} - Outstanding
+                        </option>
+                        {{/ifEquals}}
                         {{/each}}
                         {{#each criterias}}
                         <option value="{{CriteriaNum}}">{{CriteriaNum}} - {{CriteriaName}}</option>
@@ -252,24 +288,30 @@
                     <p>Efficiency</p>
                     <select class="form-control" id="efficiency" name="efficiency" required>
                         {{#each request}}
-                            {{#ifEquals Requester.Feedback.Efficiency 0}}
-                                <option value="{{Requester.Feedback.Efficiency}}">{{Requester.Feedback.Efficiency}} - Not Applicable</option>
-                            {{/ifEquals}}
-                            {{#ifEquals Requester.Feedback.Efficiency 1}}
-                                <option value="{{Requester.Feedback.Efficiency}}">{{Requester.Feedback.Efficiency}} - Poor</option>
-                            {{/ifEquals}}
-                            {{#ifEquals Requester.Feedback.Efficiency 2}}
-                                <option value="{{Requester.Feedback.Efficiency}}">{{Requester.Feedback.Efficiency}} - Moderately Satisfactory</option>
-                            {{/ifEquals}}
-                            {{#ifEquals Requester.Feedback.Efficiency 3}}
-                                <option value="{{Requester.Feedback.Efficiency}}">{{Requester.Feedback.Efficiency}} - Satisfactory</option>
-                            {{/ifEquals}}
-                            {{#ifEquals Requester.Feedback.Efficiency 4}}
-                                <option value="{{Requester.Feedback.Efficiency}}">{{Requester.Feedback.Efficiency}} - Highly Satisfactory</option>
-                            {{/ifEquals}}
-                            {{#ifEquals Requester.Feedback.Efficiency 5}}
-                                <option value="{{Requester.Feedback.Efficiency}}">{{Requester.Feedback.Efficiency}} - Outstanding</option>
-                            {{/ifEquals}}
+                        {{#ifEquals Requester.Feedback.Efficiency 0}}
+                        <option value="{{Requester.Feedback.Efficiency}}">{{Requester.Feedback.Efficiency}} - Not
+                            Applicable</option>
+                        {{/ifEquals}}
+                        {{#ifEquals Requester.Feedback.Efficiency 1}}
+                        <option value="{{Requester.Feedback.Efficiency}}">{{Requester.Feedback.Efficiency}} - Poor
+                        </option>
+                        {{/ifEquals}}
+                        {{#ifEquals Requester.Feedback.Efficiency 2}}
+                        <option value="{{Requester.Feedback.Efficiency}}">{{Requester.Feedback.Efficiency}} - Moderately
+                            Satisfactory</option>
+                        {{/ifEquals}}
+                        {{#ifEquals Requester.Feedback.Efficiency 3}}
+                        <option value="{{Requester.Feedback.Efficiency}}">{{Requester.Feedback.Efficiency}} -
+                            Satisfactory</option>
+                        {{/ifEquals}}
+                        {{#ifEquals Requester.Feedback.Efficiency 4}}
+                        <option value="{{Requester.Feedback.Efficiency}}">{{Requester.Feedback.Efficiency}} - Highly
+                            Satisfactory</option>
+                        {{/ifEquals}}
+                        {{#ifEquals Requester.Feedback.Efficiency 5}}
+                        <option value="{{Requester.Feedback.Efficiency}}">{{Requester.Feedback.Efficiency}} -
+                            Outstanding</option>
+                        {{/ifEquals}}
                         {{/each}}
                         {{#each criterias}}
                         <option value="{{CriteriaNum}}">{{CriteriaNum}} - {{CriteriaName}}</option>
@@ -279,24 +321,29 @@
                     <p>Courtesy</p>
                     <select class="form-control" id="courtesy" name="courtesy" required>
                         {{#each request}}
-                            {{#ifEquals Requester.Feedback.Courtesy 0}}
-                                <option value="{{Requester.Feedback.Courtesy}}">{{Requester.Feedback.Courtesy}} - Not Applicable</option>
-                            {{/ifEquals}}
-                            {{#ifEquals Requester.Feedback.Courtesy 1}}
-                                <option value="{{Requester.Feedback.Courtesy}}">{{Requester.Feedback.Courtesy}} - Poor</option>
-                            {{/ifEquals}}
-                            {{#ifEquals Requester.Feedback.Courtesy 2}}
-                                <option value="{{Requester.Feedback.Courtesy}}">{{Requester.Feedback.Courtesy}} - Moderately Satisfactory</option>
-                            {{/ifEquals}}
-                            {{#ifEquals Requester.Feedback.Courtesy 3}}
-                                <option value="{{Requester.Feedback.Courtesy}}">{{Requester.Feedback.Courtesy}} - Satisfactory</option>
-                            {{/ifEquals}}
-                            {{#ifEquals Requester.Feedback.Courtesy 4}}
-                                <option value="{{Requester.Feedback.Courtesy}}">{{Requester.Feedback.Courtesy}} - Highly Satisfactory</option>
-                            {{/ifEquals}}
-                            {{#ifEquals Requester.Feedback.Courtesy 5}}
-                                <option value="{{Requester.Feedback.Courtesy}}">{{Requester.Feedback.Courtesy}} - Outstanding</option>
-                            {{/ifEquals}}
+                        {{#ifEquals Requester.Feedback.Courtesy 0}}
+                        <option value="{{Requester.Feedback.Courtesy}}">{{Requester.Feedback.Courtesy}} - Not Applicable
+                        </option>
+                        {{/ifEquals}}
+                        {{#ifEquals Requester.Feedback.Courtesy 1}}
+                        <option value="{{Requester.Feedback.Courtesy}}">{{Requester.Feedback.Courtesy}} - Poor</option>
+                        {{/ifEquals}}
+                        {{#ifEquals Requester.Feedback.Courtesy 2}}
+                        <option value="{{Requester.Feedback.Courtesy}}">{{Requester.Feedback.Courtesy}} - Moderately
+                            Satisfactory</option>
+                        {{/ifEquals}}
+                        {{#ifEquals Requester.Feedback.Courtesy 3}}
+                        <option value="{{Requester.Feedback.Courtesy}}">{{Requester.Feedback.Courtesy}} - Satisfactory
+                        </option>
+                        {{/ifEquals}}
+                        {{#ifEquals Requester.Feedback.Courtesy 4}}
+                        <option value="{{Requester.Feedback.Courtesy}}">{{Requester.Feedback.Courtesy}} - Highly
+                            Satisfactory</option>
+                        {{/ifEquals}}
+                        {{#ifEquals Requester.Feedback.Courtesy 5}}
+                        <option value="{{Requester.Feedback.Courtesy}}">{{Requester.Feedback.Courtesy}} - Outstanding
+                        </option>
+                        {{/ifEquals}}
                         {{/each}}
                         {{#each criterias}}
                         <option value="{{CriteriaNum}}">{{CriteriaNum}} - {{CriteriaName}}</option>
@@ -305,43 +352,46 @@
                 </div>
             </div>
             <hr class="mb-4">
-            <button id="update_btn" class="btn btn-success btn-lg btn-block" type="button" data-toggle="modal" data-target="#editConfirmModal">Update Work Order</button>
-            <br>
-            <br>
-        </div>
+            <button id="update_btn" class="btn btn-success btn-lg btn-block" type="button" data-toggle="modal"
+                data-target="#editConfirmModal">Update Work Order</button>
 
-        <div class="modal fade" id="editConfirmModal" tabindex="-1" role="dialog"
-            aria-labelledby="editConfirmModalTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" id="editConfirmModalTitle">Update Work Order</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        Do you want to save changes to the Work Order?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button id="save_btn" type="submit" class="btn btn-success">Save changes</button>
+            <br>
+
+            <div class="modal fade" id="editConfirmModal" tabindex="-1" role="dialog"
+                aria-labelledby="editConfirmModalTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="editConfirmModalTitle">Update Work Order</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Do you want to save changes to the Work Order?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button id="save_btn" type="submit" class="btn btn-success">Save changes</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
+        </form>
+        <button class="btn btn-dark btn-lg btn-block" type="button" onClick="location.href = '/dashboard';">Return
+            to Dashboard</button>
+    </div>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             var length = $("#li_id").length;
-            
+
             // Displaying additional details once status is changed to "Completed"
-            $('#status').on('change', function(){
+            $('#status').on('change', function () {
                 var remarks = document.getElementById("remarksdetails");
                 var evaluation = document.getElementById("evaluationdetails");
                 var workers = document.getElementById("workerdetails");
-                
-                if($(this).val() == "Completed") {
+
+                if ($(this).val() == "Completed") {
                     remarks.style.display = "block";
                     evaluation.style.display = "block";
                     workers.style.display = "block";
@@ -350,13 +400,14 @@
                     evaluation.style.display = "none";
                     workers.style.display = "none";
                 }
-            }).change(); 
+            }).change();
 
-            $(document.body).on("click", "#save_btn", function(){
-                 $('#submit_form').submit();
+            $(document.body).on("click", "#save_btn", function () {
+                $('#submit_form').submit();
             })
 
         });
     </script>
 </body>
+
 </html>

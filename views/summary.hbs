@@ -1,116 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="stylesheet" href="/styles/body.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-        <link rel="icon" type="image/x-icon" href="/images/favicon.png">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>Report Summary</title>
-    </head>
+    <link rel="stylesheet" href="/styles/body.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-    <body>
-        <nav class="navbar navbar-inverse">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <div class="navbar-header">
-                        <a class="navbar-brand" href="/dashboard">
-                            <img alt="Civil and Sanitary Works Office - De La Salle University" src="\images\dlsu.png"
-                                width="20" height="20">
-                        </a>
-                    </div>
-                </div>
+    <title>Report Summary</title>
+</head>
 
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li><a href="/dashboard">Current Work Orders</a></li>
-                        <li><a href="/new">Create New Work Order</a></li>
-                        <li><a href="/summary">Report Summary</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/auditlogs">Audit Logs</a>
-                        </li>
-
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{user.FirstName}} {{user.LastName}} <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="/logout">Logout</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    
-                </div>
-            </div>
-        </nav>
-        {{!--------------------------------------------------------------------------------------------------------------------}}
-
-        {{!-- Start Date, End Date, View Data Button --}}
+<body>
+    <nav class="navbar navbar-inverse">
         <div class="container-fluid">
-            <div class="py-5 text-center">
-                <img class="d-block mx-auto mb-4" src="\images\dlsu.png" alt="" width="72" height="72">
-                <h2>Civil Works and Sanitary Office</h2>
-                <p class="lead">REPORTS SUMMARY</p>
+            <div class="navbar-header">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/dashboard">
+                        <img alt="Civil and Sanitary Works Office - De La Salle University" src="\images\dlsu.png"
+                            width="20" height="20">
+                    </a>
+                </div>
             </div>
 
-            <form action="/summary/daterange" method="POST">
-                <div class="row">
-                    <div class="col-lg-2">
-                        <label for="status">Status</label>
-                        <select class="form-control" id="status" name="status" required>
-                            <option value="All">All</option>
-                            <option value="Pending for Approval">Pending</option>
-                            <option value="Approved">Approved</option>
-                            <option value="Completed">Completed</option>
-                        </select>
-                    </div>
-                    <div class="col-lg-2">
-                        <div class="form-group">
-                            <label class="control-label" for="keyword">Search</label>
-                            <input type="text" class="form-control" placeholder="Search for keywords" id="keyword" name="keyword" >
-                        </div>
-                    </div>
-                    <div class="col-lg-2">
-                        <div class="form-group" >
-                            <label class="control-label" for="startdate">Start Date</label>
-                            <input class="form-control" id="startdate" name="startdate" placeholder="Start Date" type="date" value="{{start}}" required/>
-                        </div>
-                    </div>
-                    <div class="col-lg-2">
-                        <div class="form-group">
-                            <label class="control-label" for="enddate">End Date</label>
-                            <input class="form-control" id="enddate" name="enddate" placeholder="End Date" type="date" value="{{end}}" required/>
-                        </div>
-                    </div>
-                    <div class="col-lg-1">
-                        <button class="btn btn-success btn-block" type="submit" style="margin-top: 24px;" id="searchButton">Search</button>
-                    </div>
-                    <div class="col-lg-1"></div>
-                    <div class="col-lg-2">
-                        <ul class="list-group">
-                            <li class="list-group-item">Total Work Orders<span class="badge">{{Total}}</span></li>
-                            <li class="list-group-item">Total Pendings <span class="badge">{{Pending}}</span></li>
-                            <li class="list-group-item">Total Approved <span class="badge">{{Approved}}</span></li>
-                            <li class="list-group-item">Total Completed <span class="badge">{{Completed}}</span></li>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="/dashboard">Current Work Orders</a></li>
+                    <li><a href="/new">Create New Work Order</a></li>
+                    <li><a href="/summary">Report Summary</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/auditlogs">Audit Logs</a>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                            aria-expanded="false">{{user.FirstName}} {{user.LastName}} <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            {{#ifEquals user.Admin true}}
+                            <li><a href="/register">Register</a></li>
+                            {{/ifEquals}}
+                            <li><a href="#">Change Password</a></li>
+                            <li><a href="/logout">Logout</a></li>
                         </ul>
-                    </div>
-                </div>
-            </form>
+                    </li>
+                </ul>
+
             </div>
         </div>
-        <div class="py-5 text-center" id="totalResults">
-            {{#ifEquals hasResult true}}
-                <h4>{{totalResults}} Work Order(s) Found</h4>
-            {{/ifEquals}}
+    </nav>
+    {{!--------------------------------------------------------------------------------------------------------------------}}
+
+    {{!-- Start Date, End Date, View Data Button --}}
+    <div class="container-fluid">
+        <div class="py-5 text-center">
+            <img class="d-block mx-auto mb-4" src="\images\dlsu.png" alt="" width="72" height="72">
+            <h2>Civil Works and Sanitary Office</h2>
+            <p class="lead">REPORTS SUMMARY</p>
         </div>
-        <div class="container-fluid tab-content" id="nav-tabContent">
-            <div class="tab-pane active p-3" id="nav-pending" role="tabpanel" aria-labelledby="nav-pending-tab">
-                <table class="table table-hover">
+
+        <form action="/summary/daterange" method="POST">
+            <div class="row">
+                <div class="col-lg-2">
+                    <label for="status">Status</label>
+                    <select class="form-control" id="status" name="status" required>
+                        <option value="All">All</option>
+                        <option value="Pending for Approval">Pending</option>
+                        <option value="Approved">Approved</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label class="control-label" for="keyword">Search</label>
+                        <input type="text" class="form-control" placeholder="Search for keywords" id="keyword"
+                            name="keyword">
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label class="control-label" for="startdate">Start Date</label>
+                        <input class="form-control" id="startdate" name="startdate" placeholder="Start Date" type="date"
+                            value="{{start}}" required />
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label class="control-label" for="enddate">End Date</label>
+                        <input class="form-control" id="enddate" name="enddate" placeholder="End Date" type="date"
+                            value="{{end}}" required />
+                    </div>
+                </div>
+                <div class="col-lg-1">
+                    <button class="btn btn-success btn-block" type="submit" style="margin-top: 24px;"
+                        id="searchButton">Search</button>
+                </div>
+                <div class="col-lg-1"></div>
+                <div class="col-lg-2">
+                    <ul class="list-group">
+                        <li class="list-group-item">Total Work Orders<span class="badge">{{Total}}</span></li>
+                        <li class="list-group-item">Total Pendings <span class="badge">{{Pending}}</span></li>
+                        <li class="list-group-item">Total Approved <span class="badge">{{Approved}}</span></li>
+                        <li class="list-group-item">Total Completed <span class="badge">{{Completed}}</span></li>
+                    </ul>
+                </div>
+            </div>
+        </form>
+    </div>
+    </div>
+    <div class="py-5 text-center" id="totalResults">
+        {{#ifEquals hasResult true}}
+        <h4>{{totalResults}} Work Order(s) Found</h4>
+        {{/ifEquals}}
+    </div>
+    <div class="container-fluid tab-content" id="nav-tabContent">
+        <div class="tab-pane active p-3" id="nav-pending" role="tabpanel" aria-labelledby="nav-pending-tab">
+            <table class="table table-hover">
                 <tbody>
                     <thead>
                         <tr>
@@ -143,19 +153,19 @@
                     {{/ifEquals}}
                     {{/each}}
                 </tbody>
-                </table>
-            </div>
-        
+            </table>
         </div>
 
-        <script>
-            $(document).ready(function () {
-                console.log("here");
-                $(document.body).on("click", "tr[data-href]", function() {
-                    window.location.href = this.dataset.href;
-                });
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            console.log("here");
+            $(document.body).on("click", "tr[data-href]", function () {
+                window.location.href = this.dataset.href;
             });
-        </script>
-    </body>
+        });
+    </script>
+</body>
 
 </html>

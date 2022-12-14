@@ -41,11 +41,13 @@
                     </li>
 
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{user.FirstName}} {{user.LastName}} <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                            aria-expanded="false">{{user.FirstName}} {{user.LastName}} <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             {{#ifEquals user.Admin true}}
-                                <li><a href="/register">Register</a></li>
+                            <li><a href="/register">Register</a></li>
                             {{/ifEquals}}
+                            <li><a href="#">Change Password</a></li>
                             <li><a href="/logout">Logout</a></li>
                         </ul>
                     </li>
@@ -88,7 +90,7 @@
                 <tbody>
                     <thead>
                         <tr>
-                            <th scope="col">ReferenceID</th>
+                            <th scope="col">Work Order No.</th>
                             <th scope="col">Date Received</th>
                             <th scope="col">Target Date of Completion</th>
                             <th scope="col">In Charge</th>
@@ -135,7 +137,8 @@
                         <th>
                             <form action="/edit/delete" method="POST" id="form">
                                 <input data-href="/edit/{{_id}}" type="hidden" name="woid" value="{{_id}}">
-                                <button name="del_btn" type="submit" class="btn btn-danger" id="delbtn_{{ReferenceNo}}" title="Delete">
+                                <button name="del_btn" type="submit" class="btn btn-danger" id="delbtn_{{ReferenceNo}}"
+                                    title="Delete">
                                     <img src="\images\trash3.svg">
                                 </button>
                             </form>
@@ -153,7 +156,7 @@
         <div class="tab-pane p-3" id="nav-approved" role="tabpanel" aria-labelledby="nav-approved-tab">
             <table class="table table-hover">
                 <tr>
-                    <th scope="col">ReferenceID</th>
+                    <th scope="col">Work Order No.</th>
                     <th scope="col">Date Approved</th>
                     <th scope="col">Target Date of Completion</th>
                     <th scope="col">In Charge</th>
@@ -200,7 +203,8 @@
                     <th>
                         <form action="/edit/delete" method="POST" id="form">
                             <input data-href="/edit/{{_id}}" type="hidden" name="woid" value="{{_id}}">
-                            <button name="del_btn" type="submit" class="btn btn-danger" id="delbtn_{{ReferenceNo}}" title="Delete">
+                            <button name="del_btn" type="submit" class="btn btn-danger" id="delbtn_{{ReferenceNo}}"
+                                title="Delete">
                                 <img src="\images\trash3.svg">
                             </button>
                         </form>
@@ -215,7 +219,7 @@
         <div class="tab-pane p-3" id="nav-completed" role="tabpanel" aria-labelledby="nav-completed-tab">
             <table class="table table-hover">
                 <tr>
-                    <th scope="col">ReferenceID</th>
+                    <th scope="col">Work Order No.</th>
                     <th scope="col">Target Date of Completion</th>
                     <th scope="col">Date Completed</th>
                     <th scope="col">In Charge</th>
@@ -261,7 +265,8 @@
                     <th>
                         <form action="/edit/delete" method="POST" id="form">
                             <input data-href="/edit/{{_id}}" type="hidden" name="woid" value="{{_id}}">
-                            <button name="del_btn" type="submit" class="btn btn-danger" id="delbtn_{{ReferenceNo}}" title="Delete">
+                            <button name="del_btn" type="submit" class="btn btn-danger" id="delbtn_{{ReferenceNo}}"
+                                title="Delete">
                                 <img src="\images\trash3.svg">
                             </button>
                         </form>
@@ -283,13 +288,13 @@
                 window.location.href = this.dataset.href;
             });
 
-            $(document.body).on("click", "#form button", function(){
-                 // alert(this.id);
+            $(document.body).on("click", "#form button", function () {
+                // alert(this.id);
                 let id0 = this.id;
                 let id = id0.slice(7, 19);
                 var result = confirm("You are deleting Work Order " + id + ". Are you sure?");
-                if(result == false) {
-                   event.preventDefault();
+                if (result == false) {
+                    event.preventDefault();
                 }
             })
         });

@@ -1,130 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link rel="stylesheet" href="/styles/body.css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-        <link rel="icon" type="image/x-icon" href="/images/favicon.png">
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/styles/body.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-        <title>Dashboard</title>
-    </head>
+    <title>Dashboard</title>
+</head>
 
-    <body>
-        <nav class="navbar navbar-inverse">
-            <div class="container-fluid">
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
                 <div class="navbar-header">
-                    <div class="navbar-header">
-                        <a class="navbar-brand" href="/dashboard">
-                            <img alt="Civil and Sanitary Works Office - De La Salle University" src="\images\dlsu.png"
-                                width="20" height="20">
-                        </a>
-                    </div>
-                </div>
-
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li><a href="/dashboard">Current Work Orders</a></li>
-                        <li><a href="/new">Create New Work Order</a></li>
-                        <li><a href="/summary">Report Summary</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/auditlogs">Audit Logs</a>
-                        </li>
-
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{user.FirstName}} {{user.LastName}} <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="/logout">Logout</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    
+                    <a class="navbar-brand" href="/dashboard">
+                        <img alt="Civil and Sanitary Works Office - De La Salle University" src="\images\dlsu.png"
+                            width="20" height="20">
+                    </a>
                 </div>
             </div>
-        </nav>
-        
-        <div class="container-fluid">
-            <div class="py-5 text-center">
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="/dashboard">Current Work Orders</a></li>
+                    <li><a href="/new">Create New Work Order</a></li>
+                    <li><a href="/summary">Report Summary</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/auditlogs">Audit Logs</a>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                            aria-expanded="false">{{user.FirstName}} {{user.LastName}} <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            {{#ifEquals user.Admin true}}
+                            <li><a href="/register">Register</a></li>
+                            {{/ifEquals}}
+                            <li><a href="#">Change Password</a></li>
+                            <li><a href="/logout">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="py-5 text-center">
             <img class="d-block mx-auto mb-4" src="\images\dlsu.png" alt="" width="72" height="72">
             <h2>Civil Works and Sanitary Office</h2>
             <p class="lead">DASHBOARD</p>
         </div>
-            <ul class="nav nav-tabs" id="nav-tab" role="tablist">
-                <form class="navbar-form navbar-right" action="/search" method="POST">
-                    <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Search for keywords" id="keyword" name="keyword">
-                    </div>
-                    <button type="submit" class="btn btn-secondary">Search</button>
-                </form>
-            </ul>
-        </div>
+        <ul class="nav nav-tabs" id="nav-tab" role="tablist">
+            <form class="navbar-form navbar-right" action="/search" method="POST">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search for keywords" id="keyword"
+                        name="keyword">
+                </div>
+                <button type="submit" class="btn btn-secondary">Search</button>
+            </form>
+        </ul>
+    </div>
 
-        {{!-- Put search results below this --}}
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th scope="col">ReferenceID</th>
-                    <th scope="col">Date Received</th>
-                    <th scope="col">Target Date of Completion</th>
-                    <th scope="col">In Charge</th>
-                    <th scope="col">Location</th>
-                    <th scope="col">Item</th>
-                    <th scope="col">Category</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Details</th>
-                    <th scope="col">Requester</th>
-                    <th colspan="3"></th>
-                </tr>
-            </thead>
-            {{#each request}}
+    {{!-- Put search results below this --}}
+    <table class="table table-hover">
+        <thead>
             <tr>
-                <td>{{ReferenceNo}}</td>
-                <td>{{dateFormat DateReceived}}</td>
-                <td>{{dateWithoutTime DateTarget}}</td>
-                <td>{{InCharge.FirstName}}</td>
-                <td>{{Location}}</td>
-                <td>{{Item}}</td>
-                <td>{{Category.CategoryName}}</td>
-                <td>{{Type.TypeName}}</td>
-                <td>{{Details}}</td>
-                <td>{{Requester.FirstName}} {{Requester.LastName}}</td>
-                <th>
-                    <a href="/view/{{_id}}">
-                        <button class="btn btn-success" data-toggle="modal" title="View">
-                            <img src="\images\view.svg" width="20px">
-                        </button>
-                    </a>
-                </th>
-
-                <th>
-                    <a href="/edit/{{_id}}">
-                        <button class="btn btn-warning" data-toggle="modal" title="Edit">
-                            <img src="\images\pencil-square.svg">
-                        </button>
-                    </a>
-                </th>
-
-                <th>
-                    <form action="/edit/delete" method="POST" id="form">
-                        <input data-href="/edit/{{_id}}" type="hidden" name="woid" value="{{_id}}">
-                        <button name="del_btn" type="submit" class="btn btn-danger" id="delbtn_{{ReferenceNo}}" title="Delete">
-                            <img src="\images\trash3.svg">
-                        </button>
-                    </form>
-                </th>
-
+                <th scope="col">ReferenceID</th>
+                <th scope="col">Date Received</th>
+                <th scope="col">Target Date of Completion</th>
+                <th scope="col">In Charge</th>
+                <th scope="col">Location</th>
+                <th scope="col">Item</th>
+                <th scope="col">Category</th>
+                <th scope="col">Type</th>
+                <th scope="col">Details</th>
+                <th scope="col">Requester</th>
+                <th colspan="3"></th>
             </tr>
-            {{/each}}
-        </table>
+        </thead>
+        {{#each request}}
+        <tr>
+            <td>{{ReferenceNo}}</td>
+            <td>{{dateFormat DateReceived}}</td>
+            <td>{{dateWithoutTime DateTarget}}</td>
+            <td>{{InCharge.FirstName}}</td>
+            <td>{{Location}}</td>
+            <td>{{Item}}</td>
+            <td>{{Category.CategoryName}}</td>
+            <td>{{Type.TypeName}}</td>
+            <td>{{Details}}</td>
+            <td>{{Requester.FirstName}} {{Requester.LastName}}</td>
+            <th>
+                <a href="/view/{{_id}}">
+                    <button class="btn btn-success" data-toggle="modal" title="View">
+                        <img src="\images\view.svg" width="20px">
+                    </button>
+                </a>
+            </th>
+
+            <th>
+                <a href="/edit/{{_id}}">
+                    <button class="btn btn-warning" data-toggle="modal" title="Edit">
+                        <img src="\images\pencil-square.svg">
+                    </button>
+                </a>
+            </th>
+
+            <th>
+                <form action="/edit/delete" method="POST" id="form">
+                    <input data-href="/edit/{{_id}}" type="hidden" name="woid" value="{{_id}}">
+                    <button name="del_btn" type="submit" class="btn btn-danger" id="delbtn_{{ReferenceNo}}"
+                        title="Delete">
+                        <img src="\images\trash3.svg">
+                    </button>
+                </form>
+            </th>
+
+        </tr>
+        {{/each}}
+    </table>
 
 
-    </body>
+</body>
 
 </html>

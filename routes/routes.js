@@ -23,6 +23,8 @@ routes.use(bodyParser.urlencoded({extended : true}));
 
 // Getting pages
 routes.get('/', controller.getDashboard);
+routes.get('/notfound', controller.getNotFound);
+routes.get('/noaccess', controller.getNoAccess);
 routes.get('/dashboard', controller.getDashboard);
 routes.get('/edit/:woid', controller.getWorkOrder);
 routes.get('/view/:woid', controller.viewWorkOrder);
@@ -47,7 +49,6 @@ routes.post('/summary/daterange', controller.postDateRange);// get date range
 
 // Print
 routes.get('/print/:woid', controller.getPrintWorkOrder);
-
 
 // Export this file for other files to find
 module.exports = routes;
