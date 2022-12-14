@@ -33,8 +33,7 @@ routes.get('/summary', controller.getSummary);
 routes.get('/register', controller.getRegister);
 routes.get('/login', controller.getLogin);
 routes.get('/auditlogs', controller.getAuditLogs);
-
-
+routes.get('/viewAudit/:woid', controller.viewWorkOrderAudit);
 routes.post('/postNewOrder', controller.postNewOrder);              // Creating a Work Order
 routes.post('/edit/:woid/update', controller.postUpdateOrder);      // Editing a Work Order
 routes.post('/edit/delete', controller.postDeleteOrder);            // Deleting a Work Order

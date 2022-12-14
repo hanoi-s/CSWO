@@ -336,33 +336,6 @@
                 </div>
             </div>
             <hr class="mb-4">
-            <div class="row mb-3">
-                {{!-- DELETE --}}
-                <div class="col-md-4 mb-3">
-                    <form action="/edit/delete" method="POST" id="del_form">
-                        <input type="hidden" name="woid" value="{{#each request}}{{_id}}{{/each}}">
-                        <button type="submit" class="btn btn-danger btn-lg btn-block"
-                            id="delbtn_{{#each request}}{{ReferenceNo}}{{/each}}">Delete</button>
-                    </form>
-                </div>
-                {{!-- EDIT --}}
-                <div class="col-md-4 mb-3">
-                    <a href="/edit/{{#each request}}{{_id}}{{/each}}" style="text-decoration:none">
-                        <button id="update_btn" class="btn btn-warning btn-lg btn-block" type="button"
-                            data-toggle="modal">Edit</button>
-                    </a>
-                </div>
-                {{!-- PRINT --}}
-
-                {{!-- {{#each request}} {{#ifEquals Request.Status.StatusID 9003}}--}}
-                <div class="col-md-4 mb-3">
-                    <a href="/print/{{#each request}}{{_id}}{{/each}}">
-                        <button form="print_form" id="print_btn" class="btn btn-primary btn-lg btn-block" type="button"
-                            data-toggle="modal">Print</button>
-                    </a>
-                </div>
-                {{!-- {{/ifEquals}} {{/each}} --}}
-            </div>
             <br>
             <div class="text-center">
                 <button class="btn btn-dark btn-lg" type="button" onclick="history.back()">Go Back</button>

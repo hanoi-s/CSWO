@@ -61,6 +61,8 @@ const controller = {
                     })
                 })
             }
+        } else {
+            res.redirect('/login');
         }
     },
 
@@ -132,6 +134,34 @@ const controller = {
                                 db.findOne(RequestModel, { _id: req.params.woid }, {}, function (result) {
                                     UserModel.findOne({ Email: req.session.email }).then((user) => {
                                         res.render('view', { request: result, type: typesresult, category: categoriesresult, employee: employeesresult, status: statusesresult, criterias: criteriasresult, user: user });
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
+        } else { res.redirect('/login'); }
+
+    },
+
+    viewWorkOrderAudit: function (req, res) {
+        if (req.session.email) {
+            // Renders work order page catering to a specific work order request
+            // also with data coming from database such as types, categories, employees, and status
+
+            // Query for reading all Types from the Database
+            db.findMany(TypeModel, {}, {}, function (typesresult) {
+                // Query for reading all Categories from the Database
+                db.findMany(CategoryModel, {}, {}, function (categoriesresult) {
+                    // Query for reading all Employees from the Database
+                    db.findMany(EmployeeModel, {}, {}, function (employeesresult) {
+                        // Query for reading all Statuses from the Database
+                        db.findMany(StatusModel, {}, {}, function (statusesresult) {
+                            db.findMany(CriteriasModel, {}, {}, function (criteriasresult) {
+                                db.findOne(RequestModel, { _id: req.params.woid }, {}, function (result) {
+                                    UserModel.findOne({ Email: req.session.email }).then((user) => {
+                                        res.render('viewAudit', { request: result, type: typesresult, category: categoriesresult, employee: employeesresult, status: statusesresult, criterias: criteriasresult, user: user });
                                     });
                                 });
                             });

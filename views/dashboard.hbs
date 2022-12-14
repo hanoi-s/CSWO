@@ -14,7 +14,7 @@
     <script src="/js/jquery.js"></script> --}}
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-    <title>CSWO | Dashboard</title>
+    <title>Dashboard</title>
 </head>
 
 <body>
@@ -172,7 +172,7 @@
                 {{#each request}}
                 {{#ifEquals Status.StatusName 'Approved'}}
                 {{#ifEquals Disabled false}}
-                <tr data-href="/edit/{{_id}}">
+                <tr>
                     <td>{{ReferenceNo}}</td>
                     <td>{{dateFormat DateApproved}}</td>
                     <td>{{dateWithoutTime DateTarget}}</td>
@@ -235,7 +235,7 @@
                 {{#each request}}
                 {{#ifEquals Status.StatusName 'Completed'}}
                 {{#ifEquals Disabled false}}
-                <tr data-href="/edit/{{_id}}">
+                <tr>
                     <td>{{ReferenceNo}}</td>
                     <td>{{dateWithoutTime DateTarget}}</td>
                     <td>{{dateFormat DateCompleted}}</td>

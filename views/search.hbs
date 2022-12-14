@@ -76,7 +76,8 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <th scope="col">ReferenceID</th>
+                <th scope="col">Work Order No.</th>
+                <th scope="col">Status</th>
                 <th scope="col">Date Received</th>
                 <th scope="col">Target Date of Completion</th>
                 <th scope="col">In Charge</th>
@@ -92,6 +93,7 @@
         {{#each request}}
         <tr>
             <td>{{ReferenceNo}}</td>
+            <td>{{Status.StatusName}}</td>
             <td>{{dateFormat DateReceived}}</td>
             <td>{{dateWithoutTime DateTarget}}</td>
             <td>{{InCharge.FirstName}}</td>

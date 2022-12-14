@@ -27,7 +27,7 @@
         })
     </script>
 
-    <title>Create Work Order</title>
+    <title>Edit Work Order</title>
 </head>
 
 <body>
@@ -378,8 +378,11 @@
                 </div>
             </div>
         </form>
-        <button class="btn btn-dark btn-lg btn-block" type="button" onClick="location.href = '/dashboard';">Return
-            to Dashboard</button>
+        <div class="text-center">
+            <button class="btn btn-dark btn-lg" type="button" onclick="history.back()">Go Back</button>
+            <button class="btn btn-dark btn-lg" type="button" onClick="location.href = '/dashboard';">Return
+                to Dashboard</button>
+        </div>
     </div>
     <script>
         $(document).ready(function () {
