@@ -67,7 +67,9 @@ const controller = {
                     db.findMany(EmployeeModel, {}, {}, function(employeesresult){
                         // Query for reading all Statuses from the Database
                         db.findMany(StatusModel, {}, {}, function(statusesresult){
-                            res.render('new', {type:typesresult, category:categoriesresult, employee:employeesresult, status:statusesresult});
+                            UserModel.findOne({Email: req.session.email}).then((user) => {
+                                res.render('new', {type:typesresult, category:categoriesresult, employee:employeesresult, status:statusesresult, user:user});
+                            });
                         });
                     });
                 });
@@ -92,7 +94,9 @@ const controller = {
                         db.findMany(StatusModel, {}, {}, function(statusesresult){
                             db.findMany(CriteriasModel, {}, {}, function(criteriasresult) {
                                 db.findOne(RequestModel, {_id: req.params.woid}, {}, function(result){
-                                    res.render('edit', {request:result, type:typesresult, category:categoriesresult, employee:employeesresult, status:statusesresult, criterias:criteriasresult});
+                                    UserModel.findOne({Email: req.session.email}).then((user) => {
+                                        res.render('edit', {request:result, type:typesresult, category:categoriesresult, employee:employeesresult, status:statusesresult, criterias:criteriasresult, user:user});
+                                    });
                                 });
                             });
                         });
@@ -118,7 +122,9 @@ const controller = {
                         db.findMany(StatusModel, {}, {}, function(statusesresult){
                             db.findMany(CriteriasModel, {}, {}, function(criteriasresult) {
                                 db.findOne(RequestModel, {_id: req.params.woid}, {}, function(result){
-                                    res.render('view', {request:result, type:typesresult, category:categoriesresult, employee:employeesresult, status:statusesresult, criterias:criteriasresult});
+                                    UserModel.findOne({Email: req.session.email}).then((user) => {
+                                        res.render('view', {request:result, type:typesresult, category:categoriesresult, employee:employeesresult, status:statusesresult, criterias:criteriasresult, user:user});
+                                    });
                                 });
                             });
                         });
@@ -135,7 +141,9 @@ const controller = {
                 RequestModel.find( {Disabled: false, "Status.StatusName": "Pending for Approval"} ).count().then((pending) => { 
                     RequestModel.find( {Disabled: false, "Status.StatusName": "Approved"} ).count().then((approved) => { 
                         RequestModel.find( {Disabled: false, "Status.StatusName": "Completed"} ).count().then((completed) => { 
-                            res.render('summary', {Total:totalWorkOrders, Pending:pending, Approved:approved, Completed:completed});
+                            UserModel.findOne({Email: req.session.email}).then((user) => {
+                                res.render('summary', {Total:totalWorkOrders, Pending:pending, Approved:approved, Completed:completed, user:user});
+                            });
                         })
                     })
                 })
@@ -413,98 +421,102 @@ const controller = {
         var regKey = slash + req.body.keyword + slash
 
         RequestModel.find({$text: {$search: regKey}}).then((requests) => {
-            res.render('search', {request:requests});  
+            UserModel.findOne({Email: req.session.email}).then((user) => {
+                res.render('search', {request:requests, user:user});
+            });
         })
     },
 
     postDateRange: async function(req, res) {
 
         // Returns data regardless of Status within date range
-        if(req.body.status == "All") {
-            const startdate = req.body.startdate;
-            const conStartdate = new Date(startdate);
-    
-            const enddate = req.body.enddate;
-            const conEnddate = new Date(enddate);
+        UserModel.findOne({Email: req.session.email}).then((user) => {
+            if(req.body.status == "All") {
+                const startdate = req.body.startdate;
+                const conStartdate = new Date(startdate);
+        
+                const enddate = req.body.enddate;
+                const conEnddate = new Date(enddate);
 
-            if (req.body.keyword) {
-                var slash = "\\";
-                var regKey = slash + req.body.keyword + slash;
-                RequestModel.find({DateReceived: {$gte: conStartdate, $lte: conEnddate}, $text: {$search: regKey}}).sort({ DateReceived: 'asc' }).then((requests) => {
-                    RequestModel.find({Disabled: false, DateReceived: {$gte: conStartdate, $lte: conEnddate}, $text: {$search: regKey}}).count().then((totalCount) => {
-                        RequestModel.find( {Disabled: false, DateReceived: {$gte: conStartdate, $lte: conEnddate}, $text: {$search: regKey}} ).count().then((totalWorkOrders) => { 
-                            RequestModel.find( {Disabled: false, DateReceived: {$gte: conStartdate, $lte: conEnddate}, $text: {$search: regKey}, "Status.StatusName": "Pending for Approval"} ).count().then((pending) => { 
-                                RequestModel.find( {Disabled: false, DateReceived: {$gte: conStartdate, $lte: conEnddate}, $text: {$search: regKey}, "Status.StatusName": "Approved"} ).count().then((approved) => { 
-                                    RequestModel.find( {Disabled: false, DateReceived: {$gte: conStartdate, $lte: conEnddate}, $text: {$search: regKey}, "Status.StatusName": "Completed"} ).count().then((completed) => { 
-                                        var hasResult = true;
-                                        res.render('summary', {request:requests, Total:totalWorkOrders, Pending:pending, Approved:approved, Completed:completed, start:req.body.startdate, end:req.body.enddate, status:req.body.status, totalResults:totalCount, hasResult:hasResult});
+                if (req.body.keyword) {
+                    var slash = "\\";
+                    var regKey = slash + req.body.keyword + slash;
+                    RequestModel.find({DateReceived: {$gte: conStartdate, $lte: conEnddate}, $text: {$search: regKey}}).sort({ DateReceived: 'asc' }).then((requests) => {
+                        RequestModel.find({Disabled: false, DateReceived: {$gte: conStartdate, $lte: conEnddate}, $text: {$search: regKey}}).count().then((totalCount) => {
+                            RequestModel.find( {Disabled: false, DateReceived: {$gte: conStartdate, $lte: conEnddate}, $text: {$search: regKey}} ).count().then((totalWorkOrders) => { 
+                                RequestModel.find( {Disabled: false, DateReceived: {$gte: conStartdate, $lte: conEnddate}, $text: {$search: regKey}, "Status.StatusName": "Pending for Approval"} ).count().then((pending) => { 
+                                    RequestModel.find( {Disabled: false, DateReceived: {$gte: conStartdate, $lte: conEnddate}, $text: {$search: regKey}, "Status.StatusName": "Approved"} ).count().then((approved) => { 
+                                        RequestModel.find( {Disabled: false, DateReceived: {$gte: conStartdate, $lte: conEnddate}, $text: {$search: regKey}, "Status.StatusName": "Completed"} ).count().then((completed) => { 
+                                            var hasResult = true;
+                                            res.render('summary', {request:requests, Total:totalWorkOrders, Pending:pending, Approved:approved, Completed:completed, start:req.body.startdate, end:req.body.enddate, status:req.body.status, totalResults:totalCount, hasResult:hasResult, user:user});
+                                        })
                                     })
                                 })
                             })
                         })
-                    })
-                });
+                    });
+                } else {
+                    RequestModel.find({DateReceived: {$gte: conStartdate, $lte: conEnddate}}).sort({ DateReceived: 'asc' }).then((requests) => {
+                        RequestModel.find({Disabled: false, DateReceived: {$gte: conStartdate, $lte: conEnddate}}).count().then((totalCount) => {
+                            RequestModel.find( {Disabled: false} ).count().then((totalWorkOrders) => { 
+                                RequestModel.find( {Disabled: false, DateReceived: {$gte: conStartdate, $lte: conEnddate}, "Status.StatusName": "Pending for Approval"} ).count().then((pending) => { 
+                                    RequestModel.find( {Disabled: false, DateReceived: {$gte: conStartdate, $lte: conEnddate}, "Status.StatusName": "Approved"} ).count().then((approved) => { 
+                                        RequestModel.find( {Disabled: false, DateReceived: {$gte: conStartdate, $lte: conEnddate}, "Status.StatusName": "Completed"} ).count().then((completed) => { 
+                                            var hasResult = true;
+                                            res.render('summary', {request:requests, Total:totalWorkOrders, Pending:pending, Approved:approved, Completed:completed, start:req.body.startdate, end:req.body.enddate, status:req.body.status, totalResults:totalCount, hasResult:hasResult, user:user});
+                                        })
+                                    })
+                                })
+                            })
+                        })
+                    });
+                }
             } else {
-                RequestModel.find({DateReceived: {$gte: conStartdate, $lte: conEnddate}}).sort({ DateReceived: 'asc' }).then((requests) => {
-                    RequestModel.find({Disabled: false, DateReceived: {$gte: conStartdate, $lte: conEnddate}}).count().then((totalCount) => {
-                        RequestModel.find( {Disabled: false} ).count().then((totalWorkOrders) => { 
-                            RequestModel.find( {Disabled: false, DateReceived: {$gte: conStartdate, $lte: conEnddate}, "Status.StatusName": "Pending for Approval"} ).count().then((pending) => { 
-                                RequestModel.find( {Disabled: false, DateReceived: {$gte: conStartdate, $lte: conEnddate}, "Status.StatusName": "Approved"} ).count().then((approved) => { 
-                                    RequestModel.find( {Disabled: false, DateReceived: {$gte: conStartdate, $lte: conEnddate}, "Status.StatusName": "Completed"} ).count().then((completed) => { 
-                                        var hasResult = true;
-                                        res.render('summary', {request:requests, Total:totalWorkOrders, Pending:pending, Approved:approved, Completed:completed, start:req.body.startdate, end:req.body.enddate, status:req.body.status, totalResults:totalCount, hasResult:hasResult});
+                // Returns data depending on the Status within date range
+                // Has status, has keyword, has date range
+                const status = req.body.status;
+                const startdate = req.body.startdate;
+                const conStartdate = new Date(startdate);
+        
+                const enddate = req.body.enddate;
+                const conEnddate = new Date(enddate);
+
+                if (req.body.keyword) {
+                    var slash = "\\"
+                    var regKey = slash + req.body.keyword + slash
+
+                    RequestModel.find({ DateReceived: {$gte: conStartdate, $lte: conEnddate}, $text: {$search: regKey}, "Status.StatusName": status }).sort({ DateReceived: 'asc' }).then((requests) => {
+                        RequestModel.find({Disabled: false, DateReceived: {$gte: conStartdate, $lte: conEnddate}, $text: {$search: regKey}, "Status.StatusName": status}).count().then((totalCount) => {
+                            RequestModel.find( {Disabled: false, DateReceived: {$gte: conStartdate, $lte: conEnddate}, $text: {$search: regKey} } ).count().then((totalWorkOrders) => { 
+                                RequestModel.find( {Disabled: false, DateReceived: {$gte: conStartdate, $lte: conEnddate}, $text: {$search: regKey}, "Status.StatusName": "Pending for Approval"} ).count().then((pending) => { 
+                                    RequestModel.find( {Disabled: false, DateReceived: {$gte: conStartdate, $lte: conEnddate}, $text: {$search: regKey}, "Status.StatusName": "Approved"} ).count().then((approved) => { 
+                                        RequestModel.find( {Disabled: false, DateReceived: {$gte: conStartdate, $lte: conEnddate}, $text: {$search: regKey}, "Status.StatusName": "Completed"} ).count().then((completed) => { 
+                                            var hasResult = true;
+                                            res.render('summary', {request:requests, Total:totalWorkOrders, Pending:pending, Approved:approved, Completed:completed, start:req.body.startdate, end:req.body.enddate, status:req.body.status, totalResults:totalCount, hasResult:hasResult, user:user});
+                                        })
                                     })
                                 })
                             })
                         })
-                    })
-                });
+                    });
+                } else {
+                    RequestModel.find({ DateReceived: {$gte: conStartdate, $lte: conEnddate}, "Status.StatusName": status }).sort({ DateReceived: 'asc' }).then((requests) => {
+                        RequestModel.find({Disabled: false, DateReceived: {$gte: conStartdate, $lte: conEnddate}, "Status.StatusName": status}).count().then((totalCount) => {
+                            RequestModel.find( {Disabled: false, DateReceived: {$gte: conStartdate, $lte: conEnddate}} ).count().then((totalWorkOrders) => { 
+                                RequestModel.find( {Disabled: false, DateReceived: {$gte: conStartdate, $lte: conEnddate}, "Status.StatusName": "Pending for Approval"} ).count().then((pending) => { 
+                                    RequestModel.find( {Disabled: false, DateReceived: {$gte: conStartdate, $lte: conEnddate}, "Status.StatusName": "Approved"} ).count().then((approved) => { 
+                                        RequestModel.find( {Disabled: false, DateReceived: {$gte: conStartdate, $lte: conEnddate}, "Status.StatusName": "Completed"} ).count().then((completed) => { 
+                                            var hasResult = true;
+                                            res.render('summary', {request:requests, Total:totalWorkOrders, Pending:pending, Approved:approved, Completed:completed, start:req.body.startdate, end:req.body.enddate, status:req.body.status, totalResults:totalCount, hasResult:hasResult, user:user});
+                                        })
+                                    })
+                                })
+                            })
+                        })
+                    });
+                } 
             }
-        } else {
-            // Returns data depending on the Status within date range
-            // Has status, has keyword, has date range
-            const status = req.body.status;
-            const startdate = req.body.startdate;
-            const conStartdate = new Date(startdate);
-    
-            const enddate = req.body.enddate;
-            const conEnddate = new Date(enddate);
-
-            if (req.body.keyword) {
-                var slash = "\\"
-                var regKey = slash + req.body.keyword + slash
-
-                RequestModel.find({ DateReceived: {$gte: conStartdate, $lte: conEnddate}, $text: {$search: regKey}, "Status.StatusName": status }).sort({ DateReceived: 'asc' }).then((requests) => {
-                    RequestModel.find({Disabled: false, DateReceived: {$gte: conStartdate, $lte: conEnddate}, $text: {$search: regKey}, "Status.StatusName": status}).count().then((totalCount) => {
-                        RequestModel.find( {Disabled: false, DateReceived: {$gte: conStartdate, $lte: conEnddate}, $text: {$search: regKey} } ).count().then((totalWorkOrders) => { 
-                            RequestModel.find( {Disabled: false, DateReceived: {$gte: conStartdate, $lte: conEnddate}, $text: {$search: regKey}, "Status.StatusName": "Pending for Approval"} ).count().then((pending) => { 
-                                RequestModel.find( {Disabled: false, DateReceived: {$gte: conStartdate, $lte: conEnddate}, $text: {$search: regKey}, "Status.StatusName": "Approved"} ).count().then((approved) => { 
-                                    RequestModel.find( {Disabled: false, DateReceived: {$gte: conStartdate, $lte: conEnddate}, $text: {$search: regKey}, "Status.StatusName": "Completed"} ).count().then((completed) => { 
-                                        var hasResult = true;
-                                        res.render('summary', {request:requests, Total:totalWorkOrders, Pending:pending, Approved:approved, Completed:completed, start:req.body.startdate, end:req.body.enddate, status:req.body.status, totalResults:totalCount, hasResult:hasResult});
-                                    })
-                                })
-                            })
-                        })
-                    })
-                });
-            } else {
-                RequestModel.find({ DateReceived: {$gte: conStartdate, $lte: conEnddate}, "Status.StatusName": status }).sort({ DateReceived: 'asc' }).then((requests) => {
-                    RequestModel.find({Disabled: false, DateReceived: {$gte: conStartdate, $lte: conEnddate}, "Status.StatusName": status}).count().then((totalCount) => {
-                        RequestModel.find( {Disabled: false, DateReceived: {$gte: conStartdate, $lte: conEnddate}} ).count().then((totalWorkOrders) => { 
-                            RequestModel.find( {Disabled: false, DateReceived: {$gte: conStartdate, $lte: conEnddate}, "Status.StatusName": "Pending for Approval"} ).count().then((pending) => { 
-                                RequestModel.find( {Disabled: false, DateReceived: {$gte: conStartdate, $lte: conEnddate}, "Status.StatusName": "Approved"} ).count().then((approved) => { 
-                                    RequestModel.find( {Disabled: false, DateReceived: {$gte: conStartdate, $lte: conEnddate}, "Status.StatusName": "Completed"} ).count().then((completed) => { 
-                                        var hasResult = true;
-                                        res.render('summary', {request:requests, Total:totalWorkOrders, Pending:pending, Approved:approved, Completed:completed, start:req.body.startdate, end:req.body.enddate, status:req.body.status, totalResults:totalCount, hasResult:hasResult});
-                                    })
-                                })
-                            })
-                        })
-                    })
-                });
-            } 
-        }
+        })
     },
 
     getRegister: async function(req, res) {
@@ -554,7 +566,7 @@ const controller = {
         if(req.session.email){
             res.redirect('/')
         } else {
-            res.render('login');
+            res.render('404notfound');
         }
     },
 
@@ -564,7 +576,7 @@ const controller = {
         // Count is for checking if there are duplicate emails
         UserModel.find( {Email: email} ).count().then((count) => { 
             if(count == 0) {
-                error = "Email does not exist";
+                error = "Email does not exist.";
                 res.render("login", {error});
             } else {
                 UserModel.findOne( {Email: email} ).then((user) => {
@@ -573,7 +585,7 @@ const controller = {
                         console.log("req.session: " + req.session.email);
                         res.redirect('/');
                     } else {
-                        error = "Wrong password";
+                        error = "Wrong password.";
                         res.render("login", {error});
                     }
                 })
@@ -590,12 +602,11 @@ const controller = {
 
     getAuditLogs: async function(req, res) {
         AuditModel.find({}).sort({ DateCreated: 'desc' }).then((audits) => {
-            res.render("auditlogs", {audit:audits});
-        })
+            UserModel.findOne({Email: req.session.email}).then((user) => {
+                res.render("auditlogs", {audit:audits, user:user});
+            });
+        });
     },
-
-    
-
 }
 
 // Export this file for other files to find

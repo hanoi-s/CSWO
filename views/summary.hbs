@@ -38,7 +38,7 @@
                         </li>
 
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account Name <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{user.FirstName}} {{user.LastName}} <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a href="/logout">Logout</a></li>
                             </ul>
@@ -52,6 +52,12 @@
 
         {{!-- Start Date, End Date, View Data Button --}}
         <div class="container-fluid">
+            <div class="py-5 text-center">
+                <img class="d-block mx-auto mb-4" src="\images\dlsu.png" alt="" width="72" height="72">
+                <h2>Civil Works and Sanitary Office</h2>
+                <p class="lead">REPORTS SUMMARY</p>
+            </div>
+
             <form action="/summary/daterange" method="POST">
                 <div class="row">
                     <div class="col-lg-2">

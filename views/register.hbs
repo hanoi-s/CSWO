@@ -19,6 +19,7 @@
             background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5));
             background: linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5))
         }
+
         .gradient-custom-4 {
             background: #84fab0;
             background: -webkit-linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1));
@@ -30,7 +31,8 @@
 </head>
 
 <body>
-    <section class="vh-100 bg-image" style="background-image: url('https://www.dlsu.edu.ph/wp-content/uploads/2019/07/1_s0F0i9hHCwc756pbaYCWrQ.png');">
+    <section class="vh-100 bg-image"
+        style="background-image: url('https://www.dlsu.edu.ph/wp-content/uploads/2019/07/1_s0F0i9hHCwc756pbaYCWrQ.png');">
         <div class="mask d-flex align-items-center h-100 gradient-custom-3">
             <div class="container h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
@@ -42,45 +44,50 @@
                                 <h3 class="text-center">Civil Works and Sanitary Office</h3>
                                 <h6 class="text-uppercase text-center mb-5">Create an account</h6>
                                 <form action="postRegister" method="POST">
-                                    <div>
-                                        <label for="firstname">First Name</label>
-                                        <input type="text" id="firstname" name="firstname" class="form-control form-control-lg" placeholder="First Name" value="Shanicka" required>
+                                    <div class="row mb-3">
+                                        <div class="col">
+                                            <label class="form-label mb-1" for="firstname">First Name</label>
+                                            <input type="text" id="firstname" class="form-control form-control-lg" placeholder="First Name" value="Shanicka" required/>
+                                        </div>
+                                        <div class="col">
+                                            <label class="form-label mb-1" for="lastname">Last Name</label>
+                                            <input type="text" id="lastname" class="form-control form-control-lg" placeholder="Last Name" value="Minor" required/>
+                                        </div>
                                     </div>
-                                    <br>
-                                    <div>
-                                        <label for="lastname">Last Name</label>
-                                        <input type="text" id="lastname" name="lastname" class="form-control form-control-lg" placeholder="Last Name" value="Minor" required>
+                                    <div class="mb-3">
+                                        <label class="form-label mb-1" for="email">Email</label>
+                                        <input type="email" id="email" name="email" class="form-control form-control-lg"
+                                            placeholder="E-mail Address" value="shan@gmail.com" required>
                                     </div>
-                                    <br>
-                                    <div>
-                                        <label for="email">Email</label>
-                                        <input type="email" id="email" name="email" class="form-control form-control-lg" placeholder="E-mail Address" value="shan@gmail.com" required>
+                                    <div class="mb-3">
+                                        <label class="form-label mb-1" for="pass">Password</label>
+                                        <input type="password" id="password" name="password" minlength="8"
+                                            class="form-control form-control-lg" placeholder="Password" value="password"
+                                            required>
                                     </div>
-                                    <br>
-                                    <div>
-                                        <label for="pass">Password</label>
-                                        <input type="password" id="password" name="password" minlength="8" class="form-control form-control-lg" placeholder="Password" value="password" required>
+                                    <div class="mb-3">
+                                        <label class="form-label mb-2" for="pass">Confirm Password</label>
+                                        <input type="password" id="confirmPassword" class="form-control form-control-lg"
+                                            placeholder="Confirm password" value="password" required />
                                     </div>
-                                    <br>
-                                    <div class="mb-4">
-                                        <input type="password" id="confirmPassword" class="form-control form-control-lg" placeholder="Confirm password" value="password" required />
-                                    </div>
-                                    <br>
 
-                                    <div id="errors">
-                                        {{error}}
+                                    <div class="text-center mb-1 text-danger"  id="errors">
+                                        <i>{{error}}</i>
                                     </div>
 
                                     <div class="form-check d-flex justify-content-center mb-5">
-                                        <input class="form-check-input me-2" type="checkbox" id="admin_boolean" name="admin_boolean"/>
+                                        <input class="form-check-input me-2" type="checkbox" id="admin_boolean"
+                                            name="admin_boolean" />
                                         <label class="form-check-label" for="admin_boolean">Register as Admin</label>
                                     </div>
 
                                     <div class="d-flex justify-content-center">
-                                        <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
+                                        <button type="submit"
+                                            class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register</button>
                                     </div>
 
-                                    <p class="text-center text-muted mt-5 mb-0">Already have an account? <a href="/login" class="fw-bold text-body"><u>Login here</u></a></p>
+                                    <p class="text-center text-muted mt-5 mb-0">Already have an account? <a
+                                            href="/login" class="fw-bold text-body"><u>Login here</u></a></p>
                                 </form>
 
                             </div>
@@ -93,4 +100,3 @@
 
     </section>
 </body>
-
