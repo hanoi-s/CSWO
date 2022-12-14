@@ -46,13 +46,21 @@ const controller = {
     getDashboard: function (req, res) {
         if (req.session.email) {
             // Renders dashboard page with all requests from database
-            RequestModel.find({}).sort({ DateReceived: 'asc' }).then((workOrders) => {
-                UserModel.findOne({ Email: req.session.email }).then((user) => {
-                    res.render('dashboard', { request: workOrders, user: user });
+            if (req.session.email) {
+                RequestModel.find({ Disabled: false }).count().then((totalWorkOrders) => {
+                    RequestModel.find({ Disabled: false, "Status.StatusName": "Pending for Approval" }).count().then((pending) => {
+                        RequestModel.find({ Disabled: false, "Status.StatusName": "Approved" }).count().then((approved) => {
+                            RequestModel.find({ Disabled: false, "Status.StatusName": "Completed" }).count().then((completed) => {
+                                RequestModel.find({}).sort({ DateReceived: 'asc' }).then((workOrders) => {
+                                    UserModel.findOne({ Email: req.session.email }).then((user) => {
+                                        res.render('dashboard', { Total: totalWorkOrders, Pending: pending, Approved: approved, Completed: completed, request: workOrders, user: user })
+                                    })
+                                })
+                            })
+                        })
+                    })
                 })
-            });
-        } else {
-            res.redirect('/login');
+            }
         }
     },
 
@@ -533,7 +541,7 @@ const controller = {
                     res.redirect('noaccess');
                 }
             })
-        }else{
+        } else {
             res.redirect('login');
         };
     },

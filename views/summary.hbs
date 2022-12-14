@@ -115,9 +115,10 @@
     </div>
     <div class="py-5 text-center" id="totalResults">
         {{#ifEquals hasResult true}}
-        <h4>{{totalResults}} Work Order(s) Found</h4>
+        <h4>{{totalResults}} Work Order(s) Found ——— {{Pending}} Pending, {{Approved}} Approved, and {{Completed}} Completed</h4>
         {{/ifEquals}}
     </div>
+    <br>
     <div class="container-fluid tab-content" id="nav-tabContent">
         <div class="tab-pane active p-3" id="nav-pending" role="tabpanel" aria-labelledby="nav-pending-tab">
             <table class="table table-hover">
