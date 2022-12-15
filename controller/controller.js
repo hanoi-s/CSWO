@@ -503,12 +503,23 @@ const controller = {
         var slash = "\\"
         var regKey = slash + req.body.keyword + slash
 
-        RequestModel.find({ $text: { $search: regKey } }).then((requests) => {
-            UserModel.findOne({ Email: req.session.email }).then((user) => {
-                res.render('search', { request: requests, user: user });
-            });
-        })
+        if (req.session.email) {
+            RequestModel.find({ $text: { $search: regKey } }).then((requests) => {
+                RequestModel.find({ Disabled: false, $text: { $search: regKey }, "Status.StatusName": "Pending for Approval" }).count().then((pending) => {
+                    RequestModel.find({ Disabled: false, $text: { $search: regKey }, "Status.StatusName": "Approved" }).count().then((approved) => {
+                        RequestModel.find({ Disabled: false, $text: { $search: regKey }, "Status.StatusName": "Completed" }).count().then((completed) => {
+                            UserModel.findOne({ Email: req.session.email }).then((user) => {
+                                res.render('searchDashboard', { Pending: pending, Approved: approved, Completed: completed, request: requests, user: user });
+                            })
+                        })
+                    })
+                })
+            })
+        } else {
+            res.redirect('/login');
+        }
     },
+
 
     postDateRange: async function (req, res) {
 

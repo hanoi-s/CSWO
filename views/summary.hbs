@@ -12,6 +12,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+
+
     <title>Report Summary</title>
     <style>
         .badge-success {
@@ -67,14 +69,14 @@
 
     {{!-- Start Date, End Date, View Data Button --}}
     <div class="container-fluid">
-        <div class="py-5 text-center">
-            <img class="d-block mx-auto mb-4" src="\images\dlsu.png" alt="" width="72" height="72">
-            <h2>Civil Works and Sanitary Office</h2>
-            <p class="lead">REPORTS SUMMARY</p>
-        </div>
-
         <form action="/summary/daterange" method="POST">
-            <div class="row">
+            <div class="py-5 text-center">
+                <img class="d-block mx-auto mb-4" src="\images\dlsu.png" alt="" width="72" height="72">
+                <h2>Civil Works and Sanitary Office</h2>
+                <p class="lead">REPORTS SUMMARY</p>
+            </div>
+
+            <div class="row justify-content-center">
                 <div class="col-lg-2">
                     <label for="status">Status</label>
                     <select class="form-control" id="status" name="status" required>
@@ -106,11 +108,15 @@
                     </div>
                 </div>
                 <div class="col-lg-1">
-                    <button class="btn btn-success btn-block" type="submit" style="margin-top: 24px;"
-                        id="searchButton">Search</button>
+                    <button class="btn btn-success btn-block" type="submit" style="margin-top: 24px;" id="searchButton">
+                        Search
+                    </button>
                 </div>
-                <div class="col-lg-1"></div>
-
+                 <div class="col-lg-1">
+                    <button class="btn btn-primary btn-block" type="button" style="margin-top: 24px;" id="pdfButton">
+                        Save as PDF
+                    </button>
+                </div>
             </div>
         </form>
     </div>

@@ -14,7 +14,7 @@
     <script src="/js/jquery.js"></script> --}}
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-    <title>Dashboard</title>
+    <title>Search Work Orders</title>
     <style>
         .badge-info {
             background-color: #008383;
@@ -69,7 +69,7 @@
         <div class="py-5 text-center">
             <img class="d-block mx-auto mb-4" src="\images\dlsu.png" alt="" width="72" height="72">
             <h2>Civil Works and Sanitary Office</h2>
-            <p class="lead">DASHBOARD</p>
+            <p class="lead">SEARCH WORK ORDERS</p>
         </div>
         <ul class="nav nav-tabs" id="nav-tab" role="tablist">
             <li class="nav-link active" id="nav-pending-tab" data-toggle="tab" data-target="#nav-pending" type="button"
@@ -85,8 +85,8 @@
                     href="/dashboard/completed">Completed <span
                         class="badge badge-pill badge-info even-larger-badge">{{Completed}}</span></a></li>
 
-
-
+            <a href="/dashboard"><button class="btn btn-primary"><span class="glyphicon glyphicon-refresh"></span>
+                    Refresh</button></a>
             <form class="navbar-form navbar-right" action="/searchDashboard" method="POST">
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Search for keywords" id="keyword"
