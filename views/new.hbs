@@ -55,16 +55,17 @@
     </nav>
 
     <div class="container">
-        <div class="py-5 text-center">
-            <img class="d-block mx-auto mb-4" src="\images\dlsu.png" alt="" width="72" height="72">
-            <h2>Civil Works and Sanitary Office</h2>
-            <p class="lead">WORK ORDER FORM</p>
-        </div>
 
-        <hr class="mb-4">
+        <form action="postNewOrder" method="POST">
+            <div class="py-5 text-center">
+                <img class="d-block mx-auto mb-4" src="\images\dlsu.png" alt="" width="72" height="72">
+                <h2>Civil Works and Sanitary Office</h2>
+                <p class="lead">WORK ORDER FORM</p>
+            </div>
 
-        <div class="row">
-            <form action="postNewOrder" method="POST">
+            <hr class="mb-4">
+
+            <div class="row">
                 <div class="col-md-8 order-md-1">
                     <h4 class="mb-3">Request Information</h4>
                     {{!-- Row for Location and Item --}}
@@ -140,7 +141,6 @@
                             </select>
                         </div>
                     </div>
-                    <hr class="mb-4">
                 </div>
 
                 <div class="col-md-4 order-md-2 mb-4">
@@ -171,16 +171,18 @@
                             placeholder="Department of Example" value="ccs" required>
                     </div>
                 </div>
-                <button class="btn btn-success btn-lg btn-block" type="submit">Create New Work Order</button>
-
-            </form>
-            <br>
-            <div class="text-center">
-                <button class="btn btn-dark btn-lg" type="button" onclick="history.back()">Go Back</button>
-                <button class="btn btn-primary btn-lg" type="button" onClick="location.href = '/dashboard';">Return
-                    to Dashboard</button>
             </div>
-        </div>
+            <hr class="mb-4">
+            <div class="text-right">
+                <button id = "create_btn" class="btn btn-success btn-lg" type="submit">Create New Work Order</button>
+                <button id="cancel_btn" class="btn btn-dark btn-lg" type="button" onclick="history.back()">Cancel</button>
+            </div>
+            
+
+
+        </form>
+        <br>
+    </div>
     </div>
 </body>
 
