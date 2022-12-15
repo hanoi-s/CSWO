@@ -13,6 +13,15 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <title>Report Summary</title>
+    <style>
+        .badge-success {
+            background-color: #468847;
+        }
+
+        .badge.even-larger-badge {
+            font-size: 1.1em;
+        }
+    </style>
 </head>
 
 <body>
@@ -101,23 +110,20 @@
                         id="searchButton">Search</button>
                 </div>
                 <div class="col-lg-1"></div>
-                <div class="col-lg-2">
-                    <ul class="list-group">
-                        <li class="list-group-item">Total Work Orders<span class="badge">{{Total}}</span></li>
-                        <li class="list-group-item">Total Pendings <span class="badge">{{Pending}}</span></li>
-                        <li class="list-group-item">Total Approved <span class="badge">{{Approved}}</span></li>
-                        <li class="list-group-item">Total Completed <span class="badge">{{Completed}}</span></li>
-                    </ul>
-                </div>
+
             </div>
         </form>
     </div>
+    <div class="container text-center list-group">
+        <h2>Total Work Orders Found: <span class="badge badge-success even-larger-badge">{{totalResults}}</span></h2>
     </div>
-    <div class="py-5 text-center" id="totalResults">
+
+    {{!-- <div class="py-5 text-center" id="totalResults">
         {{#ifEquals hasResult true}}
-        <h4>{{totalResults}} Total Work Order(s) Found ——— {{Pending}} Pending, {{Approved}} Approved, and {{Completed}} Completed</h4>
+        <h4>{{totalResults}} Total Work Order(s) Found ——— {{Pending}} Pending, {{Approved}} Approved, and {{Completed}}
+            Completed</h4>
         {{/ifEquals}}
-    </div>
+    </div> --}}
     <br>
     <div class="container-fluid tab-content" id="nav-tabContent">
         <div class="tab-pane active p-3" id="nav-pending" role="tabpanel" aria-labelledby="nav-pending-tab">

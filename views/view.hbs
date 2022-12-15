@@ -131,7 +131,7 @@
                             <div class="form-group">
                                 <label class="control-label" for="targetdate">Target Date of Completion</label>
                                 <input class="form-control" id="targetdate" name="targetdate" placeholder="MM/DD/YYY"
-                                    type="text" value="{{#each request}}{{DateTarget}}{{/each}}" disabled />
+                                    type="text" value="{{#each request}}{{dateWithoutTime DateTarget}}{{/each}}" disabled />
                             </div>
                         </div>
                     </div>

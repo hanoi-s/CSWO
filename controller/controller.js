@@ -22,11 +22,19 @@ const controller = {
             console.log(request.ReferenceNo);
             const doc = new PDFDocument();
             var filename = request.ReferenceNo.toString() + ".pdf";
+
+            //formats the DateandTime to ex. December 12, 2022
+            let dtFormat = new Intl.DateTimeFormat('en-US',{
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric'
+            });
+
             doc.pipe(fs.createWriteStream(filename));
-            doc.fontSize(20).text("CSWO WORK ORDER FORM");
+            doc.font('Courier-Bold').fontSize(20).text("CSWO WORK ORDER FORM");
             doc.fontSize(15).text(" ");
-            doc.fontSize(14).text("Request Information");
-            doc.fontSize(10).text("Work Order No: " + request.ReferenceNo);
+            doc.font('Courier-Bold').fontSize(14).text("Request Information");
+            doc.font('Courier').fontSize(10).text("Work Order No: " + request.ReferenceNo);
             doc.fontSize(10).text("Location: " + request.Location);
             doc.fontSize(10).text("Item: " + request.Item);
             doc.fontSize(10).text("Category: " + request.Category.CategoryName);
@@ -34,35 +42,37 @@ const controller = {
             doc.fontSize(10).text("Details of Request: ");
             doc.fontSize(10).text(request.Details);
             doc.fontSize(10).text(" ");
-            doc.fontSize(10).text("Date Received: " + request.DateReceived);
-            doc.fontSize(10).text("Target Date of Completion: " + request.DateTarget);
+            doc.fontSize(10).text("Date Received: " + dtFormat.format(request.DateReceived));
+            doc.fontSize(10).text("Target Date of Completion: " + dtFormat.format(request.DateTarget));
             doc.fontSize(10).text("Project In-Charge: " + request.InCharge.FirstName);
-            doc.fontSize(10).text("Date of Completion:      ____________________________" );
+            doc.fontSize(10).text("Date of Completion: ____________________________" );
             doc.fontSize(10).text("Workers Assigned: " );
-            doc.fontSize(10).text("____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________");
+            doc.fontSize(10).text("__________________________________________________________________________________________________________________________________________________________________________________________________________________________________________");
             doc.fontSize(10).text(" ");
             doc.fontSize(10).text("Remarks/Action Taken:" );
-            doc.fontSize(10).text("________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________");
+            doc.fontSize(10).text("________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________");
             doc.fontSize(10).text(" ");
             doc.fontSize(10).text("________________________________________", {align: 'center'});
             doc.fontSize(8).text("Project In-charge Signature", {align: 'center'});   
-            doc.fontSize(15).text(" ");         
-            doc.fontSize(14).text("Requester Information");
-            doc.fontSize(10).text("Name: " + request.Requester.FirstName + request.Requester.LastName);
+            doc.fontSize(15).text(" ");       
+
+            doc.font('Courier-Bold').fontSize(14).text("Requester Information");
+            doc.font('Courier').fontSize(10).text("Name: " + request.Requester.FirstName + request.Requester.LastName);
             doc.fontSize(10).text("Email: " + request.Requester.Email);
             doc.fontSize(10).text("Department/Office: " + request.Requester.Department);
             doc.fontSize(15).text(" ");   
-            doc.fontSize(14).text("Evaluation");
-            doc.fontSize(10).text("Date:      ____________________________" );
+
+            doc.font('Courier-Bold').fontSize(14).text("Evaluation");
+            doc.font('Courier').fontSize(10).text("Date: ____________________________" );
             doc.fontSize(10).text(" ");
             doc.fontSize(10).text("Please rate the service rendered by CSWO using the following criteria:");
-            doc.fontSize(10).text("0 - Not Applicable   1 - Poor                            2 - Moderately Satisfactory");
-            doc.fontSize(10).text("3 - Satisfactory       4 - Highly Satisfactory     5 - Outstanding");
+            doc.fontSize(10).text("0 - Not Applicable   1 - Poor                    2 - Moderately Satisfactory");
+            doc.fontSize(10).text("3 - Satisfactory     4 - Highly Satisfactory     5 - Outstanding");
             doc.fontSize(10).text(" ");
             doc.fontSize(10).text("  ___ Response Time    ___ Efficiency    ___ Accuracy    __ Courtesy");
             doc.fontSize(10).text(" ");
             doc.fontSize(10).text("Please write your detailed feedback below.");
-            doc.fontSize(10).text("________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________");
+            doc.fontSize(10).text("________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________");
             doc.fontSize(10).text(" ");
             doc.fontSize(10).text("________________________________________", {align: 'center'});
             doc.fontSize(8).text("Requestor's Signature", {align: 'center'});
