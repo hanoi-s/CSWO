@@ -44,7 +44,6 @@
                             {{#ifEquals user.Admin true}}
                             <li><a href="/register">Register</a></li>
                             {{/ifEquals}}
-                            <li><a href="#">Change Password</a></li>
                             <li><a href="/logout">Logout</a></li>
                         </ul>
                     </li>
@@ -163,7 +162,7 @@
                     </thead>
                     {{#each audit}}
                     {{#ifEquals Action 'Deleted'}}
-                    <tr data-href="/viewAudit/{{_id}}">
+                    <tr data-href="/viewAudit/{{Request._id}}">
                         <td scope="col">{{dateFormat DateCreated}}</td>
                         <td scope="col">{{User.FirstName}} {{User.LastName}}</td>
                         <td scope="col">{{Action}} a Work Order</td>
@@ -188,7 +187,7 @@
                     </thead>
                     {{#each audit}}
                     {{#ifEquals Action 'Approved'}}
-                    <tr data-href="/view/{{_id}}">
+                    <tr data-href="/viewAudit/{{Request._id}}">
                         <td scope="col">{{dateFormat DateCreated}}</td>
                         <td scope="col">{{User.FirstName}} {{User.LastName}}</td>
                         <td scope="col">{{Action}} a Work Order</td>
@@ -204,7 +203,7 @@
             <table class="table table-hover">
                 <tbody>
                     <thead>
-                        <tr data-href="/view/{{_id}}">
+                        <tr data-href="/viewAudit/{{_id}}">
                             <th scope="col">Time</th>
                             <th scope="col">Performed By</th>
                             <th scope="col">Action</th>
@@ -213,7 +212,7 @@
                     </thead>
                     {{#each audit}}
                     {{#ifEquals Action 'Completed'}}
-                    <tr data-href="/view/{{Request._id}}">
+                    <tr data-href="/viewAudit/{{Request._id}}">
                         <td scope="col">{{dateFormat DateCreated}}</td>
                         <td scope="col">{{User.FirstName}} {{User.LastName}}</td>
                         <td scope="col">{{Action}} a Work Order</td>

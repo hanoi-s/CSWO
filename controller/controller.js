@@ -258,93 +258,162 @@ const controller = {
         if (STATUS == "Approved") {
             var DATEAPPROVED = new Date();
 
-            UserModel.findOne({ Email: req.session.email }).then((user) => {
-                RequestModel.findOne({ _id: req.params.woid }).then((request) => {
-                    const auditApproval = new AuditModel({
-                        DateCreated: new Date(),
-                        Action: "Approved",
-                        User: user,
-                        Request: request,
-                    })
-                    AuditModel.insertMany(auditApproval);
-                })
-            })
-        } else {
-            var DATEAPPROVED = null;
-        }
+            // Searches the database for the four variables above 
+            // as they are data already found on the database
+            TypeModel.findOne({ TypeName: TYPE }).then((type) => {
+                CategoryModel.findOne({ CategoryName: CATEGORY }).then((category) => {
+                    EmployeeModel.findOne({ FirstName: INCHARGE }).then((incharge) => {
+                        StatusModel.findOne({ StatusName: STATUS }).then((status) => {
+                            RequestModel.find({}).count().then((totalWorkOrders) => {
+                                UserModel.findOne({ Email: req.session.email }).then((user) => {
+                                    // For Refernece Number
+                                    var refNum0 = new Date();
+                                    var refYear = refNum0.getFullYear().toString();
+                                    var refMonth0 = refNum0.getMonth();
+                                    var refMonth00 = refMonth0 + 1;
+                                    var refMonth = refMonth00.toString();
+                                    var count0 = totalWorkOrders;
+                                    var count0 = count0 + 1;
+                                    var count = count0.toString();
 
-        // Searches the database for the four variables above 
-        // as they are data already found on the database
-        TypeModel.findOne({ TypeName: TYPE }).then((type) => {
-            CategoryModel.findOne({ CategoryName: CATEGORY }).then((category) => {
-                EmployeeModel.findOne({ FirstName: INCHARGE }).then((incharge) => {
-                    StatusModel.findOne({ StatusName: STATUS }).then((status) => {
-                        RequestModel.find({}).count().then((totalWorkOrders) => {
-                            UserModel.findOne({ Email: req.session.email }).then((user) => {
-                                // For Refernece Number
-                                var refNum0 = new Date();
-                                var refYear = refNum0.getFullYear().toString();
-                                var refMonth0 = refNum0.getMonth();
-                                var refMonth00 = refMonth0 + 1;
-                                var refMonth = refMonth00.toString();
-                                var count0 = totalWorkOrders;
-                                var count0 = count0 + 1;
-                                var count = count0.toString();
+                                    console.log(totalWorkOrders)
 
-                                console.log(totalWorkOrders)
+                                    totalWorkOrders = totalWorkOrders + 1;
 
-                                totalWorkOrders = totalWorkOrders + 1;
+                                    if (totalWorkOrders < 10) {
+                                        var padding = "00000";
+                                    } if (totalWorkOrders < 100 && totalWorkOrders >= 10) {
+                                        var padding = "0000";
+                                    } if (totalWorkOrders >= 100) {
+                                        var padding = "000";
+                                    }
 
-                                if (totalWorkOrders < 10) {
-                                    var padding = "00000";
-                                } if (totalWorkOrders < 100 && totalWorkOrders >= 10) {
-                                    var padding = "0000";
-                                } if (totalWorkOrders >= 100) {
-                                    var padding = "000";
-                                }
+                                    var referenceNumber = refYear + refMonth + padding + count;
 
-                                var referenceNumber = refYear + refMonth + padding + count;
-
-                                // Creates a new Request instance with all the information collected
-                                // both from the form and the database
-                                const request = new RequestModel({
-                                    ReferenceNo: referenceNumber,
-                                    Location: req.body.location,
-                                    Item: req.body.item,
-                                    Details: req.body.details,
-                                    DateTarget: req.body.targetdate,
-                                    DateReceived: new Date(),
-                                    DateApproved: DATEAPPROVED,
-                                    DateCompleted: null,
-                                    CreatedBy: user,
-                                    Requester: requester,       // This is where new Requester instance is stored
-                                    Status: status,             // This is where the data from db is stored
-                                    Category: category,         // This is where the data from db is stored
-                                    Type: type,                 // This is where the data from db is stored
-                                    InCharge: incharge,         // This is where the data from db is stored
-                                });
-
-                                const audit = new AuditModel({
-                                    DateCreated: new Date(),
-                                    Action: "Created",
-                                    User: user,
-                                    Request: request,
-                                })
-
-                                // request.save() - Saves the new Request instance on the database
-                                request.save()
-                                    .then((result) => {
-                                        requester.save();               // requester.save() - Saves the new Requester information instance on the database
-                                        audit.save();
-                                        res.redirect('/dashboard');     // Redirects the user on the dashboard to view new work order
+                                    // Creates a new Request instance with all the information collected
+                                    // both from the form and the database
+                                    const request = new RequestModel({
+                                        ReferenceNo: referenceNumber,
+                                        Location: req.body.location,
+                                        Item: req.body.item,
+                                        Details: req.body.details,
+                                        DateTarget: req.body.targetdate,
+                                        DateReceived: new Date(),
+                                        DateApproved: DATEAPPROVED,
+                                        DateCompleted: null,
+                                        CreatedBy: user,
+                                        Requester: requester,       // This is where new Requester instance is stored
+                                        Status: status,             // This is where the data from db is stored
+                                        Category: category,         // This is where the data from db is stored
+                                        Type: type,                 // This is where the data from db is stored
+                                        InCharge: incharge,         // This is where the data from db is stored
                                     });
 
+                                    const auditCreated = new AuditModel({
+                                        DateCreated: new Date(),
+                                        Action: "Created",
+                                        User: user,
+                                        Request: request,
+                                    })
+
+                                    const auditApproved = new AuditModel({
+                                        DateCreated: new Date(),
+                                        Action: "Approved",
+                                        User: user,
+                                        Request: request,
+                                    })
+
+                                    // request.save() - Saves the new Request instance on the database
+                                    request.save()
+                                        .then((result) => {
+                                            requester.save();               // requester.save() - Saves the new Requester information instance on the database
+                                            auditCreated.save();
+                                            auditApproved.save();
+                                            res.redirect('/dashboard');     // Redirects the user on the dashboard to view new work order
+                                        });
+                                })
                             })
                         })
                     })
                 })
             })
-        })
+        } else {
+            var DATEAPPROVED = null;
+            // Searches the database for the four variables above 
+            // as they are data already found on the database
+            TypeModel.findOne({ TypeName: TYPE }).then((type) => {
+                CategoryModel.findOne({ CategoryName: CATEGORY }).then((category) => {
+                    EmployeeModel.findOne({ FirstName: INCHARGE }).then((incharge) => {
+                        StatusModel.findOne({ StatusName: STATUS }).then((status) => {
+                            RequestModel.find({}).count().then((totalWorkOrders) => {
+                                UserModel.findOne({ Email: req.session.email }).then((user) => {
+                                    // For Refernece Number
+                                    var refNum0 = new Date();
+                                    var refYear = refNum0.getFullYear().toString();
+                                    var refMonth0 = refNum0.getMonth();
+                                    var refMonth00 = refMonth0 + 1;
+                                    var refMonth = refMonth00.toString();
+                                    var count0 = totalWorkOrders;
+                                    var count0 = count0 + 1;
+                                    var count = count0.toString();
+
+                                    console.log(totalWorkOrders)
+
+                                    totalWorkOrders = totalWorkOrders + 1;
+
+                                    if (totalWorkOrders < 10) {
+                                        var padding = "00000";
+                                    } if (totalWorkOrders < 100 && totalWorkOrders >= 10) {
+                                        var padding = "0000";
+                                    } if (totalWorkOrders >= 100) {
+                                        var padding = "000";
+                                    }
+
+                                    var referenceNumber = refYear + refMonth + padding + count;
+
+                                    // Creates a new Request instance with all the information collected
+                                    // both from the form and the database
+                                    const request = new RequestModel({
+                                        ReferenceNo: referenceNumber,
+                                        Location: req.body.location,
+                                        Item: req.body.item,
+                                        Details: req.body.details,
+                                        DateTarget: req.body.targetdate,
+                                        DateReceived: new Date(),
+                                        DateApproved: DATEAPPROVED,
+                                        DateCompleted: null,
+                                        CreatedBy: user,
+                                        Requester: requester,       // This is where new Requester instance is stored
+                                        Status: status,             // This is where the data from db is stored
+                                        Category: category,         // This is where the data from db is stored
+                                        Type: type,                 // This is where the data from db is stored
+                                        InCharge: incharge,         // This is where the data from db is stored
+                                    });
+
+                                    const audit = new AuditModel({
+                                        DateCreated: new Date(),
+                                        Action: "Created",
+                                        User: user,
+                                        Request: request,
+                                    })
+
+                                    // request.save() - Saves the new Request instance on the database
+                                    request.save()
+                                        .then((result) => {
+                                            requester.save();               // requester.save() - Saves the new Requester information instance on the database
+                                            audit.save();
+                                            res.redirect('/dashboard');     // Redirects the user on the dashboard to view new work order
+                                        });
+
+                                })
+                            })
+                        })
+                    })
+                })
+            })
+        }
+
+
     },
 
     postUpdateOrder: async function (req, res) {
@@ -530,7 +599,7 @@ const controller = {
                     res.render('searchAudit', { audit: audits, user: user });
                 })
             })
-                
+
         } else {
             res.redirect('/login');
         }

@@ -45,7 +45,6 @@
                             {{#ifEquals user.Admin true}}
                             <li><a href="/register">Register</a></li>
                             {{/ifEquals}}
-                            <li><a href="#">Change Password</a></li>
                             <li><a href="/logout">Logout</a></li>
                         </ul>
                     </li>
@@ -73,12 +72,11 @@
                         <div class="col-md-6 mb-3">
                             <label for="location">Location</label>
                             <input type="text" class="form-control" name="location" id="location"
-                                placeholder="Location in Campus" value="Gokongwei" required>
+                                placeholder="Location in Campus" required>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="item">Item</label>
-                            <input type="text" class="form-control" id="item" name="item" placeholder="Item" value="Key"
-                                required>
+                            <input type="text" class="form-control" id="item" name="item" placeholder="Item" required>
                         </div>
                     </div>
                     <br>
@@ -87,7 +85,7 @@
                         <div class="col-md-3 mb-3">
                             <label for="workCtg">Category of Work</label>
                             <select class="form-control" id="workCtg" name="workCtg" required>
-                                <option>Select Category</option>
+                                <option value="">Select Category</option>
                                 {{#each category}}
                                 <option value="{{CategoryName}}">{{CategoryName}}</option>
                                 {{/each}}
@@ -96,7 +94,7 @@
                         <div class="col-md-3 mb-3">
                             <label for="workType">Type of Work</label>
                             <select class="form-control" id="workType" name="workType" required>
-                                <option>Select Type</option>
+                                <option value="">Select Type</option>
                                 {{#each type}}
                                 <option value="{{TypeName}}">{{TypeName}}</option>
                                 {{/each}}
@@ -114,7 +112,7 @@
                     <div class="row">
                         <div class="col-md-10 mb-3">
                             <label for="details">Other Request Details:</label>
-                            <textarea class="form-control" rows="3" name="details" id="details">Some detail</textarea>
+                            <textarea class="form-control" rows="3" name="details" id="details" placeholder="Enter additional details"></textarea>
                         </div>
                     </div>
                     <br>
@@ -149,26 +147,25 @@
                         <div class="col-md-6 mb-3">
                             <label for="firstName">First Name</label>
                             <input type="text" class="form-control" id="firstName" name="firstName"
-                                placeholder="First Name" value="shanicka" required>
+                                placeholder="First Name" required>
                         </div>
 
                         <div class="col-md-6 mb-3">
                             <label for="lastName">Last Name</label>
                             <input type="text" class="form-control" id="lastName" name="lastName"
-                                placeholder="Last Name" value="minor" required>
+                                placeholder="Last Name" required>
                         </div>
                     </div>
                     <br>
                     <div class="mb-3">
                         <label for="email">Email Address</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com"
-                            value="shanicka@gmail.com" required>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" required>
                     </div>
                     <br>
                     <div class="mb-3">
                         <label for="address">Department or Office</label>
                         <input type="text" class="form-control" id="address" name="address"
-                            placeholder="Department of Example" value="ccs" required>
+                            placeholder="Department of Example" required>
                     </div>
                 </div>
             </div>
@@ -177,8 +174,6 @@
                 <button id = "create_btn" class="btn btn-success btn-lg" type="submit">Create New Work Order</button>
                 <button id="cancel_btn" class="btn btn-dark btn-lg" type="button" onclick="history.back()">Cancel</button>
             </div>
-            
-
 
         </form>
         <br>

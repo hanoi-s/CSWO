@@ -44,7 +44,6 @@
                             {{#ifEquals user.Admin true}}
                             <li><a href="/register">Register</a></li>
                             {{/ifEquals}}
-                            <li><a href="#">Change Password</a></li>
                             <li><a href="/logout">Logout</a></li>
                         </ul>
                     </li>
@@ -81,10 +80,14 @@
 
                 {{!-- {{#each request}} {{#ifEquals Request.Status.StatusID 9003}}--}}
                 <div class="col-md-1">
+                    {{#each request}}
+                    {{#ifEquals Status.StatusName 'Approved'}}
                     <a href="/print/{{#each request}}{{_id}}{{/each}}">
                         <button form="print_form" id="print_btn" class="btn btn-primary btn-lg" type="button"
                             data-toggle="modal" onClick="promptSaved()">Save As PDF</button>
                     </a>
+                    {{/ifEquals}}
+                    {{/each}}
                 </div>
                 {{!-- {{/ifEquals}} {{/each}} --}}
             </div>
