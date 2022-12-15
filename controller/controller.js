@@ -24,13 +24,13 @@ const controller = {
             var filename = request.ReferenceNo.toString() + ".pdf";
 
             //formats the DateandTime to ex. December 12, 2022
-            let dtFormat = new Intl.DateTimeFormat('en-US',{
+            let dtFormat = new Intl.DateTimeFormat('en-US', {
                 day: '2-digit',
                 month: 'long',
                 year: 'numeric'
             });
 
-            doc.pipe(fs.createWriteStream(filename));
+            doc.pipe(fs.createWriteStream('../' + filename)); //save pdf files to downloads folder
             doc.font('Courier-Bold').fontSize(20).text("CSWO WORK ORDER FORM");
             doc.fontSize(15).text(" ");
             doc.font('Courier-Bold').fontSize(14).text("Request Information");
@@ -45,25 +45,25 @@ const controller = {
             doc.fontSize(10).text("Date Received: " + dtFormat.format(request.DateReceived));
             doc.fontSize(10).text("Target Date of Completion: " + dtFormat.format(request.DateTarget));
             doc.fontSize(10).text("Project In-Charge: " + request.InCharge.FirstName);
-            doc.fontSize(10).text("Date of Completion: ____________________________" );
-            doc.fontSize(10).text("Workers Assigned: " );
+            doc.fontSize(10).text("Date of Completion: ____________________________");
+            doc.fontSize(10).text("Workers Assigned: ");
             doc.fontSize(10).text("__________________________________________________________________________________________________________________________________________________________________________________________________________________________________________");
             doc.fontSize(10).text(" ");
-            doc.fontSize(10).text("Remarks/Action Taken:" );
+            doc.fontSize(10).text("Remarks/Action Taken:");
             doc.fontSize(10).text("________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________");
             doc.fontSize(10).text(" ");
-            doc.fontSize(10).text("________________________________________", {align: 'center'});
-            doc.fontSize(8).text("Project In-charge Signature", {align: 'center'});   
-            doc.fontSize(15).text(" ");       
+            doc.fontSize(10).text("________________________________________", { align: 'center' });
+            doc.fontSize(8).text("Project In-charge Signature", { align: 'center' });
+            doc.fontSize(15).text(" ");
 
             doc.font('Courier-Bold').fontSize(14).text("Requester Information");
             doc.font('Courier').fontSize(10).text("Name: " + request.Requester.FirstName + request.Requester.LastName);
             doc.fontSize(10).text("Email: " + request.Requester.Email);
             doc.fontSize(10).text("Department/Office: " + request.Requester.Department);
-            doc.fontSize(15).text(" ");   
+            doc.fontSize(15).text(" ");
 
             doc.font('Courier-Bold').fontSize(14).text("Evaluation");
-            doc.font('Courier').fontSize(10).text("Date: ____________________________" );
+            doc.font('Courier').fontSize(10).text("Date: ____________________________");
             doc.fontSize(10).text(" ");
             doc.fontSize(10).text("Please rate the service rendered by CSWO using the following criteria:");
             doc.fontSize(10).text("0 - Not Applicable   1 - Poor                    2 - Moderately Satisfactory");
@@ -74,9 +74,9 @@ const controller = {
             doc.fontSize(10).text("Please write your detailed feedback below.");
             doc.fontSize(10).text("________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________");
             doc.fontSize(10).text(" ");
-            doc.fontSize(10).text("________________________________________", {align: 'center'});
-            doc.fontSize(8).text("Requestor's Signature", {align: 'center'});
-            doc.fontSize(8).text("over printed name", {align: 'center'});
+            doc.fontSize(10).text("________________________________________", { align: 'center' });
+            doc.fontSize(8).text("Requestor's Signature", { align: 'center' });
+            doc.fontSize(8).text("over printed name", { align: 'center' });
 
             doc.end();
             res.redirect('/view/' + req.params.woid);
@@ -617,7 +617,7 @@ const controller = {
     },
 
     postRegister: async function (req, res) {
-        let { firstname, lastname, idnumber, email, password, admin_boolean } = req.body;
+        let { firstname, lastname, idnumber, email, password, confirmPassword, admin_boolean } = req.body;
 
         if (admin_boolean === undefined) {
             admin_boolean = false;
@@ -634,14 +634,22 @@ const controller = {
             Admin: admin_boolean
         })
 
-        // Count is for checking if there are duplicate emails
-        UserModel.find({ Email: email }).count().then((count) => {
-            if (count > 0) {
-                error = "Email already exists. Use another one.";
+        //Checking if there are duplicate emails
+        UserModel.findOne({ Email: email }).then((email) => {
+            if (email != null) {
+                error = "Email already exists. Please use another one.";
                 res.render("register", { error });
             } else {
-                UserModel.insertMany(user);
-                res.redirect('/register');
+                UserModel.findOne({ Email: email }).then((user) => {
+                    if (password != req.body.confirmPassword) {
+                        error = "Password did not match. Please try again.";
+                        res.render("register", { error });
+                    } else {
+                        UserModel.insertMany(user);
+                        success = "Successfully Created Account.";
+                        res.render('register', { success });
+                    }
+                })
             }
         })
 

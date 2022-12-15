@@ -15,6 +15,15 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
     <title>Dashboard</title>
+    <style>
+        .badge-info {
+            background-color: #008383;
+        }
+
+        .badge.even-larger-badge {
+            font-size: 1.1em;
+        }
+    </style>
 </head>
 
 <body>
@@ -65,13 +74,13 @@
         <ul class="nav nav-tabs" id="nav-tab" role="tablist">
             <li class="nav-link active" id="nav-pending-tab" data-toggle="tab" data-target="#nav-pending" type="button"
                 role="presentation" aria-controls="nav-pending" aria-selected="true"><a
-                    href="/dashboard/pending">Pending for Approval <span class="badge badge-pill badge-info">{{Pending}}</span></a></li>
+                    href="/dashboard/pending">Pending for Approval <span class="badge badge-pill badge-info even-larger-badge">{{Pending}}</span></a></li>
             <li class="nav-link" id="nav-approved-tab" data-toggle="tab" data-target="#nav-approved" type="button"
                 role="presentation" aria-controls="nav-approved" aria-selected="true"><a
-                    href="/dashboard/approved">Approved <span class="badge badge-pill badge-info">{{Approved}}</span></a></li>
+                    href="/dashboard/approved">Approved <span class="badge badge-pill badge-info even-larger-badge">{{Approved}}</span></a></li>
             <li class="nav-link" id="nav-completed-tab" data-toggle="tab" data-target="#nav-completed" type="button"
                 role="presentation" aria-controls="nav-completed" aria-selected="true"><a
-                    href="/dashboard/completed">Completed <span class="badge badge-pill badge-info">{{Completed}}</span></a></li>
+                    href="/dashboard/completed">Completed <span class="badge badge-pill badge-info even-larger-badge">{{Completed}}</span></a></li>
 
             <form class="navbar-form navbar-right" action="/search" method="POST">
                 <div class="form-group">

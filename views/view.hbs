@@ -61,7 +61,7 @@
                 <p class="lead">WORK ORDER FORM</p>
             </div>
             <div class="row">
-                <h4 class="col-md-9">Work Order No. {{#each request}}{{ReferenceNo}}{{/each}}</h4>
+                <h4 class="col-md-8">Work Order No. {{#each request}}{{ReferenceNo}}{{/each}}</h4>
                 {{!-- DELETE --}}
                 <div class="col-md-1">
                     <form action="/edit/delete" method="POST" id="del_form">
@@ -83,7 +83,7 @@
                 <div class="col-md-1">
                     <a href="/print/{{#each request}}{{_id}}{{/each}}">
                         <button form="print_form" id="print_btn" class="btn btn-primary btn-lg" type="button"
-                            data-toggle="modal">Print</button>
+                            data-toggle="modal" onClick="promptSaved()">Save As PDF</button>
                     </a>
                 </div>
                 {{!-- {{/ifEquals}} {{/each}} --}}
@@ -131,7 +131,8 @@
                             <div class="form-group">
                                 <label class="control-label" for="targetdate">Target Date of Completion</label>
                                 <input class="form-control" id="targetdate" name="targetdate" placeholder="MM/DD/YYY"
-                                    type="text" value="{{#each request}}{{dateWithoutTime DateTarget}}{{/each}}" disabled />
+                                    type="text" value="{{#each request}}{{dateWithoutTime DateTarget}}{{/each}}"
+                                    disabled />
                             </div>
                         </div>
                     </div>
@@ -375,6 +376,10 @@
         {{!--
     </form> --}}
     <script>
+        function promptSaved() {
+            window.alert("PDF has been saved, see Downloads to view the file.");
+        }
+
         $(document).ready(function () {
             var length = $("#li_id").length;
 
