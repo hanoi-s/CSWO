@@ -44,6 +44,7 @@ routes.get('/logout', controller.getLogout);                        // Logging o
 
 // Search DB
 routes.post('/searchDashboard', controller.postSearchOrders);
+routes.post('/searchAudit', controller.postSearchAudits);
 routes.post('/summary/daterange', controller.postDateRange);// get date range
 
 // Print

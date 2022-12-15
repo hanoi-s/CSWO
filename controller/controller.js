@@ -520,6 +520,22 @@ const controller = {
         }
     },
 
+    postSearchAudits: async function (req, res) {
+        var slash = "\\"
+        var regKey = slash + req.body.keyword + slash
+
+        if (req.session.email) {
+            AuditModel.find({ $text: { $search: regKey } }).then((audits) => {
+                UserModel.findOne({ Email: req.session.email }).then((user) => {
+                    res.render('searchAudits', { audit: audits, user: user });
+                })
+            })
+                
+        } else {
+            res.redirect('/login');
+        }
+    },
+
 
     postDateRange: async function (req, res) {
 
