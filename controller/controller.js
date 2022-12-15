@@ -527,7 +527,7 @@ const controller = {
         if (req.session.email) {
             AuditModel.find({ $text: { $search: regKey } }).then((audits) => {
                 UserModel.findOne({ Email: req.session.email }).then((user) => {
-                    res.render('searchAudits', { audit: audits, user: user });
+                    res.render('searchAudit', { audit: audits, user: user });
                 })
             })
                 
