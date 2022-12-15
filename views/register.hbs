@@ -47,12 +47,12 @@
                                     <div class="row mb-3">
                                         <div class="col">
                                             <label class="form-label mb-1" for="firstname">First Name</label>
-                                            <input type="text" id="firstname" class="form-control form-control-lg"
+                                            <input type="text" id="firstname" name="firstname" class="form-control form-control-lg"
                                                 placeholder="First Name" required />
                                         </div>
                                         <div class="col">
                                             <label class="form-label mb-1" for="lastname">Last Name</label>
-                                            <input type="text" id="lastname" class="form-control form-control-lg"
+                                            <input type="text" id="lastname" name="lastname" class="form-control form-control-lg"
                                                 placeholder="Last Name" required />
                                         </div>
                                     </div>
@@ -69,8 +69,8 @@
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label mb-2 " for="confirmPassword">Confirm Password</label>
-                                        <input type="password" id="confirmPassword"
-                                            class="form-control form-control-lg confirmPassword"
+                                        <input type="password" id="confirmPassword" name="confirmPassword"
+                                            class="form-control form-control-lg"
                                             placeholder="Confirm password" required />
                                     </div>
 
@@ -90,16 +90,13 @@
 
                                     <div class="d-flex justify-content-center">
                                         <button type="button" class="btn btn-success gradient-custom-3 text-body"
-                                            onclick="history.back()">
-                                            < Go Back</button>
+                                            onClick="location.href = '/dashboard';">
+                                            Back to Dashboard</button>
                                                 &nbsp;&nbsp;&nbsp;&nbsp;
                                                 <button type="submit"
                                                     class="btn btn-success gradient-custom-4 text-body submit"
                                                     id="submit">Register Account</button>
                                     </div>
-
-                                    {{!-- <p class="text-center text-muted mt-5 mb-0">Already have an account? <a
-                                            href="/login" class="fw-bold text-body"><u>Login here</u></a></p> --}}
                                 </form>
                             </div>
                         </div>

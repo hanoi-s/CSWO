@@ -640,16 +640,14 @@ const controller = {
                 error = "Email already exists. Please use another one.";
                 res.render("register", { error });
             } else {
-                UserModel.findOne({ Email: email }).then((user) => {
-                    if (password != req.body.confirmPassword) {
-                        error = "Password did not match. Please try again.";
-                        res.render("register", { error });
-                    } else {
-                        UserModel.insertMany(user);
-                        success = "Successfully Created Account.";
-                        res.render('register', { success });
-                    }
-                })
+                if (password != confirmPassword) {
+                    error = "Password did not match. Please try again.";
+                    res.render("register", { error });
+                } else {
+                    UserModel.insertMany(user);
+                    success = "Successfully Created Account.";
+                    res.render('register', { success });
+                }
             }
         })
 
